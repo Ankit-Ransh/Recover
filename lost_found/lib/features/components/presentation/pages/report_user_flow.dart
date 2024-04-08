@@ -15,7 +15,7 @@ class ReportUserFlow extends StatelessWidget {
             icon: const Icon(Icons.close),
             onPressed: () {},
           ),
-          backgroundColor: AppPallete.backgroundColor,
+          backgroundColor: AppPallete.whiteColor,
         ),
         body: const Padding(
           padding: EdgeInsets.all(20.0),
@@ -32,6 +32,7 @@ class ReportUserFlow extends StatelessWidget {
                 style: TextStyle(
                   fontSize: 24,
                   fontWeight: FontWeight.w600,
+                  color: AppPallete.blackColor,
                 ),
               ),
               SizedBox(

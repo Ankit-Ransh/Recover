@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_possible_category.dart';
 
 class ItemCategory extends StatefulWidget {
@@ -17,7 +18,7 @@ class _ItemCategoryState extends State<ItemCategory> {
     return Container(
       height: 200.0,
       decoration: BoxDecoration(
-        border: Border.all(color: Colors.grey),
+        border: Border.all(color: AppPallete.greyColor),
         borderRadius: BorderRadius.circular(15),
       ),
       child: Padding(

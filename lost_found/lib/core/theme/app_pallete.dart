@@ -1,18 +1,19 @@
 import 'package:flutter/material.dart';
 
 class AppPallete {
-  static const Color backgroundColor = Colors.white;
-  static const Color gradient1 = Color.fromRGBO(187, 63, 221, 1);
-  static const Color gradient2 = Color.fromRGBO(251, 109, 169, 1);
-  static const Color gradient3 = Color.fromRGBO(255, 159, 124, 1);
-  static const Color borderColor = Color.fromRGBO(52, 51, 67, 1);
-  static const Color whiteColor = Colors.white;
+  static const Color deepPurple = Color(0xff4f45bc);
+  static const Color cyanBlue = Color(0xff71adee);
+  static const Color lightPurple = Color(0xff837cff);
+  static const Color lightGrey = Color(0xfff5f5f5);
+
   static const Color blackColor = Colors.black;
+  static const Color whiteColor = Colors.white;
   static const Color greyColor = Colors.grey;
   static const Color errorColor = Colors.redAccent;
   static const Color transparentColor = Colors.transparent;
-  static const Color cardBackgroundColor = Color.fromARGB(210, 239, 237, 237);
-  static const Color smileyColor = Color.fromARGB(174, 14, 36, 231);
-  static const Color textColor = Color.fromARGB(255, 133, 37, 228);
-  static const Color selectedField = Colors.blue;
+
+  static final greyShade200 = Colors.grey.shade200;
+  static final greyShade400 = Colors.grey.shade400;
+  static final greyShade500 = Colors.grey.shade500;
+  static final greyShade600 = Colors.grey.shade500;
 }

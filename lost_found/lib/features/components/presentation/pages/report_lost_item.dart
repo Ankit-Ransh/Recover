@@ -91,7 +91,7 @@ class _ReportLostItemState extends State<ReportLostItem> {
                     child: Container(
                       height: 50,
                       decoration: BoxDecoration(
-                        color: const Color.fromARGB(255, 22, 45, 196),
+                        color: AppPallete.deepPurple,
                         borderRadius: BorderRadius.circular(15),
                       ),
                       child: const Row(

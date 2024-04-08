@@ -15,9 +15,9 @@ class ItemStatus extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(24.0),
         border: Border.all(
-          color: AppPallete.transparentColor,
+          color: AppPallete.greyColor,
         ),
-        color: AppPallete.cardBackgroundColor,
+        color: AppPallete.lightGrey,
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -26,14 +26,14 @@ class ItemStatus extends StatelessWidget {
           Icon(
             iconData,
             size: 70.0,
-            color: AppPallete.smileyColor,
+            color: AppPallete.deepPurple,
           ),
           Text(
             status,
             textDirection: TextDirection.ltr,
             style: const TextStyle(
               fontSize: 18.0,
-              color: AppPallete.textColor,
+              color: AppPallete.deepPurple,
             ),
           ),
         ],

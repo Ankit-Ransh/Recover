@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/features/components/presentation/widgets/custom_app_bar.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_category.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_collection_center.dart';
@@ -95,7 +96,7 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
                   child: Container(
                     height: 50,
                     decoration: BoxDecoration(
-                      color: const Color.fromARGB(255, 22, 45, 196),
+                      color: AppPallete.deepPurple,
                       borderRadius: BorderRadius.circular(15),
                     ),
                     child: const Row(
@@ -105,7 +106,7 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
                           "Post",
                           style: TextStyle(
                             fontSize: 20.0,
-                            color: Colors.white,
+                            color: AppPallete.whiteColor,
                           ),
                         ),
                       ],

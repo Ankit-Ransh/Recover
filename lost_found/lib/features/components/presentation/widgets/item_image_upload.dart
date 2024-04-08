@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:lost_found/core/theme/app_pallete.dart';
 
 class ItemImageUpload extends StatelessWidget {
   final String description;
@@ -17,12 +18,12 @@ class ItemImageUpload extends StatelessWidget {
           const Icon(
             Icons.upload_file,
             size: 35,
-            color: Color.fromARGB(255, 133, 37, 228),
+            color: AppPallete.deepPurple,
           ),
           Text(
             description,
             style: const TextStyle(
-              color: Color.fromARGB(255, 133, 37, 228),
+              color: AppPallete.deepPurple,
               fontSize: 14,
             ),
           )

@@ -27,7 +27,7 @@ class _ItemSuggestedLocationListsState
   @override
   Widget build(BuildContext context) {
     Color backgroundColor = widget.isSelected
-        ? AppPallete.selectedField
+        ? AppPallete.lightPurple
         : AppPallete.transparentColor;
     Color textColor =
         widget.isSelected ? AppPallete.whiteColor : AppPallete.blackColor;
