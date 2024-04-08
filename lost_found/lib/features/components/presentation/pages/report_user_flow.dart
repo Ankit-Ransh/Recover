@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lost_found/widgets/item_found.dart';
-import 'package:lost_found/widgets/item_lost.dart';
+import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/features/components/presentation/widgets/item_found.dart';
+import 'package:lost_found/features/components/presentation/widgets/item_lost.dart';
 
 class ReportUserFlow extends StatelessWidget {
-  const ReportUserFlow({Key? key}) : super(key: key);
+  const ReportUserFlow({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -14,16 +15,15 @@ class ReportUserFlow extends StatelessWidget {
             icon: const Icon(Icons.close),
             onPressed: () {},
           ),
-          backgroundColor: Colors.white,
+          backgroundColor: AppPallete.backgroundColor,
         ),
         body: const Padding(
           padding: EdgeInsets.all(20.0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            children: <Widget>[
+            children: [
               SizedBox(
                 height: 50.0,
-                width: double.infinity,
               ),
               Text(
                 'What do you want to report?',
@@ -36,7 +36,6 @@ class ReportUserFlow extends StatelessWidget {
               ),
               SizedBox(
                 height: 50.0,
-                width: double.infinity,
               ),
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,

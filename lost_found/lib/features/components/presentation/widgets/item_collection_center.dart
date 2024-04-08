@@ -1,20 +1,15 @@
 import 'package:flutter/material.dart';
 
-class ItemCollectionCenter extends StatefulWidget {
+class ItemCollectionCenter extends StatelessWidget {
   final String selectedItem;
-  final ValueChanged<String> onChanged;
+  final ValueChanged<String?> onChanged;
 
   const ItemCollectionCenter({
-    Key? key,
+    super.key,
     required this.selectedItem,
     required this.onChanged,
-  }) : super(key: key);
+  });
 
-  @override
-  State<ItemCollectionCenter> createState() => _ItemCollectionCenterState();
-}
-
-class _ItemCollectionCenterState extends State<ItemCollectionCenter> {
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -26,18 +21,15 @@ class _ItemCollectionCenterState extends State<ItemCollectionCenter> {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(24, 0, 0, 0),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
               width: 330,
               child: DropdownButton<String>(
-                value: widget.selectedItem,
-                onChanged: (String? newValue) {
-                  setState(() {
-                    widget.onChanged(newValue!);
-                  });
-                },
+                isExpanded: true,
+                value: selectedItem,
+                onChanged: onChanged,
                 items: <String>[
                   "Security",
                   "Reception",

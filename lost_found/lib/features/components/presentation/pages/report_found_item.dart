@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:lost_found/widgets/item_category.dart';
-import 'package:lost_found/widgets/item_collection_center.dart';
-import 'package:lost_found/widgets/item_description.dart';
-import 'package:lost_found/widgets/item_image_upload.dart';
-import 'package:lost_found/widgets/item_suggested_location.dart';
-import 'package:lost_found/widgets/item_title.dart';
+import 'package:lost_found/features/components/presentation/widgets/custom_app_bar.dart';
+import 'package:lost_found/features/components/presentation/widgets/item_category.dart';
+import 'package:lost_found/features/components/presentation/widgets/item_collection_center.dart';
+import 'package:lost_found/features/components/presentation/widgets/item_data.dart';
+import 'package:lost_found/features/components/presentation/widgets/item_image_upload.dart';
+import 'package:lost_found/features/components/presentation/widgets/item_suggested_location.dart';
 
 class ReportFoundItem extends StatefulWidget {
   const ReportFoundItem({super.key});
@@ -14,27 +14,29 @@ class ReportFoundItem extends StatefulWidget {
 }
 
 class _ReportFoundItemState extends State<ReportFoundItem> {
+  final formKey = GlobalKey<FormState>();
+  final itemDataTitleController = TextEditingController();
+  final itemDataDescriptionController = TextEditingController();
+  final suggestedRecoveryLocation = TextEditingController();
+  final suggestedRecoveryCategory = TextEditingController();
+  String selectedItem = "Security";
+
+  @override
+  void dispose() {
+    itemDataTitleController.dispose();
+    itemDataDescriptionController.dispose();
+    suggestedRecoveryLocation.dispose();
+    suggestedRecoveryCategory.dispose();
+    super.dispose();
+  }
+
   @override
   Widget build(BuildContext context) {
-    final formKey = GlobalKey<FormState>();
-    String title;
-    String selectedItem = "Security";
-
     return MaterialApp(
       home: Scaffold(
-        appBar: AppBar(
-          leading: IconButton(
-            icon: const Icon(Icons.arrow_back_ios_new),
-            onPressed: () {},
-          ),
-          title: const Text(
-            "Report item you found",
-            textDirection: TextDirection.ltr,
-            style: TextStyle(
-              fontSize: 24.0,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
+        appBar: const CustomAppBar(
+          title: "Report item you found",
+          leadingIcon: Icons.arrow_back_ios_new,
         ),
         body: SingleChildScrollView(
           scrollDirection: Axis.vertical,
@@ -46,30 +48,38 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
                   key: formKey,
                   child: Column(
                     children: [
-                      const ItemTitle(),
+                      ItemData(
+                        hintText: "Title",
+                        controller: itemDataTitleController,
+                      ),
                       const SizedBox(height: 20.0),
-                      const ItemDescription(
-                        description:
-                            "Add an accurate description for the item you found",
-                        fontSize: 13.5,
+                      ItemData(
+                        hintText:
+                            "Add an accurate description for the item you lost",
+                        controller: itemDataDescriptionController,
+                        fontSize: 14,
+                        height: 150.0,
                       ),
                       const SizedBox(height: 40.0),
-                      const ItemSuggestedLocation(
+                      ItemSuggestedLocation(
                         description: "Where did you find it?",
+                        controller: suggestedRecoveryLocation,
                       ),
                       const ItemImageUpload(
                         description: "Click the picture of the item",
                       ),
                       ItemCollectionCenter(
                         selectedItem: selectedItem,
-                        onChanged: (String newValue) {
+                        onChanged: (String? newValue) {
                           setState(() {
-                            selectedItem = newValue;
+                            selectedItem = newValue!;
                           });
                         },
                       ),
                       const SizedBox(height: 30.0),
-                      const ItemCategory(),
+                      ItemCategory(
+                        controller: suggestedRecoveryCategory,
+                      ),
                     ],
                   ),
                 ),

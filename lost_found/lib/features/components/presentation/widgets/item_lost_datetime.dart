@@ -1,7 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:lost_found/features/components/presentation/widgets/date_selector.dart';
+import 'package:lost_found/features/components/presentation/widgets/time_selector.dart';
 
 class ItemLostTime extends StatelessWidget {
-  const ItemLostTime({super.key});
+  final TextEditingController dateController;
+  final TextEditingController timeController;
+
+  const ItemLostTime({
+    super.key,
+    required this.dateController,
+    required this.timeController,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -25,21 +34,13 @@ class ItemLostTime extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Container(
-                  width: 170.0,
-                  height: 40.0,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+                DateSelector(
+                  labelText: 'Select Date',
+                  controller: dateController,
                 ),
-                Container(
-                  width: 170.0,
-                  height: 40.0,
-                  decoration: BoxDecoration(
-                    border: Border.all(color: Colors.grey),
-                    borderRadius: BorderRadius.circular(15),
-                  ),
+                TimeSelector(
+                  labelText: 'Select Time',
+                  controller: timeController,
                 ),
               ],
             ),
