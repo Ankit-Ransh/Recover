@@ -34,6 +34,12 @@ class FormDataFields extends StatelessWidget {
           hintText: hintText,
           hintStyle: TextStyle(color: AppPallete.greyShade500),
         ),
+        validator: (value) {
+          if (value!.isEmpty) {
+            return "$hintText is missing!";
+          }
+          return null;
+        },
       ),
     );
   }
