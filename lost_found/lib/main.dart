@@ -7,7 +7,6 @@ import 'package:lost_found/init_dependencies.dart';
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await initDependencies();
-
   runApp(MultiBlocProvider(
     providers: [
       BlocProvider(
