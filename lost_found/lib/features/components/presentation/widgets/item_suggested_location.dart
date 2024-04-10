@@ -5,8 +5,11 @@ import 'package:lost_found/features/components/presentation/widgets/item_suggest
 class ItemSuggestedLocation extends StatefulWidget {
   final String description;
   final TextEditingController controller;
-  const ItemSuggestedLocation(
-      {super.key, required this.description, required this.controller});
+  const ItemSuggestedLocation({
+    super.key,
+    required this.description,
+    required this.controller,
+  });
 
   @override
   State<ItemSuggestedLocation> createState() => _ItemSuggestedLocationState();
@@ -14,6 +17,7 @@ class ItemSuggestedLocation extends StatefulWidget {
 
 class _ItemSuggestedLocationState extends State<ItemSuggestedLocation> {
   String selectedLocation = "";
+  final String hintText = "Please select a location";
 
   @override
   Widget build(BuildContext context) {
@@ -34,6 +38,13 @@ class _ItemSuggestedLocationState extends State<ItemSuggestedLocation> {
                   : selectedLocation,
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
             ),
+            validator: (value) {
+              if (value!.isEmpty) {
+                return hintText;
+              }
+
+              return null;
+            },
           ),
           const SizedBox(
             height: 20.0,

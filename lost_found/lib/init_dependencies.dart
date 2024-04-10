@@ -8,12 +8,19 @@ import 'package:lost_found/features/auth/domain/usecases/current_user.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_login.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:lost_found/features/components/data/datasources/lost_item_remote_data_source.dart';
+import 'package:lost_found/features/components/data/repository/lost_item_repository_impl.dart';
+import 'package:lost_found/features/components/domain/repository/lost_item_repository.dart';
+import 'package:lost_found/features/components/domain/usecases/upload_lost_item.dart';
+import 'package:lost_found/features/components/presentation/bloc/lost_item_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   _intitAuth();
+  _initLostItem();
+
   final supabase = await Supabase.initialize(
     url: SupaBaseSecrets.url,
     anonKey: SupaBaseSecrets.anonKey,
@@ -60,6 +67,32 @@ void _intitAuth() {
       userLogin: serviceLocator(),
       currentUser: serviceLocator(),
       appUserCubit: serviceLocator(),
+    ),
+  );
+}
+
+void _initLostItem() {
+  serviceLocator.registerFactory<LostItemRemoteDataSource>(
+    () => LostItemRemoteDataSourceImpl(
+      serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerFactory<LostItemRepository>(
+    () => LostItemRepositoryImpl(
+      serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerFactory(
+    () => UploadLostItem(
+      serviceLocator(),
+    ),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => LostItemBloc(
+      serviceLocator(),
     ),
   );
 }

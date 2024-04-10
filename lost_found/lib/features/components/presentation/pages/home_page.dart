@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lost_found/features/components/presentation/pages/report_user_flow.dart';
 
 class HomePage extends StatelessWidget {
+  static route() => MaterialPageRoute(builder: (context) => const HomePage());
   const HomePage({super.key});
 
   @override
@@ -12,7 +13,7 @@ class HomePage extends StatelessWidget {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => const ReportUserFlow(),
+              builder: (context) => ReportUserFlow.route(),
             ),
           );
         },

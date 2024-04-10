@@ -5,6 +5,8 @@ import 'package:lost_found/features/components/presentation/widgets/item_found.d
 import 'package:lost_found/features/components/presentation/widgets/item_lost.dart';
 
 class ReportUserFlow extends StatelessWidget {
+  static route() =>
+      MaterialPageRoute(builder: (context) => const ReportUserFlow());
   const ReportUserFlow({super.key});
 
   @override
@@ -17,9 +19,7 @@ class ReportUserFlow extends StatelessWidget {
             onPressed: () {
               Navigator.push(
                 context,
-                MaterialPageRoute(
-                  builder: (context) => const HomePage(),
-                ),
+                HomePage.route(),
               );
             },
           ),

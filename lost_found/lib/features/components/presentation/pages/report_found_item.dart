@@ -11,6 +11,8 @@ import 'package:lost_found/features/components/presentation/widgets/post_report_
 import 'package:lost_found/features/components/presentation/widgets/selected_image.dart';
 
 class ReportFoundItem extends StatefulWidget {
+  static route() =>
+      MaterialPageRoute(builder: (context) => const ReportFoundItem());
   const ReportFoundItem({super.key});
 
   @override
