@@ -1,7 +1,5 @@
 import 'dart:io';
-
 import 'package:flutter/material.dart';
-import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/pick_image.dart';
 import 'package:lost_found/features/components/presentation/widgets/custom_app_bar.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_category.dart';

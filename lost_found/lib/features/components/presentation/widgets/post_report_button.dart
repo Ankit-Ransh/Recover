@@ -3,7 +3,7 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 
 class PostReportButton extends StatelessWidget {
   final Function onTap;
-  const PostReportButton ({super.key, required this.onTap});
+  const PostReportButton({super.key, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
