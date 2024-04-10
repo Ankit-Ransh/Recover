@@ -1,11 +1,15 @@
+import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/core/utils/pick_image.dart';
 import 'package:lost_found/features/components/presentation/widgets/custom_app_bar.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_category.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_data.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_image_upload.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_lost_datetime.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_suggested_location.dart';
+import 'package:lost_found/features/components/presentation/widgets/post_report_button.dart';
+import 'package:lost_found/features/components/presentation/widgets/selected_image.dart';
 
 class ReportLostItem extends StatefulWidget {
   const ReportLostItem({super.key});
@@ -22,6 +26,7 @@ class _ReportLostItemState extends State<ReportLostItem> {
   final selectedSuggestedCategory = TextEditingController();
   final selectedDate = TextEditingController();
   final selectedTime = TextEditingController();
+  File? image;
 
   @override
   void dispose() {
@@ -32,6 +37,15 @@ class _ReportLostItemState extends State<ReportLostItem> {
     selectedDate.dispose();
     selectedTime.dispose();
     super.dispose();
+  }
+
+  void selectLostItemImage() async {
+    final pickedImage = await pickImage();
+    if (pickedImage != null) {
+      setState(() {
+        image = pickedImage;
+      });
+    }
   }
 
   @override
@@ -67,9 +81,19 @@ class _ReportLostItemState extends State<ReportLostItem> {
                     description: "Where do you think you have lost it?",
                     controller: selectedSuggestedLocation,
                   ),
-                  const ItemImageUpload(
-                    description: "Upload a picture of the item if you have",
-                  ),
+                  if (image != null) ...[
+                    const SizedBox(height: 20.0),
+                    SelectedImage(
+                      image: image,
+                      onTap: selectLostItemImage,
+                    ),
+                    const SizedBox(height: 20.0),
+                  ] else ...[
+                    ItemImageUpload(
+                      description: "Upload a picture of the item if you have",
+                      onTap: selectLostItemImage,
+                    ),
+                  ],
                   ItemLostTime(
                     dateController: selectedDate,
                     timeController: selectedTime,
@@ -81,32 +105,8 @@ class _ReportLostItemState extends State<ReportLostItem> {
                   const SizedBox(
                     height: 20.0,
                   ),
-                  ElevatedButton(
-                    // Backend operation
-                    onPressed: () {},
-                    style: ElevatedButton.styleFrom(
-                      minimumSize: Size.zero,
-                      padding: EdgeInsets.zero,
-                    ),
-                    child: Container(
-                      height: 50,
-                      decoration: BoxDecoration(
-                        color: AppPallete.deepPurple,
-                        borderRadius: BorderRadius.circular(15),
-                      ),
-                      child: const Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Post",
-                            style: TextStyle(
-                              fontSize: 20.0,
-                              color: AppPallete.whiteColor,
-                            ),
-                          ),
-                        ],
-                      ),
-                    ),
+                  PostReportButton(
+                    onTap: () {},
                   ),
                 ],
               ),

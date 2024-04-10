@@ -1,11 +1,16 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/core/utils/pick_image.dart';
 import 'package:lost_found/features/components/presentation/widgets/custom_app_bar.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_category.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_collection_center.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_data.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_image_upload.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_suggested_location.dart';
+import 'package:lost_found/features/components/presentation/widgets/post_report_button.dart';
+import 'package:lost_found/features/components/presentation/widgets/selected_image.dart';
 
 class ReportFoundItem extends StatefulWidget {
   const ReportFoundItem({super.key});
@@ -20,6 +25,7 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
   final itemDataDescriptionController = TextEditingController();
   final suggestedRecoveryLocation = TextEditingController();
   final suggestedRecoveryCategory = TextEditingController();
+  File? image;
   String selectedItem = "Security";
 
   @override
@@ -29,6 +35,15 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
     suggestedRecoveryLocation.dispose();
     suggestedRecoveryCategory.dispose();
     super.dispose();
+  }
+
+  void selectLostItemImage() async {
+    final pickedImage = await pickImage();
+    if (pickedImage != null) {
+      setState(() {
+        image = pickedImage;
+      });
+    }
   }
 
   @override
@@ -66,9 +81,19 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
                         description: "Where did you find it?",
                         controller: suggestedRecoveryLocation,
                       ),
-                      const ItemImageUpload(
-                        description: "Click the picture of the item",
-                      ),
+                      if (image != null) ...[
+                        const SizedBox(height: 20.0),
+                        SelectedImage(
+                          image: image,
+                          onTap: selectLostItemImage,
+                        ),
+                        const SizedBox(height: 20.0),
+                      ] else ...[
+                        ItemImageUpload(
+                          description: "Click the picture of the item",
+                          onTap: selectLostItemImage,
+                        ),
+                      ],
                       ItemCollectionCenter(
                         selectedItem: selectedItem,
                         onChanged: (String? newValue) {
@@ -87,32 +112,9 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
                 const SizedBox(
                   height: 20.0,
                 ),
-                ElevatedButton(
-                  onPressed: () {},
-                  style: ElevatedButton.styleFrom(
-                    minimumSize: Size.zero,
-                    padding: EdgeInsets.zero,
-                  ),
-                  child: Container(
-                    height: 50,
-                    decoration: BoxDecoration(
-                      color: AppPallete.deepPurple,
-                      borderRadius: BorderRadius.circular(15),
-                    ),
-                    child: const Row(
-                      mainAxisAlignment: MainAxisAlignment.center,
-                      children: [
-                        Text(
-                          "Post",
-                          style: TextStyle(
-                            fontSize: 20.0,
-                            color: AppPallete.whiteColor,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                )
+                PostReportButton(
+                  onTap: () {},
+                ),
               ],
             ),
           ),

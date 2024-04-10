@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/features/components/presentation/pages/home_page.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_found.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_lost.dart';
 
@@ -13,7 +14,14 @@ class ReportUserFlow extends StatelessWidget {
         appBar: AppBar(
           leading: IconButton(
             icon: const Icon(Icons.close),
-            onPressed: () {},
+            onPressed: () {
+              Navigator.push(
+                context,
+                MaterialPageRoute(
+                  builder: (context) => const HomePage(),
+                ),
+              );
+            },
           ),
           backgroundColor: AppPallete.whiteColor,
         ),

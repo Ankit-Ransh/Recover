@@ -3,7 +3,9 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 
 class ItemImageUpload extends StatelessWidget {
   final String description;
-  const ItemImageUpload({super.key, required this.description});
+  final Function onTap;
+  const ItemImageUpload(
+      {super.key, required this.description, required this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -12,22 +14,27 @@ class ItemImageUpload extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          const Icon(
-            Icons.upload_file,
-            size: 35,
-            color: AppPallete.deepPurple,
-          ),
-          Text(
-            description,
-            style: const TextStyle(
+      child: GestureDetector(
+        onTap: () {
+          onTap();
+        },
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            const Icon(
+              Icons.upload_file,
+              size: 35,
               color: AppPallete.deepPurple,
-              fontSize: 14,
             ),
-          )
-        ],
+            Text(
+              description,
+              style: const TextStyle(
+                color: AppPallete.deepPurple,
+                fontSize: 14,
+              ),
+            )
+          ],
+        ),
       ),
     );
   }
