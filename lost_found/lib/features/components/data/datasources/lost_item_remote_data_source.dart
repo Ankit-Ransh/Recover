@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:lost_found/core/error/exceptions.dart';
 import 'package:lost_found/features/components/data/models/lost_item_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -20,11 +19,13 @@ class LostItemRemoteDataSourceImpl implements LostItemRemoteDataSource {
   Future<LostItemModel> recordLostItem(LostItemModel lostItem) async {
     try {
       final lostItemData = await supabaseClient
-          .from('item_status')
+          .from('itemlost')
           .insert(lostItem.toJson())
           .select();
 
       return LostItemModel.fromJson(lostItemData.first);
+    } on PostgrestException catch (e) {
+      throw ServerException(e.message);
     } catch (e) {
       throw ServerException(e.toString());
     }
@@ -37,11 +38,11 @@ class LostItemRemoteDataSourceImpl implements LostItemRemoteDataSource {
   }) async {
     try {
       await supabaseClient.storage
-          .from('lost_item_image')
+          .from('lost_items')
           .upload(lostItem.id, lostItemImage);
 
       return supabaseClient.storage
-          .from('lost_item_image')
+          .from('lost_items')
           .getPublicUrl(lostItem.id);
     } catch (e) {
       throw ServerException(e.toString());

@@ -13,6 +13,7 @@ import 'package:lost_found/features/components/presentation/widgets/selected_ima
 class ReportFoundItem extends StatefulWidget {
   static route() =>
       MaterialPageRoute(builder: (context) => const ReportFoundItem());
+
   const ReportFoundItem({super.key});
 
   @override

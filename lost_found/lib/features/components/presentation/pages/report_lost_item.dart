@@ -34,6 +34,7 @@ class _ReportLostItemState extends State<ReportLostItem> {
   final selectedDate = TextEditingController();
   final selectedTime = TextEditingController();
   File? image;
+  final isItemFound = false;
 
   @override
   void dispose() {
@@ -62,15 +63,16 @@ class _ReportLostItemState extends State<ReportLostItem> {
 
       context.read<LostItemBloc>().add(
             LostItemReportStatus(
-                userId: userId,
-                title: itemDataTitleController.text.trim(),
-                description: itemDataDescriptionController.text.trim(),
-                lostLocation: selectedSuggestedLocation.text.trim(),
-                lostItemImage: image!,
-                lostItemDate: selectedDate.text.trim(),
-                lostItemTime: selectedTime.text.trim(),
-                lostItemCategory: selectedSuggestedCategory.text.trim(),
-                isItemFound: false),
+              userId: userId,
+              title: itemDataTitleController.text.trim(),
+              description: itemDataDescriptionController.text.trim(),
+              lostLocation: selectedSuggestedLocation.text.trim(),
+              lostItemImage: image!,
+              lostItemDate: selectedDate.text.trim(),
+              lostItemTime: selectedTime.text.trim(),
+              lostItemCategory: selectedSuggestedCategory.text.trim(),
+              isItemFound: isItemFound,
+            ),
           );
     }
   }

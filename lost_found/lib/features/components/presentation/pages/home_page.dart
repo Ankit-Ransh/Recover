@@ -12,9 +12,7 @@ class HomePage extends StatelessWidget {
         onPressed: () {
           Navigator.push(
             context,
-            MaterialPageRoute(
-              builder: (context) => ReportUserFlow.route(),
-            ),
+            ReportUserFlow.route(),
           );
         },
         child: const Icon(Icons.upload),

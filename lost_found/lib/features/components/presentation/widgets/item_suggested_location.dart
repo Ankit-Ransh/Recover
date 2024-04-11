@@ -22,7 +22,7 @@ class _ItemSuggestedLocationState extends State<ItemSuggestedLocation> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200.0,
+      height: 230.0,
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         border: Border.all(color: AppPallete.greyColor),
@@ -39,10 +39,9 @@ class _ItemSuggestedLocationState extends State<ItemSuggestedLocation> {
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
             ),
             validator: (value) {
-              if (value!.isEmpty) {
+              if (selectedLocation == "") {
                 return hintText;
               }
-
               return null;
             },
           ),

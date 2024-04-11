@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:fpdart/fpdart.dart';
 import 'package:lost_found/core/error/exceptions.dart';
 import 'package:lost_found/core/error/failures.dart';
@@ -9,7 +10,7 @@ import 'package:lost_found/features/components/domain/repository/lost_item_repos
 import 'package:uuid/uuid.dart';
 
 class LostItemRepositoryImpl implements LostItemRepository {
-  LostItemRemoteDataSource lostItemRemoteDataSource;
+  final LostItemRemoteDataSource lostItemRemoteDataSource;
 
   LostItemRepositoryImpl(this.lostItemRemoteDataSource);
 
@@ -32,7 +33,7 @@ class LostItemRepositoryImpl implements LostItemRepository {
         title: title,
         description: description,
         lostLocation: lostLocation,
-        lostItemImage: "",
+        lostItemImageUrl: "",
         lostItemDate: lostItemDate,
         lostItemTime: lostItemTime,
         lostItemCategory: lostItemCategory,
@@ -47,12 +48,13 @@ class LostItemRepositoryImpl implements LostItemRepository {
       );
 
       lostItemModel = lostItemModel.copyWith(
-        lostItemImage: lostItemImageUrl,
+        lostItemImageUrl: lostItemImageUrl,
       );
 
-      final recorededLostItem =
+      final recordedLostItem =
           await lostItemRemoteDataSource.recordLostItem(lostItemModel);
-      return right(recorededLostItem);
+
+      return right(recordedLostItem);
     } on ServerException catch (e) {
       throw left(Failure(e.message));
     }

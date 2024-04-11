@@ -11,6 +11,7 @@ import 'package:lost_found/features/auth/presentation/widgets/form_data_field.da
 import 'package:lost_found/features/auth/presentation/widgets/login_button.dart';
 import 'package:lost_found/features/auth/presentation/widgets/logo_box.dart';
 import 'package:lost_found/features/auth/presentation/widgets/switch_login.dart';
+import 'package:lost_found/features/components/presentation/pages/home_page.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -30,9 +31,11 @@ class _LoginState extends State<Login> {
       color: AppPallete.greyShade200,
       child: BlocConsumer<AuthBloc, AuthState>(
         listener: (context, state) {
-          if (state is AuthFailure) {
-            showSnackBar(context, state.message);
-          }
+          // if (state is AuthFailure) {
+          //   showSnackBar(context, state.message);
+          // } else if (state is AuthSuccess) {
+          //   Navigator.push(context, HomePage.route());
+          // }
         },
         builder: (context, state) {
           if (state is AuthLoading) {

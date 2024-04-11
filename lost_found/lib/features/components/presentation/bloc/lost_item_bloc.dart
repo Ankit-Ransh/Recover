@@ -19,17 +19,21 @@ class LostItemBloc extends Bloc<LostItemEvent, LostItemState> {
       LostItemReportStatus event, Emitter<LostItemState> emit) async {
     final res = await uploadLostItem(
       UploadLostItemParams(
-          userId: event.userId,
-          title: event.title,
-          description: event.description,
-          lostLocation: event.lostLocation,
-          lostItemImage: event.lostItemImage,
-          lostItemDate: event.lostItemDate,
-          lostItemTime: event.lostItemTime,
-          lostItemCategory: event.lostItemCategory,
-          isItemFound: event.isItemFound),
+        userId: event.userId,
+        title: event.title,
+        description: event.description,
+        lostLocation: event.lostLocation,
+        lostItemImage: event.lostItemImage,
+        lostItemDate: event.lostItemDate,
+        lostItemTime: event.lostItemTime,
+        lostItemCategory: event.lostItemCategory,
+        isItemFound: event.isItemFound,
+      ),
     );
 
-    res.fold((l) => LostItemFailure(l.message), (r) => LostItemSuccess());
+    res.fold(
+      (l) => emit(LostItemFailure(l.message)),
+      (r) => emit(LostItemSuccess()),
+    );
   }
 }

@@ -4,7 +4,7 @@ class LostItem {
   final String title;
   final String description;
   final String lostLocation;
-  final String lostItemImage;
+  final String lostItemImageUrl;
   final String lostItemDate;
   final String lostItemTime;
   final String lostItemCategory;
@@ -17,7 +17,7 @@ class LostItem {
     required this.title,
     required this.description,
     required this.lostLocation,
-    required this.lostItemImage,
+    required this.lostItemImageUrl,
     required this.lostItemDate,
     required this.lostItemTime,
     required this.lostItemCategory,
