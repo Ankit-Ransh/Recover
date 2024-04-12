@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/features/components/presentation/pages/report_user_flow.dart';
 import 'package:lost_found/features/components/presentation/widgets/post_report_button.dart';
+import 'package:lost_found/features/components/presentation/widgets/text_description_widget.dart';
+import 'package:lost_found/features/components/presentation/widgets/text_title_widget.dart';
 
 class ReportItemContainer extends StatelessWidget {
   const ReportItemContainer({super.key});
@@ -19,42 +21,36 @@ class ReportItemContainer extends StatelessWidget {
         child: ListView(
           padding: const EdgeInsets.fromLTRB(35, 20, 35, 0),
           children: [
-            const Row(
+            Row(
               children: [
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
+                    buildHeading(
                       "Lost an item?",
-                      style: TextStyle(
-                        fontSize: 24.0,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      fontSize: 20.0,
+                      bold: true,
+                      color: AppPallete.blackColor,
                     ),
-                    Text(
+                    buildHeading(
                       "Or found a lost item?",
-                      style: TextStyle(
-                        fontSize: 17.0,
-                        fontWeight: FontWeight.w600,
-                      ),
+                      fontSize: 18.0,
+                      bold: true,
+                      color: AppPallete.blackColor,
                     ),
-                    SizedBox(height: 10),
-                    Text(
+                    const SizedBox(height: 15),
+                    buildDescription(
                       "You can report it here to find",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                      ),
+                      fontSize: 16.0,
                     ),
-                    Text(
+                    buildDescription(
                       "it or help someone",
-                      style: TextStyle(
-                        fontSize: 16.0,
-                      ),
+                      fontSize: 16.0,
                     ),
                   ],
                 ),
-                SizedBox(width: 40),
-                Icon(
+                const SizedBox(width: 40),
+                const Icon(
                   Icons.waving_hand_outlined,
                   size: 40.0,
                 )
