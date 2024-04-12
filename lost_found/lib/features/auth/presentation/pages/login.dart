@@ -27,98 +27,103 @@ class _LoginState extends State<Login> {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      color: AppPallete.greyShade200,
-      child: BlocConsumer<AuthBloc, AuthState>(
-        listener: (context, state) {
-          // if (state is AuthFailure) {
-          //   showSnackBar(context, state.message);
-          // } else if (state is AuthSuccess) {
-          //   Navigator.push(context, HomePage.route());
-          // }
-        },
-        builder: (context, state) {
-          if (state is AuthLoading) {
-            return const Loader();
-          }
+    return Scaffold(
+      body: Material(
+        color: AppPallete.greyShade200,
+        child: BlocConsumer<AuthBloc, AuthState>(
+          listener: (context, state) {
+            if (state is AuthFailure) {
+              showSnackBar(context, state.message);
+            } else if (state is AuthSuccess) {
+              showSnackBar(context, "Logged in successfully");
+              Navigator.pushAndRemoveUntil(
+                  context, HomePage.route(), (route) => false);
+            }
+          },
+          builder: (context, state) {
+            if (state is AuthLoading) {
+              return const Loader();
+            }
 
-          return Form(
-            key: formKey,
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const SizedBox(
-                  height: 25,
-                ),
-                const Icon(
-                  Icons.lock,
-                  size: 100,
-                ),
-                const SizedBox(
-                  height: 50.0,
-                ),
-                const Text(
-                  "Welcome back you've been missed",
-                  style: TextStyle(
-                    color: AppPallete.deepPurple,
-                    fontSize: 16.0,
+            return Form(
+              key: formKey,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  const SizedBox(
+                    height: 25,
                   ),
-                ),
-                const SizedBox(height: 25),
-                FormDataFields(
-                  controller: emailController,
-                  hintText: "Email",
-                ),
-                const SizedBox(height: 10),
-                FormDataFields(
-                  controller: passwordController,
-                  hintText: "Password",
-                  obscureText: true,
-                ),
-                const SizedBox(height: 10),
-                const ForgotPassword(),
-                const SizedBox(height: 25),
-                LoginButton(
-                  buttonCommand: "Login",
-                  onTap: () {
-                    if (formKey.currentState!.validate()) {
-                      context.read<AuthBloc>().add(
-                            AuthLogin(
-                              email: emailController.text.trim(),
-                              password: passwordController.text.trim(),
-                            ),
-                          );
-                    }
-                  },
-                ),
-                const SizedBox(height: 25),
-                const LoginOptionDivider(),
-                const SizedBox(
-                  height: 25.0,
-                ),
-                const Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    LogoWidget(imagePath: "lib/core/assets/images/google.png"),
-                  ],
-                ),
-                const SizedBox(height: 25),
-                SwitchLogin(
-                  text: "Not a member?",
-                  direction: "Sign Up!",
-                  onTap: () {
-                    Navigator.push(
-                      context,
-                      MaterialPageRoute(
-                        builder: (context) => const SignUp(),
-                      ),
-                    );
-                  },
-                ),
-              ],
-            ),
-          );
-        },
+                  const Icon(
+                    Icons.lock,
+                    size: 100,
+                  ),
+                  const SizedBox(
+                    height: 50.0,
+                  ),
+                  const Text(
+                    "Welcome back you've been missed",
+                    style: TextStyle(
+                      color: AppPallete.deepPurple,
+                      fontSize: 16.0,
+                    ),
+                  ),
+                  const SizedBox(height: 25),
+                  FormDataFields(
+                    controller: emailController,
+                    hintText: "Email",
+                  ),
+                  const SizedBox(height: 10),
+                  FormDataFields(
+                    controller: passwordController,
+                    hintText: "Password",
+                    obscureText: true,
+                  ),
+                  const SizedBox(height: 10),
+                  const ForgotPassword(),
+                  const SizedBox(height: 25),
+                  LoginButton(
+                    buttonCommand: "Login",
+                    onTap: () {
+                      if (formKey.currentState!.validate()) {
+                        context.read<AuthBloc>().add(
+                              AuthLogin(
+                                email: emailController.text.trim(),
+                                password: passwordController.text.trim(),
+                              ),
+                            );
+                      }
+                    },
+                  ),
+                  const SizedBox(height: 25),
+                  const LoginOptionDivider(),
+                  const SizedBox(
+                    height: 25.0,
+                  ),
+                  const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      LogoWidget(
+                          imagePath: "lib/core/assets/images/google.png"),
+                    ],
+                  ),
+                  const SizedBox(height: 25),
+                  SwitchLogin(
+                    text: "Not a member?",
+                    direction: "Sign Up!",
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => const SignUp(),
+                        ),
+                      );
+                    },
+                  ),
+                ],
+              ),
+            );
+          },
+        ),
       ),
     );
   }

@@ -3,13 +3,16 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 
 class ItemData extends StatelessWidget {
   final String hintText;
+  final String description;
   final double fontSize;
   final double height;
   final TextEditingController controller;
+
   const ItemData({
     super.key,
     required this.hintText,
     required this.controller,
+    required this.description,
     this.fontSize = 16,
     this.height = 50.0,
   });
@@ -24,20 +27,19 @@ class ItemData extends StatelessWidget {
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextFormField(
+        controller: controller,
         decoration: InputDecoration(
           border: InputBorder.none,
-          labelText: hintText,
+          hintText: hintText,
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           labelStyle: TextStyle(fontSize: fontSize),
         ),
+        maxLines: null,
         validator: (value) {
           if (value!.isEmpty) {
-            return "$hintText is missing!";
+            return "$description is missing!";
           }
           return null;
-        },
-        onChanged: (value) {
-          controller.text = value;
         },
       ),
     );

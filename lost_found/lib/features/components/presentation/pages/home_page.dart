@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:lost_found/features/components/presentation/pages/report_user_flow.dart';
+import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/features/components/presentation/widgets/information_about_app.dart';
+import 'package:lost_found/features/components/presentation/widgets/report_item_container.dart';
+import 'package:lost_found/features/components/presentation/widgets/welcome_bar.dart';
 
 class HomePage extends StatelessWidget {
   static route() => MaterialPageRoute(builder: (context) => const HomePage());
@@ -7,15 +10,28 @@ class HomePage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Material(
-      child: ElevatedButton(
-        onPressed: () {
-          Navigator.push(
-            context,
-            ReportUserFlow.route(),
-          );
-        },
-        child: const Icon(Icons.upload),
+    return MaterialApp(
+      home: Scaffold(
+        body: SingleChildScrollView(
+          child: Column(
+            children: [
+              Container(
+                height: 80,
+                color: AppPallete.deepPurple,
+              ),
+              const WelcomeBar(),
+              const Padding(
+                padding: EdgeInsets.fromLTRB(16, 0, 16, 3),
+                child: Column(
+                  children: [
+                    ReportItemContainer(),
+                    InformationAboutApp(),
+                  ],
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

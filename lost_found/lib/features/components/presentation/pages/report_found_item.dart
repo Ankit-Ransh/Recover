@@ -105,12 +105,14 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
                         children: [
                           ItemData(
                             hintText: "Title",
+                            description: "Title",
                             controller: itemDataTitleController,
                           ),
                           const SizedBox(height: 20.0),
                           ItemData(
                             hintText:
                                 "Add an accurate description for the item you lost",
+                            description: "Description",
                             controller: itemDataDescriptionController,
                             fontSize: 14,
                             height: 150.0,
@@ -119,6 +121,7 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
                           ItemSuggestedLocation(
                             description: "Where did you find it?",
                             controller: suggestedRecoveryLocation,
+                            formKey: formKey,
                           ),
                           if (image != null) ...[
                             const SizedBox(height: 20.0),
@@ -133,6 +136,11 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
                               onTap: selectLostItemImage,
                             ),
                           ],
+                          const Text(
+                            "Collect from",
+                            style: TextStyle(fontSize: 16.0),
+                          ),
+                          const SizedBox(height: 10),
                           ItemCollectionCenter(
                             selectedItem: selectedItem,
                             onChanged: (String? newValue) {

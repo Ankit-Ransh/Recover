@@ -16,4 +16,10 @@ class AppPallete {
   static final greyShade400 = Colors.grey.shade400;
   static final greyShade500 = Colors.grey.shade500;
   static final greyShade600 = Colors.grey.shade500;
+  static const gradient = LinearGradient(
+    colors: [deepPurple, lightPurple, cyanBlue],
+    stops: [0, 0.56, 1],
+    begin: Alignment.topLeft,
+    end: Alignment.bottomRight,
+  );
 }

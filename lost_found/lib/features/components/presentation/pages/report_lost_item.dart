@@ -108,12 +108,14 @@ class _ReportLostItemState extends State<ReportLostItem> {
                     children: [
                       ItemData(
                         hintText: "Title",
+                        description: "Title",
                         controller: itemDataTitleController,
                       ),
                       const SizedBox(height: 20.0),
                       ItemData(
                         hintText:
                             "Add an accurate description for the item you lost",
+                        description: "Description",
                         fontSize: 14,
                         height: 150.0,
                         controller: itemDataDescriptionController,
@@ -122,6 +124,7 @@ class _ReportLostItemState extends State<ReportLostItem> {
                       ItemSuggestedLocation(
                         description: "Where do you think you have lost it?",
                         controller: selectedSuggestedLocation,
+                        formKey: formKey,
                       ),
                       if (image != null) ...[
                         const SizedBox(height: 20.0),

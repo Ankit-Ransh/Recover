@@ -29,9 +29,10 @@ class _DateSelectorState extends State<DateSelector> {
         borderRadius: BorderRadius.circular(15),
       ),
       child: TextFormField(
+        readOnly: true,
         controller: widget.controller,
         decoration: InputDecoration(
-          labelText: selectedDate == null ? widget.labelText : null,
+          hintText: selectedDate == null ? widget.labelText : null,
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           border: InputBorder.none,
           suffixIcon: IconButton(
@@ -54,7 +55,6 @@ class _DateSelectorState extends State<DateSelector> {
             },
           ),
         ),
-        readOnly: true,
       ),
     );
   }

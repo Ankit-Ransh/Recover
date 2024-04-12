@@ -29,7 +29,7 @@ class _TimeSelectorState extends State<TimeSelector> {
       child: TextFormField(
         controller: widget.controller,
         decoration: InputDecoration(
-          labelText: isTimeSelected == false ? widget.labelText : null,
+          hintText: isTimeSelected == false ? widget.labelText : null,
           contentPadding: const EdgeInsets.symmetric(horizontal: 10),
           border: InputBorder.none,
           suffixIcon: IconButton(

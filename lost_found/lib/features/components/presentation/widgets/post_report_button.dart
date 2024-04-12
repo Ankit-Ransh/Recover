@@ -3,7 +3,19 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 
 class PostReportButton extends StatelessWidget {
   final Function onTap;
-  const PostReportButton({super.key, required this.onTap});
+  final double height;
+  final double borderRadius;
+  final double fontSize;
+  final String command;
+
+  const PostReportButton({
+    super.key,
+    required this.onTap,
+    this.height = 50,
+    this.borderRadius = 15,
+    this.fontSize = 20,
+    this.command = "Post",
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -16,18 +28,18 @@ class PostReportButton extends StatelessWidget {
         padding: EdgeInsets.zero,
       ),
       child: Container(
-        height: 50,
+        height: height,
         decoration: BoxDecoration(
           color: AppPallete.deepPurple,
-          borderRadius: BorderRadius.circular(15),
+          borderRadius: BorderRadius.circular(borderRadius),
         ),
-        child: const Row(
+        child: Row(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Text(
-              "Post",
+              command,
               style: TextStyle(
-                fontSize: 20.0,
+                fontSize: fontSize,
                 color: AppPallete.whiteColor,
               ),
             ),

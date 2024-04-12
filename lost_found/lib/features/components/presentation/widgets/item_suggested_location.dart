@@ -5,10 +5,12 @@ import 'package:lost_found/features/components/presentation/widgets/item_suggest
 class ItemSuggestedLocation extends StatefulWidget {
   final String description;
   final TextEditingController controller;
+  final GlobalKey<FormState> formKey;
   const ItemSuggestedLocation({
     super.key,
     required this.description,
     required this.controller,
+    required this.formKey,
   });
 
   @override
@@ -32,12 +34,16 @@ class _ItemSuggestedLocationState extends State<ItemSuggestedLocation> {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           TextFormField(
+            readOnly: true,
             decoration: InputDecoration(
-              labelText: selectedLocation.isEmpty
+              hintText: selectedLocation.isEmpty
                   ? widget.description
                   : selectedLocation,
               contentPadding: const EdgeInsets.symmetric(horizontal: 10),
             ),
+            onChanged: (value) {
+              widget.formKey.currentState?.validate();
+            },
             validator: (value) {
               if (selectedLocation == "") {
                 return hintText;
@@ -61,6 +67,7 @@ class _ItemSuggestedLocationState extends State<ItemSuggestedLocation> {
                     setState(() {
                       selectedLocation = "Parking";
                       widget.controller.text = selectedLocation;
+                      widget.formKey.currentState?.validate();
                     });
                   },
                 ),
@@ -73,20 +80,49 @@ class _ItemSuggestedLocationState extends State<ItemSuggestedLocation> {
                     setState(() {
                       selectedLocation = "Mess";
                       widget.controller.text = selectedLocation;
+                      widget.formKey.currentState?.validate();
                     });
                   },
                 ),
                 ItemSuggestedLocationLists(
-                    iconData: Icons.school,
-                    text: "Classroom",
-                    controller: widget.controller,
-                    isSelected: selectedLocation == "Classroom",
-                    onTap: () {
-                      setState(() {
-                        selectedLocation = "Classroom";
-                        widget.controller.text = selectedLocation;
-                      });
-                    }),
+                  iconData: Icons.school,
+                  text: "Classroom",
+                  controller: widget.controller,
+                  isSelected: selectedLocation == "Classroom",
+                  onTap: () {
+                    setState(() {
+                      selectedLocation = "Classroom";
+                      widget.controller.text = selectedLocation;
+                      widget.formKey.currentState?.validate();
+                    });
+                  },
+                ),
+                ItemSuggestedLocationLists(
+                  iconData: Icons.sports_basketball,
+                  text: "Ground",
+                  controller: widget.controller,
+                  isSelected: selectedLocation == "Ground",
+                  onTap: () {
+                    setState(() {
+                      selectedLocation = "Ground";
+                      widget.controller.text = selectedLocation;
+                      widget.formKey.currentState?.validate();
+                    });
+                  },
+                ),
+                ItemSuggestedLocationLists(
+                  iconData: Icons.device_unknown,
+                  text: "Forgot?",
+                  controller: widget.controller,
+                  isSelected: selectedLocation == "Forgot?",
+                  onTap: () {
+                    setState(() {
+                      selectedLocation = "Forgot?";
+                      widget.controller.text = selectedLocation;
+                      widget.formKey.currentState?.validate();
+                    });
+                  },
+                ),
               ],
             ),
           ),
