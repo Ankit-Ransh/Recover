@@ -11,7 +11,7 @@ import 'package:lost_found/features/auth/presentation/widgets/form_data_field.da
 import 'package:lost_found/features/auth/presentation/widgets/login_button.dart';
 import 'package:lost_found/features/auth/presentation/widgets/logo_box.dart';
 import 'package:lost_found/features/auth/presentation/widgets/switch_login.dart';
-import 'package:lost_found/features/components/presentation/pages/home_page.dart';
+import 'package:lost_found/features/components/presentation/pages/index_page.dart';
 
 class SignUp extends StatefulWidget {
   const SignUp({super.key});
@@ -47,8 +47,7 @@ class _SignUpState extends State<SignUp> {
               showSnackBar(context, "Account created successfully!");
               Navigator.pushAndRemoveUntil(
                 context,
-                HomePage
-                    .route(), // Assuming HomePage.route() returns a MaterialPageRoute
+                IndexPage.route(),
                 (Route<dynamic> route) =>
                     false, // This condition prevents any routes from being retained.
               );

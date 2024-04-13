@@ -5,7 +5,7 @@ import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/auth/presentation/pages/login.dart';
 import 'package:lost_found/features/components/presentation/found_bloc/found_item_bloc.dart';
 import 'package:lost_found/features/components/presentation/lost_bloc/lost_item_bloc.dart';
-import 'package:lost_found/features/components/presentation/pages/home_page.dart';
+import 'package:lost_found/features/components/presentation/pages/index_page.dart';
 import 'package:lost_found/init_dependencies.dart';
 
 void main() async {
@@ -54,7 +54,7 @@ class _MyAppState extends State<MyApp> {
         },
         builder: (context, isLoggedIn) {
           if (isLoggedIn) {
-            return const HomePage();
+            return const IndexPage();
           }
           return const Login();
         },

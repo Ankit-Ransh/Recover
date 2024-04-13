@@ -11,7 +11,7 @@ import 'package:lost_found/features/auth/presentation/widgets/form_data_field.da
 import 'package:lost_found/features/auth/presentation/widgets/login_button.dart';
 import 'package:lost_found/features/auth/presentation/widgets/logo_box.dart';
 import 'package:lost_found/features/auth/presentation/widgets/switch_login.dart';
-import 'package:lost_found/features/components/presentation/pages/home_page.dart';
+import 'package:lost_found/features/components/presentation/pages/index_page.dart';
 
 class Login extends StatefulWidget {
   const Login({super.key});
@@ -37,7 +37,7 @@ class _LoginState extends State<Login> {
             } else if (state is AuthSuccess) {
               showSnackBar(context, "Logged in successfully");
               Navigator.pushAndRemoveUntil(
-                  context, HomePage.route(), (route) => false);
+                  context, IndexPage.route(), (route) => false);
             }
           },
           builder: (context, state) {
