@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
-import 'package:lost_found/features/components/presentation/pages/home_page.dart';
+import 'package:lost_found/features/components/presentation/pages/index_page.dart';
 import 'package:lost_found/features/components/presentation/widgets/post_report_button.dart';
 import 'package:lost_found/features/components/presentation/widgets/text_title_widget.dart';
 
@@ -69,7 +69,7 @@ class ReportMotivationPage extends StatelessWidget {
             child: PostReportButton(
               onTap: () {
                 Navigator.pushAndRemoveUntil(
-                    context, HomePage.route(), (route) => false);
+                    context, IndexPage.route(), (route) => false);
               },
               command: "Return to Home",
             ),

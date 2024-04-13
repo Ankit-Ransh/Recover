@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
-import 'package:lost_found/features/components/presentation/pages/home_page.dart';
+import 'package:lost_found/features/components/presentation/pages/index_page.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_found.dart';
 import 'package:lost_found/features/components/presentation/widgets/item_lost.dart';
 
@@ -16,9 +16,10 @@ class ReportUserFlow extends StatelessWidget {
         leading: IconButton(
           icon: const Icon(Icons.close),
           onPressed: () {
-            Navigator.push(
+            Navigator.pushAndRemoveUntil(
               context,
-              HomePage.route(),
+              IndexPage.route(),
+              (route) => false,
             );
           },
         ),
