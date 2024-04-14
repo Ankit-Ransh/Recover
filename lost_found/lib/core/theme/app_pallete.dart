@@ -22,4 +22,7 @@ class AppPallete {
     begin: Alignment.topLeft,
     end: Alignment.bottomRight,
   );
+
+  static const lostColor = Color.fromARGB(255, 191, 45, 45);
+  static const foundColor = Color.fromARGB(231, 39, 118, 5);
 }
