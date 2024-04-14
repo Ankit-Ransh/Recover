@@ -11,8 +11,9 @@ class LostItemModel extends LostItem {
     required super.lostItemDate,
     required super.lostItemTime,
     required super.lostItemCategory,
-    required super.isItemFound,
+    required super.claimed,
     required super.updatedAt,
+    super.posterName,
   });
 
   Map<String, dynamic> toJson() {
@@ -22,11 +23,11 @@ class LostItemModel extends LostItem {
       'title': title,
       'description': description,
       'lost_location': lostLocation,
-      'lost_item_image': lostItemImageUrl,
+      'lost_item_image_url': lostItemImageUrl,
       'lost_item_date': lostItemDate,
       'lost_item_time': lostItemTime,
       'lost_item_category': lostItemCategory,
-      'is_item_found': isItemFound,
+      'claimed': claimed,
       'updated_at': updatedAt.toIso8601String(),
     };
   }
@@ -38,11 +39,11 @@ class LostItemModel extends LostItem {
       title: map['title'] as String,
       description: map['description'] as String,
       lostLocation: map['lost_location'] as String,
-      lostItemImageUrl: map['lost_item_image'] as String,
+      lostItemImageUrl: map['lost_item_image_url'] as String,
       lostItemDate: map['lost_item_date'] as String,
       lostItemTime: map['lost_item_time'] as String,
       lostItemCategory: map['lost_item_category'] as String,
-      isItemFound: map['is_item_found'] ?? false,
+      claimed: map['claimed'] ?? false,
       updatedAt: map['updated_at'] == null
           ? DateTime.now()
           : DateTime.parse(map['updated_at'] as String),
@@ -59,8 +60,9 @@ class LostItemModel extends LostItem {
     String? lostItemDate,
     String? lostItemTime,
     String? lostItemCategory,
-    bool? isItemFound,
+    bool? claimed,
     DateTime? updatedAt,
+    String? posterName,
   }) {
     return LostItemModel(
       id: id ?? this.id,
@@ -72,8 +74,9 @@ class LostItemModel extends LostItem {
       lostItemDate: lostItemDate ?? this.lostItemDate,
       lostItemTime: lostItemTime ?? this.lostItemTime,
       lostItemCategory: lostItemCategory ?? this.lostItemCategory,
-      isItemFound: isItemFound ?? this.isItemFound,
+      claimed: claimed ?? this.claimed,
       updatedAt: updatedAt ?? this.updatedAt,
+      posterName: posterName ?? this.posterName,
     );
   }
 }

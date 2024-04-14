@@ -8,6 +8,7 @@ class FoundItem {
   final String foundItemImageUrl;
   final String itemCollectionLocation;
   final String itemCategory;
+  final bool claimed;
 
   FoundItem({
     required this.id,
@@ -19,5 +20,6 @@ class FoundItem {
     required this.foundItemImageUrl,
     required this.itemCollectionLocation,
     required this.itemCategory,
+    required this.claimed,
   });
 }

@@ -25,4 +25,5 @@ class AppPallete {
 
   static const lostColor = Color.fromARGB(255, 191, 45, 45);
   static const foundColor = Color.fromARGB(231, 39, 118, 5);
+  static const claimedColor = Color.fromARGB(255, 213, 229, 39);
 }

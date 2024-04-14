@@ -103,7 +103,8 @@ class _LoginState extends State<Login> {
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       LogoWidget(
-                          imagePath: "lib/core/assets/images/google.png"),
+                        imagePath: "lib/core/assets/images/google.png",
+                      ),
                     ],
                   ),
                   const SizedBox(height: 25),

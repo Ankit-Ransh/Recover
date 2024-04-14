@@ -35,7 +35,7 @@ class _ReportLostItemState extends State<ReportLostItem> {
   final selectedDate = TextEditingController();
   final selectedTime = TextEditingController();
   File? image;
-  final isItemFound = false;
+  final claimed = false;
 
   @override
   void dispose() {
@@ -72,7 +72,7 @@ class _ReportLostItemState extends State<ReportLostItem> {
               lostItemDate: selectedDate.text.trim(),
               lostItemTime: selectedTime.text.trim(),
               lostItemCategory: selectedSuggestedCategory.text.trim(),
-              isItemFound: isItemFound,
+              claimed: claimed,
             ),
           );
 

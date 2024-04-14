@@ -8,14 +8,19 @@ import 'package:lost_found/features/auth/domain/usecases/current_user.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_login.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:lost_found/features/components/data/datasources/backend_information_remote_data_source.dart';
 import 'package:lost_found/features/components/data/datasources/found_item_remote_data_source.dart';
 import 'package:lost_found/features/components/data/datasources/lost_item_remote_data_source.dart';
+import 'package:lost_found/features/components/data/repository/backend_information_repository_impl.dart';
 import 'package:lost_found/features/components/data/repository/found_item_repository_impl.dart';
 import 'package:lost_found/features/components/data/repository/lost_item_repository_impl.dart';
+import 'package:lost_found/features/components/domain/repository/backend_information_repository.dart';
 import 'package:lost_found/features/components/domain/repository/found_item_repository.dart';
 import 'package:lost_found/features/components/domain/repository/lost_item_repository.dart';
+import 'package:lost_found/features/components/domain/usecases/backend_information.dart';
 import 'package:lost_found/features/components/domain/usecases/upload_found_item.dart';
 import 'package:lost_found/features/components/domain/usecases/upload_lost_item.dart';
+import 'package:lost_found/features/components/presentation/backend_information_bloc/backend_information_bloc.dart';
 import 'package:lost_found/features/components/presentation/found_bloc/found_item_bloc.dart';
 import 'package:lost_found/features/components/presentation/lost_bloc/lost_item_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
@@ -26,6 +31,7 @@ Future<void> initDependencies() async {
   _intitAuth();
   _initLostItem();
   _initFoundItem();
+  _initBackendLost();
 
   final supabase = await Supabase.initialize(
     url: SupaBaseSecrets.url,
@@ -117,8 +123,22 @@ void _initFoundItem() {
   );
 
   serviceLocator.registerLazySingleton(
-    () => FoundItemBloc(
-      serviceLocator(),
-    ),
+    () => FoundItemBloc(serviceLocator()),
+  );
+}
+
+void _initBackendLost() {
+  serviceLocator.registerFactory<BackendInformationRemoteDataSource>(
+      () => BackendInformationRemoteDataSourceImpl(serviceLocator()));
+
+  serviceLocator.registerFactory<BackendInformationRepository>(
+      () => BackendInformationRepositoryImpl(serviceLocator()));
+
+  serviceLocator.registerFactory(
+    () => BackendLostInformation(serviceLocator()),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => BackendInformationBloc(getLostItemInformation: serviceLocator()),
   );
 }

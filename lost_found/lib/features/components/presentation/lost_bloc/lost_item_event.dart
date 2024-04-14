@@ -12,7 +12,7 @@ final class LostItemReportStatus extends LostItemEvent {
   final String lostItemDate;
   final String lostItemTime;
   final String lostItemCategory;
-  final bool isItemFound;
+  final bool claimed;
 
   LostItemReportStatus({
     required this.userId,
@@ -23,6 +23,6 @@ final class LostItemReportStatus extends LostItemEvent {
     required this.lostItemDate,
     required this.lostItemTime,
     required this.lostItemCategory,
-    required this.isItemFound,
+    required this.claimed,
   });
 }

@@ -21,7 +21,7 @@ class UploadLostItem implements UseCase<LostItem, UploadLostItemParams> {
       lostItemDate: params.lostItemDate,
       lostItemTime: params.lostItemTime,
       lostItemCategory: params.lostItemCategory,
-      isItemFound: params.isItemFound,
+      claimed: params.claimed,
     );
   }
 }
@@ -35,7 +35,7 @@ class UploadLostItemParams {
   final String lostItemDate;
   final String lostItemTime;
   final String lostItemCategory;
-  final bool isItemFound;
+  final bool claimed;
 
   UploadLostItemParams({
     required this.userId,
@@ -46,6 +46,6 @@ class UploadLostItemParams {
     required this.lostItemDate,
     required this.lostItemTime,
     required this.lostItemCategory,
-    required this.isItemFound,
+    required this.claimed,
   });
 }

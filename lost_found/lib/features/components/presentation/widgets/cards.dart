@@ -9,8 +9,12 @@ class Cards extends StatelessWidget {
   final String title;
   final String description;
   final String user;
-  final int time;
+  final String time;
   final String imageUrl;
+  final String status;
+  final Color color;
+  final Color textColor;
+  final double fontSize;
 
   const Cards({
     super.key,
@@ -19,6 +23,10 @@ class Cards extends StatelessWidget {
     required this.user,
     required this.time,
     required this.imageUrl,
+    required this.status,
+    required this.color,
+    this.textColor = AppPallete.whiteColor,
+    this.fontSize = 16,
   });
 
   @override
@@ -97,7 +105,7 @@ class Cards extends StatelessWidget {
                                 overflow: TextOverflow.ellipsis,
                               ),
                               AutoSizeText(
-                                "$time hrs ago",
+                                time,
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,
@@ -128,10 +136,12 @@ class Cards extends StatelessWidget {
               ),
             ],
           ),
-          const Tag(
-            status: "Lost",
-            color: AppPallete.lostColor,
+          Tag(
+            status: status,
+            color: color,
             topMargin: 25.0,
+            textColor: textColor,
+            fontSize: fontSize,
           ),
         ],
       ),

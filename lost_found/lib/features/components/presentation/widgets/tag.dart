@@ -5,12 +5,16 @@ class Tag extends StatelessWidget {
   final String status;
   final Color color;
   final double topMargin;
+  final Color textColor;
+  final double fontSize;
 
   const Tag({
     super.key,
     required this.status,
     required this.color,
     this.topMargin = 8.0,
+    this.textColor = AppPallete.whiteColor,
+    this.fontSize = 16,
   });
 
   @override
@@ -36,9 +40,9 @@ class Tag extends StatelessWidget {
               Text(
                 textAlign: TextAlign.center,
                 status,
-                style: const TextStyle(
-                  color: AppPallete.whiteColor,
-                  fontSize: 16,
+                style: TextStyle(
+                  color: textColor,
+                  fontSize: fontSize,
                   fontWeight: FontWeight.w600,
                 ),
               ),

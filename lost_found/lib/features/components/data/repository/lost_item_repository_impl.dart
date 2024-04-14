@@ -1,5 +1,4 @@
 import 'dart:io';
-
 import 'package:fpdart/fpdart.dart';
 import 'package:lost_found/core/error/exceptions.dart';
 import 'package:lost_found/core/error/failures.dart';
@@ -24,7 +23,7 @@ class LostItemRepositoryImpl implements LostItemRepository {
     required String lostItemDate,
     required String lostItemTime,
     required String lostItemCategory,
-    required bool isItemFound,
+    required bool claimed,
   }) async {
     try {
       LostItemModel lostItemModel = LostItemModel(
@@ -37,7 +36,7 @@ class LostItemRepositoryImpl implements LostItemRepository {
         lostItemDate: lostItemDate,
         lostItemTime: lostItemTime,
         lostItemCategory: lostItemCategory,
-        isItemFound: isItemFound,
+        claimed: claimed,
         updatedAt: DateTime.now(),
       );
 

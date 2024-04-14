@@ -8,8 +8,9 @@ class LostItem {
   final String lostItemDate;
   final String lostItemTime;
   final String lostItemCategory;
-  final bool isItemFound;
+  final bool claimed;
   final DateTime updatedAt;
+  final String? posterName;
 
   LostItem({
     required this.id,
@@ -21,7 +22,8 @@ class LostItem {
     required this.lostItemDate,
     required this.lostItemTime,
     required this.lostItemCategory,
-    required this.isItemFound,
+    required this.claimed,
     required this.updatedAt,
+    this.posterName,
   });
 }

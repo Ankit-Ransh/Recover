@@ -34,6 +34,7 @@ class FoundItemRepositoryImpl implements FoundItemRepository {
         foundItemImageUrl: "",
         itemCollectionLocation: itemCollectionLocation,
         itemCategory: itemCategory,
+        claimed: false,
       );
 
       final foundItemImageUrl =

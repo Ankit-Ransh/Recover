@@ -13,6 +13,6 @@ abstract interface class LostItemRepository {
     required String lostItemDate,
     required String lostItemTime,
     required String lostItemCategory,
-    required bool isItemFound,
+    required bool claimed,
   });
 }

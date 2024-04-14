@@ -1,11 +1,47 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/core/utils/show_snackbar.dart';
+import 'package:lost_found/features/components/presentation/backend_information_bloc/backend_information_bloc.dart';
 import 'package:lost_found/features/components/presentation/widgets/cards.dart';
 import 'package:lost_found/features/components/presentation/widgets/text_title_widget.dart';
 
-class BrowseItem extends StatelessWidget {
+class BrowseItem extends StatefulWidget {
   static route() => MaterialPageRoute(builder: (context) => const BrowseItem());
   const BrowseItem({super.key});
+
+  @override
+  State<BrowseItem> createState() => _BrowseItemState();
+}
+
+class _BrowseItemState extends State<BrowseItem> {
+  @override
+  void initState() {
+    super.initState();
+    context.read<BackendInformationBloc>().add(BackendLostInformationBloc());
+  }
+
+  Map<String, dynamic> getTimeDifference(DateTime pastTime) {
+    // Get the current time
+    DateTime currentTime = DateTime.now();
+
+    // Calculate the difference
+    Duration difference = currentTime.difference(pastTime);
+
+    // Check if the result should be in minutes or hours
+    if (difference.inMinutes.abs() < 60) {
+      return {
+        'time': difference.inMinutes.abs(),
+        'inMinutes': true, // Indicates the time is in minutes
+      };
+    } else {
+      return {
+        'time': difference.inHours.abs(),
+        'inMinutes': false, // Indicates the time is in hours
+      };
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -47,14 +83,64 @@ class BrowseItem extends StatelessWidget {
               ),
             ),
           ),
+          BlocConsumer<BackendInformationBloc, BackendInformationState>(
+            listener: (context, state) {
+              if (state is BackendInformationFailure) {
+                showSnackBar(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              if (state is BackendInformationLoading) {
+                return const Loader();
+              }
+              if (state is BackendInformationSuccess) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.lostItem.length,
+                  itemBuilder: (context, index) {
+                    final lostItem = state.lostItem[index];
+                    
+                    Map<String, dynamic> timeData =
+                        getTimeDifference(lostItem.updatedAt);
+                    int timeAgo = timeData['time'];
+                    bool inMinutes = timeData['inMinutes'];
+
+                    String timeText =
+                        inMinutes ? '$timeAgo min ago' : '$timeAgo hrs ago';
+
+                    return Cards(
+                      title: lostItem.title,
+                      description: lostItem.description,
+                      user: lostItem.posterName!,
+                      time: timeText,
+                      imageUrl: lostItem.lostItemImageUrl,
+                      status: (lostItem.claimed == true) ? "Claimed" : "Lost",
+                      color: (lostItem.claimed == true)
+                          ? Colors.yellow
+                          : AppPallete.lostColor,
+                      fontSize: (lostItem.claimed == true) ? 13.0 : 16.0,
+                    );
+                  },
+                );
+              }
+
+              return const SizedBox();
+            },
+          ),
           const Cards(
-              title: "Notebook and Pen",
-              description:
-                  "Left my notebook & Pen In meeting room no 5. It has important client Meeting notes",
-              user: "Deepika",
-              time: 3,
-              imageUrl:
-                  "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfF2YcEpt1vTuV0UF4jSdhV-sVrvp3lo1y9kPsSTtCxw&s"),
+            title: "Notebook and Pen",
+            description:
+                "Left my notebook & Pen In meeting room no 5. It has important client Meeting notes",
+            user: "Deepika",
+            time: "3 hrs ago",
+            imageUrl:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfF2YcEpt1vTuV0UF4jSdhV-sVrvp3lo1y9kPsSTtCxw&s",
+            status: "Claimed",
+            color: AppPallete.claimedColor,
+            textColor: AppPallete.blackColor,
+            fontSize: 13.0,
+          ),
         ],
       ),
     );

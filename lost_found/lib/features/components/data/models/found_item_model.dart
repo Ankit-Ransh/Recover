@@ -11,6 +11,7 @@ class FoundItemModel extends FoundItem {
     required super.foundItemImageUrl,
     required super.itemCollectionLocation,
     required super.itemCategory,
+    required super.claimed,
   });
 
   Map<String, dynamic> toJson() {
@@ -21,9 +22,10 @@ class FoundItemModel extends FoundItem {
       'title': title,
       'description': description,
       'found_location': foundLocation,
-      'found_item_image': foundItemImageUrl,
+      'found_item_image_url': foundItemImageUrl,
       'found_item_collection_location': itemCollectionLocation,
       'found_item_category': itemCategory,
+      'claimed': claimed,
     };
   }
 
@@ -37,9 +39,10 @@ class FoundItemModel extends FoundItem {
       title: map['title'] as String,
       description: map['description'] as String,
       foundLocation: map['found_location'] as String,
-      foundItemImageUrl: map['found_item_image'] as String,
+      foundItemImageUrl: map['found_item_image_url'] as String,
       itemCollectionLocation: map['found_item_collection_location'] as String,
       itemCategory: map['found_item_category'] as String,
+      claimed: map['claimed'] as bool,
     );
   }
 
@@ -53,6 +56,7 @@ class FoundItemModel extends FoundItem {
     String? foundItemImageUrl,
     String? itemCollectionLocation,
     String? itemCategory,
+    bool? claimed,
   }) {
     return FoundItemModel(
       id: id ?? this.id,
@@ -65,6 +69,7 @@ class FoundItemModel extends FoundItem {
       itemCollectionLocation:
           itemCollectionLocation ?? this.itemCollectionLocation,
       itemCategory: itemCategory ?? this.itemCategory,
+      claimed: claimed ?? this.claimed,
     );
   }
 }

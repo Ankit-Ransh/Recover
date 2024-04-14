@@ -27,7 +27,7 @@ class LostItemBloc extends Bloc<LostItemEvent, LostItemState> {
         lostItemDate: event.lostItemDate,
         lostItemTime: event.lostItemTime,
         lostItemCategory: event.lostItemCategory,
-        isItemFound: event.isItemFound,
+        claimed: event.claimed,
       ),
     );
 
