@@ -12,7 +12,12 @@ final class BackendInformationFailure extends BackendInformationState {
   BackendInformationFailure(this.message);
 }
 
-final class BackendInformationSuccess extends BackendInformationState {
+final class BackendInformationLostSuccess extends BackendInformationState {
   final List<LostItem> lostItem;
-  BackendInformationSuccess(this.lostItem);
+  BackendInformationLostSuccess(this.lostItem);
+}
+
+final class BackendInformationFoundSuccess extends BackendInformationState {
+  final List<FoundItem> foundItem;
+  BackendInformationFoundSuccess(this.foundItem);
 }

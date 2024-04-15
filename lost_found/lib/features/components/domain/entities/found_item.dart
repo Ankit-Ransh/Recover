@@ -9,6 +9,7 @@ class FoundItem {
   final String itemCollectionLocation;
   final String itemCategory;
   final bool claimed;
+  final String? posterName;
 
   FoundItem({
     required this.id,
@@ -21,5 +22,6 @@ class FoundItem {
     required this.itemCollectionLocation,
     required this.itemCategory,
     required this.claimed,
+    this.posterName,
   });
 }

@@ -17,7 +17,8 @@ import 'package:lost_found/features/components/data/repository/lost_item_reposit
 import 'package:lost_found/features/components/domain/repository/backend_information_repository.dart';
 import 'package:lost_found/features/components/domain/repository/found_item_repository.dart';
 import 'package:lost_found/features/components/domain/repository/lost_item_repository.dart';
-import 'package:lost_found/features/components/domain/usecases/backend_information.dart';
+import 'package:lost_found/features/components/domain/usecases/backend_found_information.dart';
+import 'package:lost_found/features/components/domain/usecases/backend_lost_information.dart';
 import 'package:lost_found/features/components/domain/usecases/upload_found_item.dart';
 import 'package:lost_found/features/components/domain/usecases/upload_lost_item.dart';
 import 'package:lost_found/features/components/presentation/backend_information_bloc/backend_information_bloc.dart';
@@ -138,7 +139,14 @@ void _initBackendLost() {
     () => BackendLostInformation(serviceLocator()),
   );
 
+  serviceLocator.registerFactory(
+    () => BackendFoundInformation(serviceLocator()),
+  );
+
   serviceLocator.registerLazySingleton(
-    () => BackendInformationBloc(getLostItemInformation: serviceLocator()),
+    () => BackendInformationBloc(
+      getLostItemInformation: serviceLocator(),
+      getFoundItemInformation: serviceLocator(),
+    ),
   );
 }

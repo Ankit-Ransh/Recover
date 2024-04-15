@@ -83,6 +83,8 @@ class _BrowseItemState extends State<BrowseItem> {
               ),
             ),
           ),
+
+          // Lost Items
           BlocConsumer<BackendInformationBloc, BackendInformationState>(
             listener: (context, state) {
               if (state is BackendInformationFailure) {
@@ -93,14 +95,14 @@ class _BrowseItemState extends State<BrowseItem> {
               if (state is BackendInformationLoading) {
                 return const Loader();
               }
-              if (state is BackendInformationSuccess) {
+              if (state is BackendInformationLostSuccess) {
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
                   itemCount: state.lostItem.length,
                   itemBuilder: (context, index) {
                     final lostItem = state.lostItem[index];
-                    
+
                     Map<String, dynamic> timeData =
                         getTimeDifference(lostItem.updatedAt);
                     int timeAgo = timeData['time'];
@@ -128,6 +130,54 @@ class _BrowseItemState extends State<BrowseItem> {
               return const SizedBox();
             },
           ),
+
+          // Found Items
+          BlocConsumer<BackendInformationBloc, BackendInformationState>(
+            listener: (context, state) {
+              if (state is BackendInformationFailure) {
+                showSnackBar(context, state.message);
+              }
+            },
+            builder: (context, state) {
+              if (state is BackendInformationLoading) {
+                return const Loader();
+              }
+              if (state is BackendInformationFoundSuccess) {
+                return ListView.builder(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemCount: state.foundItem.length,
+                  itemBuilder: (context, index) {
+                    final foundItem = state.foundItem[index];
+
+                    Map<String, dynamic> timeData =
+                        getTimeDifference(foundItem.updatedAt);
+                    int timeAgo = timeData['time'];
+                    bool inMinutes = timeData['inMinutes'];
+
+                    String timeText =
+                        inMinutes ? '$timeAgo min ago' : '$timeAgo hrs ago';
+
+                    return Cards(
+                      title: foundItem.title,
+                      description: foundItem.description,
+                      user: foundItem.posterName!,
+                      time: timeText,
+                      imageUrl: foundItem.foundItemImageUrl,
+                      status: (foundItem.claimed == true) ? "Claimed" : "Found",
+                      color: (foundItem.claimed == true)
+                          ? Colors.yellow
+                          : AppPallete.foundColor,
+                      fontSize: (foundItem.claimed == true) ? 13.0 : 16.0,
+                    );
+                  },
+                );
+              }
+
+              return const SizedBox();
+            },
+          ),
+
           const Cards(
             title: "Notebook and Pen",
             description:

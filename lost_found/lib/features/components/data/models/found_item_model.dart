@@ -12,6 +12,7 @@ class FoundItemModel extends FoundItem {
     required super.itemCollectionLocation,
     required super.itemCategory,
     required super.claimed,
+    super.posterName,
   });
 
   Map<String, dynamic> toJson() {
@@ -57,6 +58,7 @@ class FoundItemModel extends FoundItem {
     String? itemCollectionLocation,
     String? itemCategory,
     bool? claimed,
+    String? posterName,
   }) {
     return FoundItemModel(
       id: id ?? this.id,
@@ -70,6 +72,7 @@ class FoundItemModel extends FoundItem {
           itemCollectionLocation ?? this.itemCollectionLocation,
       itemCategory: itemCategory ?? this.itemCategory,
       claimed: claimed ?? this.claimed,
+      posterName: posterName ?? this.posterName,
     );
   }
 }

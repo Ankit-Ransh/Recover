@@ -68,7 +68,6 @@ class ReportMotivationPage extends StatelessWidget {
             padding: const EdgeInsets.all(30.0),
             child: PostReportButton(
               onTap: () {
-                print("button pressed");
                 Navigator.pushAndRemoveUntil(
                   context,
                   IndexPage.route(),

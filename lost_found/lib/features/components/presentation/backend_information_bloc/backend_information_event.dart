@@ -4,3 +4,5 @@ part of 'backend_information_bloc.dart';
 sealed class BackendInformationEvent {}
 
 final class BackendLostInformationBloc extends BackendInformationEvent {}
+
+final class BackendFoundInformationBloc extends BackendInformationEvent {}
