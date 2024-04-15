@@ -3,10 +3,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/auth/presentation/pages/login.dart';
-import 'package:lost_found/features/components/presentation/backend_information_bloc/backend_information_bloc.dart';
-import 'package:lost_found/features/components/presentation/found_bloc/found_item_bloc.dart';
-import 'package:lost_found/features/components/presentation/lost_bloc/lost_item_bloc.dart';
-import 'package:lost_found/features/components/presentation/pages/index_page.dart';
+import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
+import 'package:lost_found/features/components/found/presentation/bloc/found_item_bloc.dart';
+import 'package:lost_found/features/components/lost/presentation/bloc/lost_item_bloc.dart';
+import 'package:lost_found/features/main/pages/index_page.dart';
 import 'package:lost_found/init_dependencies.dart';
 
 void main() async {

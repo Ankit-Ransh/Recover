@@ -8,22 +8,22 @@ import 'package:lost_found/features/auth/domain/usecases/current_user.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_login.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
-import 'package:lost_found/features/components/data/datasources/backend_information_remote_data_source.dart';
-import 'package:lost_found/features/components/data/datasources/found_item_remote_data_source.dart';
-import 'package:lost_found/features/components/data/datasources/lost_item_remote_data_source.dart';
-import 'package:lost_found/features/components/data/repository/backend_information_repository_impl.dart';
-import 'package:lost_found/features/components/data/repository/found_item_repository_impl.dart';
-import 'package:lost_found/features/components/data/repository/lost_item_repository_impl.dart';
-import 'package:lost_found/features/components/domain/repository/backend_information_repository.dart';
-import 'package:lost_found/features/components/domain/repository/found_item_repository.dart';
-import 'package:lost_found/features/components/domain/repository/lost_item_repository.dart';
-import 'package:lost_found/features/components/domain/usecases/backend_found_information.dart';
-import 'package:lost_found/features/components/domain/usecases/backend_lost_information.dart';
-import 'package:lost_found/features/components/domain/usecases/upload_found_item.dart';
-import 'package:lost_found/features/components/domain/usecases/upload_lost_item.dart';
-import 'package:lost_found/features/components/presentation/backend_information_bloc/backend_information_bloc.dart';
-import 'package:lost_found/features/components/presentation/found_bloc/found_item_bloc.dart';
-import 'package:lost_found/features/components/presentation/lost_bloc/lost_item_bloc.dart';
+import 'package:lost_found/features/components/backend/data/datasources/backend_information_remote_data_source.dart';
+import 'package:lost_found/features/components/backend/domain/usecases/backend_found_information.dart';
+import 'package:lost_found/features/components/found/data/datasources/found_item_remote_data_source.dart';
+import 'package:lost_found/features/components/lost/data/datasources/lost_item_remote_data_source.dart';
+import 'package:lost_found/features/components/backend/data/repository/backend_information_repository_impl.dart';
+import 'package:lost_found/features/components/found/data/respository/found_item_repository_impl.dart';
+import 'package:lost_found/features/components/lost/data/respository/lost_item_repository_impl.dart';
+import 'package:lost_found/features/components/backend/domain/repository/backend_information_repository.dart';
+import 'package:lost_found/features/components/found/domain/repository/found_item_repository.dart';
+import 'package:lost_found/features/components/lost/domain/repository/lost_item_repository.dart';
+import 'package:lost_found/features/components/backend/domain/usecases/backend_lost_information.dart';
+import 'package:lost_found/features/components/found/domain/usecases/upload_found_item.dart';
+import 'package:lost_found/features/components/lost/domain/usecases/upload_lost_item.dart';
+import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
+import 'package:lost_found/features/components/found/presentation/bloc/found_item_bloc.dart';
+import 'package:lost_found/features/components/lost/presentation/bloc/lost_item_bloc.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 final serviceLocator = GetIt.instance;
@@ -32,7 +32,7 @@ Future<void> initDependencies() async {
   _intitAuth();
   _initLostItem();
   _initFoundItem();
-  _initBackendLost();
+  _initBackendInformation();
 
   final supabase = await Supabase.initialize(
     url: SupaBaseSecrets.url,
@@ -128,7 +128,7 @@ void _initFoundItem() {
   );
 }
 
-void _initBackendLost() {
+void _initBackendInformation() {
   serviceLocator.registerFactory<BackendInformationRemoteDataSource>(
       () => BackendInformationRemoteDataSourceImpl(serviceLocator()));
 
