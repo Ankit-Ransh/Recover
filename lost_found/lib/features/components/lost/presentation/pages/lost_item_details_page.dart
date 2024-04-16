@@ -64,7 +64,7 @@ class LostItemDetailsPage extends StatelessWidget {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          margin: const EdgeInsets.fromLTRB(20, 70, 20, 0),
+          margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,

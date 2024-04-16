@@ -16,7 +16,7 @@ class HomePage extends StatelessWidget {
         child: Column(
           children: [
             Container(
-              height: 80,
+              height: 15,
               color: AppPallete.deepPurple,
             ),
             const WelcomeBar(),

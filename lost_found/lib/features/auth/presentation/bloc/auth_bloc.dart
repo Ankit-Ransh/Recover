@@ -4,6 +4,7 @@ import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/core/usecase/usecase.dart';
 import 'package:lost_found/core/common/entities/user.dart';
 import 'package:lost_found/features/auth/domain/usecases/current_user.dart';
+import 'package:lost_found/features/auth/domain/usecases/sign_out.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_login.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_sign_up.dart';
 
@@ -15,21 +16,33 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   final UserLogin _userLogin;
   final CurrentUser _currentUser;
   final AppUserCubit _appUserCubit;
+  final SignOut _signOut;
 
   AuthBloc({
     required UserSignUp userSignUp,
     required UserLogin userLogin,
     required CurrentUser currentUser,
     required AppUserCubit appUserCubit,
+    required SignOut signOut,
   })  : _userSignUp = userSignUp,
         _userLogin = userLogin,
         _currentUser = currentUser,
         _appUserCubit = appUserCubit,
+        _signOut = signOut,
         super(AuthInitial()) {
     on<AuthEvent>((_, emit) => emit(AuthLoading()));
     on<AuthSignUp>(_onAuthSignUp);
     on<AuthLogin>(_onAuthLogin);
+    on<AuthSignOut>(_isSignOut);
     on<AuthIsUserLoggedIn>(_isUserLoggedIn);
+  }
+
+  void _isSignOut(AuthSignOut event, Emitter<AuthState> emit) async {
+    final res = await _signOut(NoParams());
+    res.fold(
+      (l) => emit(AuthFailure(l.message)),
+      (r) => emit(AuthLogout()),
+    );
   }
 
   void _isUserLoggedIn(
@@ -57,7 +70,8 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
         emit(AuthFailure(failure.message));
       },
       (user) {
-        // print('Authentication successful. UID: $user');
+        print('Authentication successful. UID: $user');
+        print('Authentication successful. UID: $emit');
         _emitAuthSuccess(user, emit);
       },
     );

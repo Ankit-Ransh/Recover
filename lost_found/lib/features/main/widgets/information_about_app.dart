@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/common/widgets/text_description_widget.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
@@ -94,12 +95,12 @@ class InformationModal extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 600,
+      height: 800,
       width: double.infinity,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 20),
+          const SizedBox(height: 5),
           const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -110,19 +111,19 @@ class InformationModal extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 10),
-          Padding(
+          const SizedBox(height: 5),
+          Container(
             padding: const EdgeInsets.fromLTRB(40, 10, 30, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 buildHeading("When you report a lost item"),
-                const SizedBox(height: 10),
+                const SizedBox(height: 5),
                 buildDescription("We provide you the best match"),
                 buildDescription("recommendation of similar items reported by"),
                 buildDescription("the finders which increase the chance of"),
                 buildDescription("finding your items."),
-                const SizedBox(height: 30),
+                const SizedBox(height: 20),
                 buildHeading("When you report an item you found"),
                 const SizedBox(height: 10),
                 buildDescription("We provide you the best match"),

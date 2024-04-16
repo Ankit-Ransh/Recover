@@ -54,18 +54,20 @@ class _MyAppState extends State<MyApp> {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: BlocSelector<AppUserCubit, AppUserState, bool>(
-        selector: (state) {
-          return state is AppUserLoggedIn;
-        },
-        builder: (context, isLoggedIn) {
-          if (isLoggedIn) {
-            return const IndexPage();
-          }
-          return const Login();
-        },
+    return SafeArea(
+      child: MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: BlocSelector<AppUserCubit, AppUserState, bool>(
+          selector: (state) {
+            return state is AppUserLoggedIn;
+          },
+          builder: (context, isLoggedIn) {
+            if (isLoggedIn) {
+              return const IndexPage();
+            }
+            return const Login();
+          },
+        ),
       ),
     );
   }

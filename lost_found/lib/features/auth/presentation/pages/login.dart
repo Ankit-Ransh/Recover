@@ -14,6 +14,7 @@ import 'package:lost_found/features/auth/presentation/widgets/switch_login.dart'
 import 'package:lost_found/features/main/pages/index_page.dart';
 
 class Login extends StatefulWidget {
+  static route() => MaterialPageRoute(builder: (context) => const Login());
   const Login({super.key});
 
   @override

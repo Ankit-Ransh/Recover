@@ -16,6 +16,7 @@ abstract interface class AuthRemoteDataSource {
   });
 
   Future<UserModel?> getCurrentUserData();
+  Future<void> signOut();
 }
 
 class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
@@ -24,6 +25,11 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
 
   @override
   Session? get currentUserSession => supabaseClient.auth.currentSession;
+
+  @override
+  Future<void> signOut() async {
+    await supabaseClient.auth.signOut();
+  }
 
   @override
   Future<UserModel> loginWithEmailPassword(

@@ -15,7 +15,7 @@ class CustomBottomNavBar extends StatelessWidget {
       gap: 8.0,
       activeColor: AppPallete.deepPurple,
       tabBackgroundColor: AppPallete.lightGrey,
-      padding: const EdgeInsets.all(30),
+      padding: const EdgeInsets.all(24),
       onTabChange: onTabChange,
       tabs: const [
         GButton(
@@ -27,8 +27,8 @@ class CustomBottomNavBar extends StatelessWidget {
           text: "Browse",
         ),
         GButton(
-          icon: Icons.chat_bubble_outline_outlined,
-          text: "Chat",
+          icon: Icons.shopping_cart_checkout_rounded,
+          text: "My Items",
         ),
         GButton(
           icon: Icons.person_2_outlined,

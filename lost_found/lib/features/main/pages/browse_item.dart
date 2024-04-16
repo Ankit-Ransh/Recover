@@ -4,6 +4,7 @@ import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
+import 'package:lost_found/features/components/found/presentation/pages/found_item_details_page.dart';
 import 'package:lost_found/features/components/lost/presentation/pages/lost_item_details_page.dart';
 import 'package:lost_found/features/main/widgets/cards.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
@@ -22,11 +23,14 @@ class _BrowseItemState extends State<BrowseItem> {
     super.initState();
     // context.read<BackendInformationBloc>().add(BackendLostInformationBloc());
     // context.read<BackendInformationBloc>().add(BackendFoundInformationBloc());
+    context.read<BackendInformationBloc>().add(BackendItemInformationBloc());
   }
 
   Map<String, dynamic> getTimeDifference(DateTime pastTime) {
     // Get the current time
     DateTime currentTime = DateTime.now();
+    print("Past Time $pastTime");
+    print("Current time $currentTime");
 
     // Calculate the difference
     Duration difference = currentTime.difference(pastTime);
@@ -86,70 +90,6 @@ class _BrowseItemState extends State<BrowseItem> {
             ),
           ),
 
-          // // Lost Items
-          // BlocConsumer<BackendInformationBloc, BackendInformationState>(
-          //   listener: (context, state) {
-          //     if (state is BackendInformationFailure) {
-          //       showSnackBar(context, state.message);
-          //     }
-          //   },
-          //   builder: (context, state) {
-          //     if (state is BackendInformationLoading) {
-          //       return const Loader();
-          //     }
-          //     if (state is BackendInformationLostSuccess) {
-          //       return ListView.builder(
-          //         shrinkWrap: true,
-          //         physics: const NeverScrollableScrollPhysics(),
-          //         itemCount: state.lostItem.length,
-          //         itemBuilder: (context, index) {
-          //           final lostItem = state.lostItem[index];
-
-          //           Map<String, dynamic> timeData =
-          //               getTimeDifference(lostItem.updatedAt);
-          //           int timeAgo = timeData['time'];
-          //           bool inMinutes = timeData['inMinutes'];
-
-          //           String timeText =
-          //               inMinutes ? '$timeAgo min ago' : '$timeAgo hrs ago';
-
-          //           return GestureDetector(
-          //             onTap: () {
-          //               Navigator.push(
-          //                   context,
-          //                   LostItemDetailsPage.route(
-          //                     lostItem.posterName!,
-          //                     timeText,
-          //                     lostItem.lostItemImageUrl,
-          //                     lostItem.title,
-          //                     lostItem.lostItemCategory,
-          //                     lostItem.description,
-          //                     lostItem.lostLocation,
-          //                     lostItem.lostItemDate,
-          //                     lostItem.lostItemTime,
-          //                   ));
-          //             },
-          //             child: Cards(
-          //               title: lostItem.title,
-          //               description: lostItem.description,
-          //               user: lostItem.posterName!,
-          //               time: timeText,
-          //               imageUrl: lostItem.lostItemImageUrl,
-          //               status: (lostItem.claimed == true) ? "Claimed" : "Lost",
-          //               color: (lostItem.claimed == true)
-          //                   ? Colors.yellow
-          //                   : AppPallete.lostColor,
-          //               fontSize: (lostItem.claimed == true) ? 13.0 : 16.0,
-          //             ),
-          //           );
-          //         },
-          //       );
-          //     }
-
-          //     return const SizedBox();
-          //   },
-          // ),
-
           const Cards(
             title: "Notebook and Pen",
             description:
@@ -164,7 +104,7 @@ class _BrowseItemState extends State<BrowseItem> {
             fontSize: 13.0,
           ),
 
-          // Found Items
+          // Items Collection
           BlocConsumer<BackendInformationBloc, BackendInformationState>(
             listener: (context, state) {
               if (state is BackendInformationFailure) {
@@ -175,34 +115,85 @@ class _BrowseItemState extends State<BrowseItem> {
               if (state is BackendInformationLoading) {
                 return const Loader();
               }
-              if (state is BackendInformationFoundSuccess) {
+              if (state is BackendInformationSuccess) {
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.foundItem.length,
+                  itemCount: state.item.length,
                   itemBuilder: (context, index) {
-                    final foundItem = state.foundItem[index];
+                    final itemList = state.item[index];
 
                     Map<String, dynamic> timeData =
-                        getTimeDifference(foundItem.updatedAt);
+                        getTimeDifference(itemList.updatedAt);
                     int timeAgo = timeData['time'];
                     bool inMinutes = timeData['inMinutes'];
 
                     String timeText =
                         inMinutes ? '$timeAgo min ago' : '$timeAgo hrs ago';
 
-                    return Cards(
-                      title: foundItem.title,
-                      description: foundItem.description,
-                      user: foundItem.posterName!,
-                      time: timeText,
-                      imageUrl: foundItem.foundItemImageUrl,
-                      status: (foundItem.claimed == true) ? "Claimed" : "Found",
-                      color: (foundItem.claimed == true)
-                          ? Colors.yellow
-                          : AppPallete.foundColor,
-                      fontSize: (foundItem.claimed == true) ? 13.0 : 16.0,
-                    );
+                    if (itemList.status == "Lost") {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            LostItemDetailsPage.route(
+                              itemList.posterName!,
+                              timeText,
+                              itemList.imageUrl,
+                              itemList.title,
+                              itemList.category,
+                              itemList.description,
+                              itemList.location,
+                              itemList.lostDate!,
+                              itemList.lostTime!,
+                            ),
+                          );
+                        },
+                        child: Cards(
+                          title: itemList.title,
+                          description: itemList.description,
+                          user: itemList.posterName!,
+                          time: timeText,
+                          imageUrl: itemList.imageUrl,
+                          status: itemList.status,
+                          color: (itemList.claimed == false)
+                              ? AppPallete.lostColor
+                              : AppPallete.claimedColor,
+                          fontSize: (itemList.claimed == true) ? 13.0 : 16.0,
+                        ),
+                      );
+                    } else {
+                      return GestureDetector(
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            FoundItemDetailsPage.route(
+                              itemList.posterName!,
+                              timeText,
+                              itemList.imageUrl,
+                              itemList.title,
+                              itemList.category,
+                              itemList.description,
+                              itemList.location,
+                              itemList.updatedAt,
+                              itemList.collectionCenter!,
+                            ),
+                          );
+                        },
+                        child: Cards(
+                          title: itemList.title,
+                          description: itemList.description,
+                          user: itemList.posterName!,
+                          time: timeText,
+                          imageUrl: itemList.imageUrl,
+                          status: itemList.status,
+                          color: (itemList.claimed == false)
+                              ? AppPallete.foundColor
+                              : AppPallete.claimedColor,
+                          fontSize: (itemList.claimed == true) ? 13.0 : 16.0,
+                        ),
+                      );
+                    }
                   },
                 );
               }

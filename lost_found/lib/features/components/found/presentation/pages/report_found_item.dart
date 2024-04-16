@@ -81,7 +81,7 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
               image: image!,
               lostDate: "",
               lostTime: "",
-              collectionCenter: "",
+              collectionCenter: selectedItem,
               userId: userId,
               category: suggestedRecoveryCategory.text.trim(),
               claimed: false,

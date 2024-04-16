@@ -9,6 +9,8 @@ class ChatButton extends StatelessWidget {
   final String command;
   final Icon icon;
   final Color color;
+  final Color textColor;
+  final FontWeight fontWeight;
 
   const ChatButton({
     super.key,
@@ -19,6 +21,8 @@ class ChatButton extends StatelessWidget {
     this.fontSize = 18,
     this.command = "Leave a message to owner",
     this.color = AppPallete.deepPurple,
+    this.textColor = AppPallete.whiteColor,
+    this.fontWeight = FontWeight.w400,
   });
 
   @override
@@ -44,9 +48,9 @@ class ChatButton extends StatelessWidget {
             Text(
               command,
               style: TextStyle(
-                fontWeight: FontWeight.w400,
+                fontWeight: fontWeight,
                 fontSize: fontSize,
-                color: AppPallete.whiteColor,
+                color: textColor,
               ),
             ),
           ],
