@@ -5,6 +5,7 @@ import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/utils/pick_image.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
+import 'package:lost_found/features/components/combined_lost_found/presentation/bloc/combined_lost_found_bloc.dart';
 import 'package:lost_found/features/components/found/presentation/bloc/found_item_bloc.dart';
 import 'package:lost_found/features/main/pages/report_motivation_page.dart';
 import 'package:lost_found/features/main/pages/home_page.dart';
@@ -59,15 +60,31 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
       final userId =
           (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
 
-      context.read<FoundItemBloc>().add(
-            FoundItemReportStatus(
-              userId: userId,
+      // context.read<FoundItemBloc>().add(
+      //       FoundItemReportStatus(
+      //         userId: userId,
+      //         title: itemDataTitleController.text.trim(),
+      //         description: itemDataDescriptionController.text.trim(),
+      //         foundLocation: suggestedRecoveryLocation.text.trim(),
+      //         foundItemImage: image!,
+      //         itemCollectionLocation: selectedItem,
+      //         itemCategory: suggestedRecoveryCategory.text.trim(),
+      //       ),
+      //     );
+
+      context.read<CombinedLostFoundBloc>().add(
+            CombinedLostFoundUploadBloc(
+              status: "Found",
               title: itemDataTitleController.text.trim(),
               description: itemDataDescriptionController.text.trim(),
-              foundLocation: suggestedRecoveryLocation.text.trim(),
-              foundItemImage: image!,
-              itemCollectionLocation: selectedItem,
-              itemCategory: suggestedRecoveryCategory.text.trim(),
+              location: suggestedRecoveryLocation.text.trim(),
+              image: image!,
+              lostDate: "",
+              lostTime: "",
+              collectionCenter: "",
+              userId: userId,
+              category: suggestedRecoveryCategory.text.trim(),
+              claimed: false,
             ),
           );
 
@@ -89,17 +106,17 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
         title: "Report item you found",
         leadingIcon: Icons.arrow_back_ios_new,
       ),
-      body: BlocConsumer<FoundItemBloc, FoundItemState>(
+      body: BlocConsumer<CombinedLostFoundBloc, CombinedLostFoundState>(
         listener: (context, state) {
-          if (state is FoundItemFailure) {
+          if (state is CombinedLostFoundFailure) {
             showSnackBar(context, state.message);
-          } else if (state is FoundItemSuccess) {
+          } else if (state is CombinedLostFoundSuccess) {
             Navigator.pushAndRemoveUntil(
                 context, HomePage.route(), (route) => false);
           }
         },
         builder: (context, state) {
-          if (state is FoundItemLoading) {
+          if (state is CombinedLostFoundLoading) {
             return const Loader();
           }
           return SingleChildScrollView(

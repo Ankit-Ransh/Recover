@@ -10,6 +10,12 @@ import 'package:lost_found/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/components/backend/data/datasources/backend_information_remote_data_source.dart';
 import 'package:lost_found/features/components/backend/domain/usecases/backend_found_information.dart';
+import 'package:lost_found/features/components/backend/domain/usecases/backend_item_information.dart';
+import 'package:lost_found/features/components/combined_lost_found/data/datasources/combined_lost_found_remote_data_source.dart';
+import 'package:lost_found/features/components/combined_lost_found/data/repository/combined_lost_found_repository_impl.dart';
+import 'package:lost_found/features/components/combined_lost_found/domain/repository/combined_lost_found_repository.dart';
+import 'package:lost_found/features/components/combined_lost_found/domain/usecases/combined_lost_found.dart';
+import 'package:lost_found/features/components/combined_lost_found/presentation/bloc/combined_lost_found_bloc.dart';
 import 'package:lost_found/features/components/found/data/datasources/found_item_remote_data_source.dart';
 import 'package:lost_found/features/components/lost/data/datasources/lost_item_remote_data_source.dart';
 import 'package:lost_found/features/components/backend/data/repository/backend_information_repository_impl.dart';
@@ -30,8 +36,9 @@ final serviceLocator = GetIt.instance;
 
 Future<void> initDependencies() async {
   _intitAuth();
-  _initLostItem();
-  _initFoundItem();
+  _initCombinedLostFound();
+  // _initLostItem();
+  // _initFoundItem();
   _initBackendInformation();
 
   final supabase = await Supabase.initialize(
@@ -84,49 +91,65 @@ void _intitAuth() {
   );
 }
 
-void _initLostItem() {
-  serviceLocator.registerFactory<LostItemRemoteDataSource>(
-    () => LostItemRemoteDataSourceImpl(
-      serviceLocator(),
-    ),
-  );
+void _initCombinedLostFound() {
+  serviceLocator.registerFactory<CombinedLostFoundRemoteSource>(
+      () => CombinedLostFoundRemoteSourceImpl(serviceLocator()));
 
-  serviceLocator.registerFactory<LostItemRepository>(
-    () => LostItemRepositoryImpl(
-      serviceLocator(),
-    ),
-  );
+  serviceLocator.registerFactory<CombinedLostFoundRepository>(
+      () => CombinedLostFoundRepositoryImpl(serviceLocator()));
 
   serviceLocator.registerFactory(
-    () => UploadLostItem(
-      serviceLocator(),
-    ),
+    () => CombinedLostFoundUseCase(serviceLocator()),
   );
 
   serviceLocator.registerLazySingleton(
-    () => LostItemBloc(
-      serviceLocator(),
-    ),
+    () => CombinedLostFoundBloc(serviceLocator()),
   );
 }
 
-void _initFoundItem() {
-  serviceLocator.registerFactory<FoundItemRemoteDataSource>(
-    () => FoundItemRemoteDataSourceImpl(serviceLocator()),
-  );
+// void _initLostItem() {
+//   serviceLocator.registerFactory<LostItemRemoteDataSource>(
+//     () => LostItemRemoteDataSourceImpl(
+//       serviceLocator(),
+//     ),
+//   );
 
-  serviceLocator.registerFactory<FoundItemRepository>(
-    () => FoundItemRepositoryImpl(serviceLocator()),
-  );
+//   serviceLocator.registerFactory<LostItemRepository>(
+//     () => LostItemRepositoryImpl(
+//       serviceLocator(),
+//     ),
+//   );
 
-  serviceLocator.registerFactory(
-    () => UploadFoundItem(serviceLocator()),
-  );
+//   serviceLocator.registerFactory(
+//     () => UploadLostItem(
+//       serviceLocator(),
+//     ),
+//   );
 
-  serviceLocator.registerLazySingleton(
-    () => FoundItemBloc(serviceLocator()),
-  );
-}
+//   serviceLocator.registerLazySingleton(
+//     () => LostItemBloc(
+//       serviceLocator(),
+//     ),
+//   );
+// }
+
+// void _initFoundItem() {
+//   serviceLocator.registerFactory<FoundItemRemoteDataSource>(
+//     () => FoundItemRemoteDataSourceImpl(serviceLocator()),
+//   );
+
+//   serviceLocator.registerFactory<FoundItemRepository>(
+//     () => FoundItemRepositoryImpl(serviceLocator()),
+//   );
+
+//   serviceLocator.registerFactory(
+//     () => UploadFoundItem(serviceLocator()),
+//   );
+
+//   serviceLocator.registerLazySingleton(
+//     () => FoundItemBloc(serviceLocator()),
+//   );
+// }
 
 void _initBackendInformation() {
   serviceLocator.registerFactory<BackendInformationRemoteDataSource>(
@@ -135,18 +158,23 @@ void _initBackendInformation() {
   serviceLocator.registerFactory<BackendInformationRepository>(
       () => BackendInformationRepositoryImpl(serviceLocator()));
 
-  serviceLocator.registerFactory(
-    () => BackendLostInformation(serviceLocator()),
-  );
+  // serviceLocator.registerFactory(
+  //   () => BackendLostInformation(serviceLocator()),
+  // );
+
+  // serviceLocator.registerFactory(
+  //   () => BackendFoundInformation(serviceLocator()),
+  // );
 
   serviceLocator.registerFactory(
-    () => BackendFoundInformation(serviceLocator()),
+    () => BackendItemInformation(serviceLocator()),
   );
 
   serviceLocator.registerLazySingleton(
     () => BackendInformationBloc(
-      getLostItemInformation: serviceLocator(),
-      getFoundItemInformation: serviceLocator(),
+      // getLostItemInformation: serviceLocator(),
+      // getFoundItemInformation: serviceLocator(),
+      getItemInformation: serviceLocator(),
     ),
   );
 }

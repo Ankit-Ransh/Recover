@@ -10,7 +10,6 @@ import 'package:uuid/uuid.dart';
 
 class LostItemRepositoryImpl implements LostItemRepository {
   final LostItemRemoteDataSource lostItemRemoteDataSource;
-
   LostItemRepositoryImpl(this.lostItemRemoteDataSource);
 
   @override
@@ -26,8 +25,10 @@ class LostItemRepositoryImpl implements LostItemRepository {
     required bool claimed,
   }) async {
     try {
+      final generatedId = const Uuid().v1();
+
       LostItemModel lostItemModel = LostItemModel(
-        id: const Uuid().v1(),
+        id: generatedId,
         userId: userId,
         title: title,
         description: description,
@@ -49,7 +50,6 @@ class LostItemRepositoryImpl implements LostItemRepository {
       lostItemModel = lostItemModel.copyWith(
         lostItemImageUrl: lostItemImageUrl,
       );
-
       final recordedLostItem =
           await lostItemRemoteDataSource.recordLostItem(lostItemModel);
 

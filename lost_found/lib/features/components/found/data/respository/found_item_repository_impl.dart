@@ -24,8 +24,10 @@ class FoundItemRepositoryImpl implements FoundItemRepository {
     required String itemCategory,
   }) async {
     try {
+      final generatedId = const Uuid().v1();
+
       FoundItemModel foundItemModel = FoundItemModel(
-        id: const Uuid().v1(),
+        id: generatedId,
         updatedAt: DateTime.now(),
         userId: userId,
         title: title,

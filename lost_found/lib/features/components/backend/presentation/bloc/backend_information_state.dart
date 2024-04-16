@@ -21,3 +21,8 @@ final class BackendInformationFoundSuccess extends BackendInformationState {
   final List<FoundItem> foundItem;
   BackendInformationFoundSuccess(this.foundItem);
 }
+
+final class BackendInformationSuccess extends BackendInformationState {
+  final List<CombinedLostFound> item;
+  BackendInformationSuccess(this.item);
+}

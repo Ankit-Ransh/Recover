@@ -5,6 +5,7 @@ import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/utils/pick_image.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
+import 'package:lost_found/features/components/combined_lost_found/presentation/bloc/combined_lost_found_bloc.dart';
 import 'package:lost_found/features/components/lost/presentation/bloc/lost_item_bloc.dart';
 import 'package:lost_found/features/main/pages/report_motivation_page.dart';
 import 'package:lost_found/features/main/pages/home_page.dart';
@@ -62,16 +63,32 @@ class _ReportLostItemState extends State<ReportLostItem> {
       final userId =
           (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
 
-      context.read<LostItemBloc>().add(
-            LostItemReportStatus(
-              userId: userId,
+      // context.read<LostItemBloc>().add(
+      //       LostItemReportStatus(
+      //         userId: userId,
+      //         title: itemDataTitleController.text.trim(),
+      //         description: itemDataDescriptionController.text.trim(),
+      //         lostLocation: selectedSuggestedLocation.text.trim(),
+      //         lostItemImage: image!,
+      //         lostItemDate: selectedDate.text.trim(),
+      //         lostItemTime: selectedTime.text.trim(),
+      //         lostItemCategory: selectedSuggestedCategory.text.trim(),
+      //         claimed: claimed,
+      //       ),
+      //     );
+
+      context.read<CombinedLostFoundBloc>().add(
+            CombinedLostFoundUploadBloc(
+              status: "Lost",
               title: itemDataTitleController.text.trim(),
               description: itemDataDescriptionController.text.trim(),
-              lostLocation: selectedSuggestedLocation.text.trim(),
-              lostItemImage: image!,
-              lostItemDate: selectedDate.text.trim(),
-              lostItemTime: selectedTime.text.trim(),
-              lostItemCategory: selectedSuggestedCategory.text.trim(),
+              location: selectedSuggestedLocation.text.trim(),
+              image: image!,
+              lostDate: selectedDate.text.trim(),
+              lostTime: selectedTime.text.trim(),
+              collectionCenter: "",
+              userId: userId,
+              category: selectedSuggestedCategory.text.trim(),
               claimed: claimed,
             ),
           );
@@ -94,17 +111,17 @@ class _ReportLostItemState extends State<ReportLostItem> {
         title: "Report item you lost",
         leadingIcon: Icons.arrow_back_ios_new,
       ),
-      body: BlocConsumer<LostItemBloc, LostItemState>(
+      body: BlocConsumer<CombinedLostFoundBloc, CombinedLostFoundState>(
         listener: (context, state) {
-          if (state is LostItemFailure) {
+          if (state is CombinedLostFoundFailure) {
             showSnackBar(context, state.message);
-          } else if (state is LostItemSuccess) {
+          } else if (state is CombinedLostFoundSuccess) {
             Navigator.pushAndRemoveUntil(
                 context, HomePage.route(), (route) => false);
           }
         },
         builder: (context, state) {
-          if (state is LostItemLoading) {
+          if (state is CombinedLostFoundLoading) {
             return const Loader();
           }
           return SingleChildScrollView(

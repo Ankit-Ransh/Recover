@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:lost_found/features/main/pages/browse_item.dart';
 import 'package:lost_found/features/main/pages/home_page.dart';
+import 'package:lost_found/features/main/pages/temp.dart';
 import 'package:lost_found/features/main/widgets/bottom_navigation_bar.dart';
 
 class IndexPage extends StatefulWidget {
@@ -17,7 +18,7 @@ class _IndexPageState extends State<IndexPage> {
   List screenList = [
     const HomePage(),
     const BrowseItem(),
-    const BrowseItem(),
+    const TempItem(),
     const BrowseItem(),
   ];
 

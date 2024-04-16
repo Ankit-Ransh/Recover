@@ -9,7 +9,6 @@ abstract interface class LostItemRemoteDataSource {
     required File lostItemImage,
     required LostItemModel lostItem,
   });
-  
 }
 
 class LostItemRemoteDataSourceImpl implements LostItemRemoteDataSource {

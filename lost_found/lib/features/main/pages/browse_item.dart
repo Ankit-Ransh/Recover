@@ -20,8 +20,8 @@ class _BrowseItemState extends State<BrowseItem> {
   @override
   void initState() {
     super.initState();
-    context.read<BackendInformationBloc>().add(BackendLostInformationBloc());
-    context.read<BackendInformationBloc>().add(BackendFoundInformationBloc());
+    // context.read<BackendInformationBloc>().add(BackendLostInformationBloc());
+    // context.read<BackendInformationBloc>().add(BackendFoundInformationBloc());
   }
 
   Map<String, dynamic> getTimeDifference(DateTime pastTime) {
@@ -86,68 +86,82 @@ class _BrowseItemState extends State<BrowseItem> {
             ),
           ),
 
-          // Lost Items
-          BlocConsumer<BackendInformationBloc, BackendInformationState>(
-            listener: (context, state) {
-              if (state is BackendInformationFailure) {
-                showSnackBar(context, state.message);
-              }
-            },
-            builder: (context, state) {
-              if (state is BackendInformationLoading) {
-                return const Loader();
-              }
-              if (state is BackendInformationLostSuccess) {
-                return ListView.builder(
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: state.lostItem.length,
-                  itemBuilder: (context, index) {
-                    final lostItem = state.lostItem[index];
+          // // Lost Items
+          // BlocConsumer<BackendInformationBloc, BackendInformationState>(
+          //   listener: (context, state) {
+          //     if (state is BackendInformationFailure) {
+          //       showSnackBar(context, state.message);
+          //     }
+          //   },
+          //   builder: (context, state) {
+          //     if (state is BackendInformationLoading) {
+          //       return const Loader();
+          //     }
+          //     if (state is BackendInformationLostSuccess) {
+          //       return ListView.builder(
+          //         shrinkWrap: true,
+          //         physics: const NeverScrollableScrollPhysics(),
+          //         itemCount: state.lostItem.length,
+          //         itemBuilder: (context, index) {
+          //           final lostItem = state.lostItem[index];
 
-                    Map<String, dynamic> timeData =
-                        getTimeDifference(lostItem.updatedAt);
-                    int timeAgo = timeData['time'];
-                    bool inMinutes = timeData['inMinutes'];
+          //           Map<String, dynamic> timeData =
+          //               getTimeDifference(lostItem.updatedAt);
+          //           int timeAgo = timeData['time'];
+          //           bool inMinutes = timeData['inMinutes'];
 
-                    String timeText =
-                        inMinutes ? '$timeAgo min ago' : '$timeAgo hrs ago';
+          //           String timeText =
+          //               inMinutes ? '$timeAgo min ago' : '$timeAgo hrs ago';
 
-                    return GestureDetector(
-                      onTap: () {
-                        Navigator.push(
-                            context,
-                            LostItemDetailsPage.route(
-                              lostItem.posterName!,
-                              timeText,
-                              lostItem.lostItemImageUrl,
-                              lostItem.title,
-                              lostItem.lostItemCategory,
-                              lostItem.description,
-                              lostItem.lostLocation,
-                              lostItem.lostItemDate,
-                              lostItem.lostItemTime,
-                            ));
-                      },
-                      child: Cards(
-                        title: lostItem.title,
-                        description: lostItem.description,
-                        user: lostItem.posterName!,
-                        time: timeText,
-                        imageUrl: lostItem.lostItemImageUrl,
-                        status: (lostItem.claimed == true) ? "Claimed" : "Lost",
-                        color: (lostItem.claimed == true)
-                            ? Colors.yellow
-                            : AppPallete.lostColor,
-                        fontSize: (lostItem.claimed == true) ? 13.0 : 16.0,
-                      ),
-                    );
-                  },
-                );
-              }
+          //           return GestureDetector(
+          //             onTap: () {
+          //               Navigator.push(
+          //                   context,
+          //                   LostItemDetailsPage.route(
+          //                     lostItem.posterName!,
+          //                     timeText,
+          //                     lostItem.lostItemImageUrl,
+          //                     lostItem.title,
+          //                     lostItem.lostItemCategory,
+          //                     lostItem.description,
+          //                     lostItem.lostLocation,
+          //                     lostItem.lostItemDate,
+          //                     lostItem.lostItemTime,
+          //                   ));
+          //             },
+          //             child: Cards(
+          //               title: lostItem.title,
+          //               description: lostItem.description,
+          //               user: lostItem.posterName!,
+          //               time: timeText,
+          //               imageUrl: lostItem.lostItemImageUrl,
+          //               status: (lostItem.claimed == true) ? "Claimed" : "Lost",
+          //               color: (lostItem.claimed == true)
+          //                   ? Colors.yellow
+          //                   : AppPallete.lostColor,
+          //               fontSize: (lostItem.claimed == true) ? 13.0 : 16.0,
+          //             ),
+          //           );
+          //         },
+          //       );
+          //     }
 
-              return const SizedBox();
-            },
+          //     return const SizedBox();
+          //   },
+          // ),
+
+          const Cards(
+            title: "Notebook and Pen",
+            description:
+                "Left my notebook & Pen In meeting room no 5. It has important client Meeting notes",
+            user: "Deepika",
+            time: "3 hrs ago",
+            imageUrl:
+                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfF2YcEpt1vTuV0UF4jSdhV-sVrvp3lo1y9kPsSTtCxw&s",
+            status: "Claimed",
+            color: AppPallete.claimedColor,
+            textColor: AppPallete.blackColor,
+            fontSize: 13.0,
           ),
 
           // Found Items
@@ -195,20 +209,6 @@ class _BrowseItemState extends State<BrowseItem> {
 
               return const SizedBox();
             },
-          ),
-
-          const Cards(
-            title: "Notebook and Pen",
-            description:
-                "Left my notebook & Pen In meeting room no 5. It has important client Meeting notes",
-            user: "Deepika",
-            time: "3 hrs ago",
-            imageUrl:
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfF2YcEpt1vTuV0UF4jSdhV-sVrvp3lo1y9kPsSTtCxw&s",
-            status: "Claimed",
-            color: AppPallete.claimedColor,
-            textColor: AppPallete.blackColor,
-            fontSize: 13.0,
           ),
         ],
       ),
