@@ -4,6 +4,7 @@ import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
+import 'package:lost_found/features/components/combined_lost_found/domain/entities/combined_lost_found.dart';
 import 'package:lost_found/features/components/found/presentation/pages/found_item_details_page.dart';
 import 'package:lost_found/features/components/lost/presentation/pages/lost_item_details_page.dart';
 import 'package:lost_found/features/main/widgets/cards.dart';
@@ -19,6 +20,8 @@ class BrowseItem extends StatefulWidget {
   State<BrowseItem> createState() => _BrowseItemState();
 }
 
+String keyword = "";
+
 class _BrowseItemState extends State<BrowseItem> {
   @override
   void initState() {
@@ -26,6 +29,29 @@ class _BrowseItemState extends State<BrowseItem> {
     // context.read<BackendInformationBloc>().add(BackendLostInformationBloc());
     // context.read<BackendInformationBloc>().add(BackendFoundInformationBloc());
     context.read<BackendInformationBloc>().add(BackendItemInformationBloc());
+  }
+
+  void _runFilter(String enteredKeyword) {
+    setState(() {
+      keyword = enteredKeyword;
+    });
+  }
+
+  bool searchConditions(CombinedLostFound itemList) {
+    bool lowercase = false;
+    bool uppercase = false;
+
+    if (itemList.description.toLowerCase().contains(keyword) ||
+        itemList.title.toLowerCase().contains(keyword)) {
+      lowercase = true;
+    }
+
+    if (itemList.description.toUpperCase().contains(keyword) ||
+        itemList.title.toUpperCase().contains(keyword)) {
+      uppercase = true;
+    }
+
+    return lowercase || uppercase;
   }
 
   @override
@@ -49,8 +75,9 @@ class _BrowseItemState extends State<BrowseItem> {
                       border: Border.all(color: AppPallete.greyColor),
                       borderRadius: BorderRadius.circular(15),
                     ),
-                    child: const TextField(
-                      decoration: InputDecoration(
+                    child: TextField(
+                      onChanged: (value) => _runFilter(value),
+                      decoration: const InputDecoration(
                         contentPadding:
                             EdgeInsets.symmetric(vertical: 10, horizontal: 15),
                         hintText: 'Search',
@@ -110,67 +137,21 @@ class _BrowseItemState extends State<BrowseItem> {
                     String foundTimeText =
                         getFoundTimeDifference(itemList.updatedAt).keys.first;
 
-                    if (itemList.status == "Lost") {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            LostItemDetailsPage.route(
-                              itemList.posterName!,
-                              timeText,
-                              itemList.imageUrl,
-                              itemList.title,
-                              itemList.category,
-                              itemList.description,
-                              itemList.location,
-                              itemList.lostDate!,
-                              itemList.lostTime!,
-                            ),
-                          );
-                        },
-                        child: Cards(
-                          title: itemList.title,
-                          description: itemList.description,
-                          user: itemList.posterName!,
-                          time: foundTimeText,
-                          imageUrl: itemList.imageUrl,
-                          status: itemList.status,
-                          color: (itemList.claimed == false)
-                              ? AppPallete.lostColor
-                              : AppPallete.claimedColor,
-                          fontSize: (itemList.claimed == true) ? 13.0 : 16.0,
-                        ),
-                      );
+                    if (keyword != "") {
+                      if (searchConditions(itemList)) {
+                        return DisplayCards(
+                          itemList: itemList,
+                          timeText: timeText,
+                          foundTimeText: foundTimeText,
+                        );
+                      } else {
+                        return const SizedBox();
+                      }
                     } else {
-                      return GestureDetector(
-                        onTap: () {
-                          Navigator.push(
-                            context,
-                            FoundItemDetailsPage.route(
-                              itemList.posterName!,
-                              timeText,
-                              itemList.imageUrl,
-                              itemList.title,
-                              itemList.category,
-                              itemList.description,
-                              itemList.location,
-                              itemList.updatedAt,
-                              itemList.collectionCenter!,
-                            ),
-                          );
-                        },
-                        child: Cards(
-                          title: itemList.title,
-                          description: itemList.description,
-                          user: itemList.posterName!,
-                          time: timeText,
-                          imageUrl: itemList.imageUrl,
-                          status: itemList.status,
-                          color: (itemList.claimed == false)
-                              ? AppPallete.foundColor
-                              : AppPallete.claimedColor,
-                          fontSize: (itemList.claimed == true) ? 13.0 : 16.0,
-                        ),
+                      return DisplayCards(
+                        itemList: itemList,
+                        timeText: timeText,
+                        foundTimeText: foundTimeText,
                       );
                     }
                   },
@@ -181,6 +162,67 @@ class _BrowseItemState extends State<BrowseItem> {
             },
           ),
         ],
+      ),
+    );
+  }
+}
+
+class DisplayCards extends StatelessWidget {
+  final CombinedLostFound itemList;
+  final String timeText;
+  final String foundTimeText;
+
+  const DisplayCards({
+    super.key,
+    required this.itemList,
+    required this.timeText,
+    required this.foundTimeText,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return GestureDetector(
+      onTap: () {
+        Navigator.push(
+          context,
+          itemList.status == "Lost"
+              ? LostItemDetailsPage.route(
+                  itemList.posterName!,
+                  timeText,
+                  itemList.imageUrl,
+                  itemList.title,
+                  itemList.category,
+                  itemList.description,
+                  itemList.location,
+                  itemList.lostDate!,
+                  itemList.lostTime!,
+                )
+              : FoundItemDetailsPage.route(
+                  itemList.posterName!,
+                  timeText,
+                  itemList.imageUrl,
+                  itemList.title,
+                  itemList.category,
+                  itemList.description,
+                  itemList.location,
+                  itemList.updatedAt,
+                  itemList.collectionCenter!,
+                ),
+        );
+      },
+      child: Cards(
+        title: itemList.title,
+        description: itemList.description,
+        user: itemList.posterName!,
+        time: itemList.status == "Lost" ? foundTimeText : timeText,
+        imageUrl: itemList.imageUrl,
+        status: itemList.status,
+        color: itemList.claimed == false
+            ? (itemList.status == "Lost"
+                ? AppPallete.lostColor
+                : AppPallete.foundColor)
+            : AppPallete.claimedColor,
+        fontSize: itemList.claimed ? 13.0 : 16.0,
       ),
     );
   }
