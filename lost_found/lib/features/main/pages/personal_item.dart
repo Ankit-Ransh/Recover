@@ -10,6 +10,8 @@ import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
 import 'package:lost_found/features/main/pages/index_page.dart';
 import 'package:lost_found/features/main/widgets/cards.dart';
+import 'package:lost_found/features/main/widgets/get_found_time_difference.dart';
+import 'package:lost_found/features/main/widgets/get_lost_time_difference.dart';
 
 class PersonalItems extends StatefulWidget {
   const PersonalItems({super.key});
@@ -19,6 +21,8 @@ class PersonalItems extends StatefulWidget {
 }
 
 class _PersonalItemsState extends State<PersonalItems> {
+  int myItems = 0;
+
   @override
   void initState() {
     super.initState();
@@ -31,8 +35,6 @@ class _PersonalItemsState extends State<PersonalItems> {
   Widget build(BuildContext context) {
     final currentUserId =
         (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
-
-    int myItems = 0;
 
     return Scaffold(
       body: ListView(
@@ -78,6 +80,10 @@ class _PersonalItemsState extends State<PersonalItems> {
                 return const Loader();
               }
               if (state is BackendInformationSuccess) {
+                myItems = state.item
+                    .where((item) => item.userId == currentUserId)
+                    .length;
+
                 return ListView.builder(
                   shrinkWrap: true,
                   physics: const NeverScrollableScrollPhysics(),
@@ -85,16 +91,12 @@ class _PersonalItemsState extends State<PersonalItems> {
                   itemBuilder: (context, index) {
                     final itemList = state.item[index];
 
-                    Map<String, dynamic> timeData =
-                        getTimeDifference(itemList.updatedAt);
-                    int timeAgo = timeData['time'];
-                    bool inMinutes = timeData['inMinutes'];
-
-                    String timeText =
-                        inMinutes ? '$timeAgo min ago' : '$timeAgo hrs ago';
-
                     if (itemList.userId == currentUserId) {
-                      myItems = myItems + 1;
+                      String timeText = getLostTimeDifference(itemList.lostDate,
+                          itemList.lostTime, itemList.updatedAt);
+                      String foundTimeText =
+                          getFoundTimeDifference(itemList.updatedAt);
+
                       if (itemList.status == "Lost") {
                         return GestureDetector(
                           onTap: () {},
@@ -118,7 +120,7 @@ class _PersonalItemsState extends State<PersonalItems> {
                             title: itemList.title,
                             description: itemList.description,
                             user: itemList.posterName!,
-                            time: timeText,
+                            time: foundTimeText,
                             imageUrl: itemList.imageUrl,
                             status: itemList.status,
                             color: (itemList.claimed == false)
@@ -128,15 +130,17 @@ class _PersonalItemsState extends State<PersonalItems> {
                           ),
                         );
                       }
+                    } else {
+                      return const SizedBox();
                     }
                   },
                 );
               }
-              return const SizedBox();
+              return (myItems == 0)
+                  ? const NoReportedItems()
+                  : const SizedBox();
             },
           ),
-
-          (myItems != 0) ? const SizedBox() : const NoReportedItems(),
         ],
       ),
     );
@@ -157,28 +161,5 @@ class NoReportedItems extends StatelessWidget {
         )
       ],
     );
-  }
-}
-
-Map<String, dynamic> getTimeDifference(DateTime pastTime) {
-  // Get the current time
-  DateTime currentTime = DateTime.now();
-  print("Past Time $pastTime");
-  print("Current time $currentTime");
-
-  // Calculate the difference
-  Duration difference = currentTime.difference(pastTime);
-
-  // Check if the result should be in minutes or hours
-  if (difference.inMinutes.abs() < 60) {
-    return {
-      'time': difference.inMinutes.abs(),
-      'inMinutes': true, // Indicates the time is in minutes
-    };
-  } else {
-    return {
-      'time': difference.inHours.abs(),
-      'inMinutes': false, // Indicates the time is in hours
-    };
   }
 }

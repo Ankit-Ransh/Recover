@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:image_picker/image_picker.dart';
+import 'package:intl/intl.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
@@ -8,6 +10,8 @@ import 'package:lost_found/features/components/found/presentation/pages/found_it
 import 'package:lost_found/features/components/lost/presentation/pages/lost_item_details_page.dart';
 import 'package:lost_found/features/main/widgets/cards.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
+import 'package:lost_found/features/main/widgets/get_found_time_difference.dart';
+import 'package:lost_found/features/main/widgets/get_lost_time_difference.dart';
 
 class BrowseItem extends StatefulWidget {
   static route() => MaterialPageRoute(builder: (context) => const BrowseItem());
@@ -24,29 +28,6 @@ class _BrowseItemState extends State<BrowseItem> {
     // context.read<BackendInformationBloc>().add(BackendLostInformationBloc());
     // context.read<BackendInformationBloc>().add(BackendFoundInformationBloc());
     context.read<BackendInformationBloc>().add(BackendItemInformationBloc());
-  }
-
-  Map<String, dynamic> getTimeDifference(DateTime pastTime) {
-    // Get the current time
-    DateTime currentTime = DateTime.now();
-    print("Past Time $pastTime");
-    print("Current time $currentTime");
-
-    // Calculate the difference
-    Duration difference = currentTime.difference(pastTime);
-
-    // Check if the result should be in minutes or hours
-    if (difference.inMinutes.abs() < 60) {
-      return {
-        'time': difference.inMinutes.abs(),
-        'inMinutes': true, // Indicates the time is in minutes
-      };
-    } else {
-      return {
-        'time': difference.inHours.abs(),
-        'inMinutes': false, // Indicates the time is in hours
-      };
-    }
   }
 
   @override
@@ -123,13 +104,11 @@ class _BrowseItemState extends State<BrowseItem> {
                   itemBuilder: (context, index) {
                     final itemList = state.item[index];
 
-                    Map<String, dynamic> timeData =
-                        getTimeDifference(itemList.updatedAt);
-                    int timeAgo = timeData['time'];
-                    bool inMinutes = timeData['inMinutes'];
+                    String timeText = getLostTimeDifference(itemList.lostDate,
+                        itemList.lostTime, itemList.updatedAt);
 
-                    String timeText =
-                        inMinutes ? '$timeAgo min ago' : '$timeAgo hrs ago';
+                    String foundTimeText =
+                        getFoundTimeDifference(itemList.updatedAt);
 
                     if (itemList.status == "Lost") {
                       return GestureDetector(
@@ -153,7 +132,7 @@ class _BrowseItemState extends State<BrowseItem> {
                           title: itemList.title,
                           description: itemList.description,
                           user: itemList.posterName!,
-                          time: timeText,
+                          time: foundTimeText,
                           imageUrl: itemList.imageUrl,
                           status: itemList.status,
                           color: (itemList.claimed == false)

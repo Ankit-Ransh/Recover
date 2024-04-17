@@ -66,12 +66,9 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     response.fold(
       (failure) {
-        // print('Authentication failed: ${failure.message}');
         emit(AuthFailure(failure.message));
       },
       (user) {
-        print('Authentication successful. UID: $user');
-        print('Authentication successful. UID: $emit');
         _emitAuthSuccess(user, emit);
       },
     );
