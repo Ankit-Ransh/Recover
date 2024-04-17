@@ -5,7 +5,7 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/auth/presentation/pages/signup.dart';
-import 'package:lost_found/features/auth/presentation/widgets/divider.dart';
+import 'package:lost_found/core/suspended/divider.dart';
 import 'package:lost_found/features/auth/presentation/widgets/forgot_password.dart';
 import 'package:lost_found/features/auth/presentation/widgets/form_data_field.dart';
 import 'package:lost_found/features/auth/presentation/widgets/login_button.dart';
@@ -96,19 +96,19 @@ class _LoginState extends State<Login> {
                     },
                   ),
                   const SizedBox(height: 25),
-                  const LoginOptionDivider(),
-                  const SizedBox(
-                    height: 25.0,
-                  ),
-                  const Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      LogoWidget(
-                        imagePath: "lib/core/assets/images/google.png",
-                      ),
-                    ],
-                  ),
-                  const SizedBox(height: 25),
+                  // const LoginOptionDivider(),
+                  // const SizedBox(
+                  //   height: 25.0,
+                  // ),
+                  // const Row(
+                  //   mainAxisAlignment: MainAxisAlignment.center,
+                  //   children: [
+                  //     LogoWidget(
+                  //       imagePath: "lib/core/assets/images/google.png",
+                  //     ),
+                  //   ],
+                  // ),
+                  // const SizedBox(height: 25),
                   SwitchLogin(
                     text: "Not a member?",
                     direction: "Sign Up!",
