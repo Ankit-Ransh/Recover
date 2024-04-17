@@ -13,6 +13,7 @@ class AppPallete {
   static const Color transparentColor = Colors.transparent;
 
   static final greyShade200 = Colors.grey.shade200;
+  static final greyShade300 = Colors.grey.shade300;
   static final greyShade400 = Colors.grey.shade400;
   static final greyShade500 = Colors.grey.shade500;
   static final greyShade600 = Colors.grey.shade500;

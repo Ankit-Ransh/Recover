@@ -9,6 +9,7 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
 import 'package:lost_found/features/main/pages/index_page.dart';
+import 'package:lost_found/features/main/pages/recommendation_page.dart';
 import 'package:lost_found/features/main/widgets/cards.dart';
 import 'package:lost_found/features/main/widgets/get_found_time_difference.dart';
 import 'package:lost_found/features/main/widgets/get_lost_time_difference.dart';
@@ -99,7 +100,17 @@ class _PersonalItemsState extends State<PersonalItems> {
 
                       if (itemList.status == "Lost") {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              RecommendationPage.route(
+                                itemList.imageUrl,
+                                itemList.title,
+                                itemList.description,
+                                itemList.category,
+                              ),
+                            );
+                          },
                           child: Cards(
                             title: itemList.title,
                             description: itemList.description,
@@ -115,7 +126,17 @@ class _PersonalItemsState extends State<PersonalItems> {
                         );
                       } else {
                         return GestureDetector(
-                          onTap: () {},
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              RecommendationPage.route(
+                                itemList.imageUrl,
+                                itemList.title,
+                                itemList.description,
+                                itemList.category,
+                              ),
+                            );
+                          },
                           child: Cards(
                             title: itemList.title,
                             description: itemList.description,
