@@ -94,9 +94,9 @@ class _PersonalItemsState extends State<PersonalItems> {
 
                     if (itemList.userId == currentUserId) {
                       String timeText = getLostTimeDifference(itemList.lostDate,
-                          itemList.lostTime, itemList.updatedAt);
+                          itemList.lostTime, itemList.updatedAt).keys.first;
                       String foundTimeText =
-                          getFoundTimeDifference(itemList.updatedAt);
+                          getFoundTimeDifference(itemList.updatedAt).keys.first;
 
                       if (itemList.status == "Lost") {
                         return GestureDetector(

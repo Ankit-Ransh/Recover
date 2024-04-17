@@ -1,6 +1,6 @@
 import 'package:intl/intl.dart';
 
-String getLostTimeDifference(
+Map<String, int> getLostTimeDifference(
   String? lostDate,
   String? lostTime,
   DateTime updatedAt,
@@ -11,7 +11,9 @@ String getLostTimeDifference(
       lostTime == null ||
       lostDate == "" ||
       lostTime == "") {
-    return "";
+    return {
+      "": 0,
+    };
   }
 
   int postedYear = int.parse(lostDate.substring(6));
@@ -19,9 +21,13 @@ String getLostTimeDifference(
 
   if (postedYear != currentYear) {
     if (currentYear - postedYear == 1) {
-      return '${currentYear - postedYear} year ago';
+      return {
+        '${currentYear - postedYear} year ago': 1,
+      };
     } else {
-      return '${currentYear - postedYear} years ago';
+      return {
+        '${currentYear - postedYear} years ago': 2,
+      };
     }
   }
 
@@ -30,9 +36,13 @@ String getLostTimeDifference(
 
   if (postedMonth != currentMonth) {
     if (currentMonth - postedMonth == 1) {
-      return '${currentMonth - postedMonth} month ago';
+      return {
+        '${currentMonth - postedMonth} month ago': 3,
+      };
     } else {
-      return '${currentMonth - postedMonth} months ago';
+      return {
+        '${currentMonth - postedMonth} months ago': 4,
+      };
     }
   }
 
@@ -62,18 +72,26 @@ String getLostTimeDifference(
       int currentMin = int.parse(currentTime.substring(2));
 
       if ((currentMin - postedMin).abs() == 1) {
-        return '${(currentMin - postedMin).abs()} min ago';
+        return {
+          '${(currentMin - postedMin).abs()} min ago': 5,
+        };
       } else {
-        return '${(currentMin - postedMin).abs()} mins ago';
+        return {
+          '${(currentMin - postedMin).abs()} mins ago': 6,
+        };
       }
     } else {
       if ((currentHour - postedHour).abs() == 1) {
-        return '${(currentHour - postedHour).abs()} hour ago';
+        return {
+          '${(currentHour - postedHour).abs()} hour ago': 7,
+        };
       } else {
-        return '${(currentHour - postedHour).abs()} hours ago';
+        return {
+          '${(currentHour - postedHour).abs()} hours ago': 8,
+        };
       }
     }
   }
 
-  return '${currentDate - postedDate} days ago';
+  return {'${currentDate - postedDate} days ago': 9};
 }

@@ -9,7 +9,7 @@ class SmallCard extends StatelessWidget {
   final String title;
   final String location;
   final String postedBy;
-  final int time;
+  final String time;
   final Color color;
 
   const SmallCard({
@@ -95,7 +95,7 @@ class SmallCard extends StatelessWidget {
                         AutoSizeText(
                           "Posted by $postedBy",
                           style: const TextStyle(
-                            fontSize: 12,
+                            fontSize: 11,
                             fontWeight: FontWeight.w600,
                             color: AppPallete.deepPurple,
                           ),
@@ -103,16 +103,18 @@ class SmallCard extends StatelessWidget {
                           maxLines: 3,
                           overflow: TextOverflow.ellipsis,
                         ),
-                        AutoSizeText(
-                          "${time}hrs ago",
-                          style: const TextStyle(
-                            fontSize: 12,
-                            fontWeight: FontWeight.w600,
-                            color: AppPallete.deepPurple,
+                        Flexible(
+                          child: AutoSizeText(
+                            time,
+                            style: const TextStyle(
+                              fontSize: 11,
+                              fontWeight: FontWeight.w600,
+                              color: AppPallete.deepPurple,
+                            ),
+                            minFontSize: 8,
+                            maxLines: 3,
+                            overflow: TextOverflow.ellipsis,
                           ),
-                          minFontSize: 8,
-                          maxLines: 3,
-                          overflow: TextOverflow.ellipsis,
                         ),
                       ],
                     ),
