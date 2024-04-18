@@ -14,4 +14,9 @@ final class UserChatsFailure extends UserChatsState {
 
 final class UserChatsSuccess extends UserChatsState {}
 
+final class UserChatInformationSuccess extends UserChatsState {
+  final List<Chat> chats;
+  UserChatInformationSuccess(this.chats);
+}
+
 

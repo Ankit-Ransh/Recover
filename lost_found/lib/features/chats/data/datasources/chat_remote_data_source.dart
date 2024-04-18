@@ -4,13 +4,26 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class ChatRemoteDataSource {
   Future<ChatModel> uploadChats(ChatModel userChats);
-  Stream<List<ChatModel>> streamChats();
+  Future<List<ChatModel>> getUserChats();
 }
 
 class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   final SupabaseClient supabaseClient;
 
   ChatRemoteDataSourceImpl(this.supabaseClient);
+
+  @override
+  Future<List<ChatModel>> getUserChats() async {
+    try {
+      final userChats = await supabaseClient.from('messages').select();
+
+      return userChats
+          .map((information) => ChatModel.fromJson(information).copyWith())
+          .toList();
+    } on ServerException catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
 
   @override
   Future<ChatModel> uploadChats(ChatModel userChats) async {
@@ -24,13 +37,5 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
     } on ServerException catch (e) {
       throw ServerException(e.message);
     }
-  }
-  
-  @override
-  Stream<List<ChatModel>> streamChats() {
-    return supabaseClient
-        .from('messages')
-        .stream(primaryKey: ['id'])  
-        .order('updated_at', ascending: true).map((list) => list.map((map) => ChatModel.fromJson(map)).toList());
   }
 }

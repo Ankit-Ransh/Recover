@@ -12,7 +12,6 @@ abstract interface class BackendInformationRemoteDataSource {
   Future<List<FoundItemModel>> getFoundItemInformation();
   Future<List<CombinedLostFoundModel>> getItemInformation();
   Future<List<UserModel>> getProfileInformation();
-  Future<List<ChatModel>> getUserChats();
 }
 
 class BackendInformationRemoteDataSourceImpl
@@ -20,19 +19,6 @@ class BackendInformationRemoteDataSourceImpl
   final SupabaseClient supabaseClient;
 
   BackendInformationRemoteDataSourceImpl(this.supabaseClient);
-
-  @override
-  Future<List<ChatModel>> getUserChats() async {
-    try {
-      final userChats = await supabaseClient.from('messages').select();
-
-      return userChats
-          .map((information) => ChatModel.fromJson(information).copyWith())
-          .toList();
-    } on ServerException catch (e) {
-      throw ServerException(e.toString());
-    }
-  }
 
   @override
   Future<List<UserModel>> getProfileInformation() async {

@@ -7,7 +7,6 @@ import 'package:lost_found/features/components/backend/domain/usecases/backend_f
 import 'package:lost_found/features/components/backend/domain/usecases/backend_item_information.dart';
 import 'package:lost_found/features/components/backend/domain/usecases/backend_lost_information.dart';
 import 'package:lost_found/features/components/backend/domain/usecases/backend_profile_information.dart';
-import 'package:lost_found/features/components/backend/domain/usecases/backend_user_chat_information.dart';
 import 'package:lost_found/features/components/combined_lost_found/domain/entities/combined_lost_found.dart';
 import 'package:lost_found/features/components/found/domain/entities/found_item.dart';
 import 'package:lost_found/features/components/lost/domain/entities/lost_item.dart';
@@ -21,20 +20,17 @@ class BackendInformationBloc
   // final BackendFoundInformation _getFoundItemInformation;
   final BackendItemInformation _getItemInformation;
   final BackendProfileInformation _getProfileInformation;
-  final BackendUserChatInformation _getUserChatInformation;
 
   BackendInformationBloc({
     // required BackendLostInformation getLostItemInformation,
     // required BackendFoundInformation getFoundItemInformation,
     required BackendItemInformation getItemInformation,
     required BackendProfileInformation getProfileInformation,
-    required BackendUserChatInformation getUserChatInformation,
   })  :
         // _getLostItemInformation = getLostItemInformation,
         // _getFoundItemInformation = getFoundItemInformation,
         _getItemInformation = getItemInformation,
         _getProfileInformation = getProfileInformation,
-        _getUserChatInformation = getUserChatInformation,
         super(BackendInformationInitial()) {
     on<BackendInformationEvent>(
         (event, emit) => emit(BackendInformationLoading()));
@@ -42,16 +38,6 @@ class BackendInformationBloc
     // on<BackendFoundInformationBloc>(_onFetchFoundBackendInformation);
     on<BackendItemInformationBloc>(_onFetchBackendInformation);
     on<BackendProfileInformationBloc>(_onFetchProfileBackendInformation);
-    on<BackendUserChatInformationBloc>(_onFetchUserChatBackendInformation);
-  }
-
-  void _onFetchUserChatBackendInformation(BackendUserChatInformationBloc event,
-      Emitter<BackendInformationState> emit) async {
-    final res = await _getUserChatInformation(NoParams());
-    res.fold(
-      (l) => emit(BackendInformationFailure(l.message)),
-      (r) => emit(BackendUserChatSuccess(r)),
-    );
   }
 
   void _onFetchProfileBackendInformation(BackendProfileInformationBloc event,

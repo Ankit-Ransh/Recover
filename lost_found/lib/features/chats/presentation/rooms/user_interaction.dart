@@ -6,7 +6,6 @@ import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/utils/generate_chat_id.dart';
 import 'package:lost_found/features/chats/domain/entities/chat.dart';
 import 'package:lost_found/features/chats/presentation/bloc/user_chats_bloc.dart';
-import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
 import 'package:lost_found/features/main/pages/splash_page.dart';
 
 class UserInteraction extends StatefulWidget {
@@ -48,9 +47,7 @@ class _UserInteractionState extends State<UserInteraction> {
     super.initState();
 
     generatedId = generateChatId(widget.userId, widget.recieverId);
-    context
-        .read<BackendInformationBloc>()
-        .add(BackendUserChatInformationBloc());
+    context.read<UserChatsBloc>().add(UserChatInformationBloc());
   }
 
   @override
@@ -60,21 +57,22 @@ class _UserInteractionState extends State<UserInteraction> {
         leading: GestureDetector(
           onTap: () {
             Navigator.push(context, SplashPage.route());
-            
           },
-          child: Icon(CupertinoIcons.back),
+          child: const Icon(CupertinoIcons.back),
         ),
-        title: Text("Hello"),
+        title: Text(widget.name),
       ),
-      body: BlocConsumer<BackendInformationBloc, BackendInformationState>(
+      body: BlocConsumer<UserChatsBloc, UserChatsState>(
         listener: (context, state) {
-          if (state is BackendInformationFailure) {}
+          if (state is UserChatsFailure) {
+            print("Failure");
+          }
         },
         builder: (context, state) {
-          if (state is BackendInformationLoading) {
+          if (state is UserChatsLoading) {
             return const Loader();
           }
-          if (state is BackendUserChatSuccess) {
+          if (state is UserChatInformationSuccess) {
             List<ChatMessage> messages = [];
             messages = _generateChatMessageList(state.chats);
 
@@ -98,12 +96,12 @@ class _UserInteractionState extends State<UserInteraction> {
   }
 
   List<ChatMessage> _generateChatMessageList(List<Chat> chats) {
-    return chats.map<ChatMessage>((chat) {
+    return chats
+        .where((chat) => chat.generatedId == generatedId)
+        .map<ChatMessage>((chat) {
       return ChatMessage(
         text: chat.content,
-        user: ChatUser(
-          id: chat.senderId,
-        ),
+        user: ChatUser(id: chat.senderId),
         createdAt: chat.updatedAt,
       );
     }).toList();
@@ -118,5 +116,7 @@ class _UserInteractionState extends State<UserInteraction> {
             recieverId: widget.recieverId,
           ),
         );
+
+    context.read<UserChatsBloc>().add(UserChatInformationBloc());
   }
 }

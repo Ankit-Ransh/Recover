@@ -16,3 +16,5 @@ final class UserChatMessagesBloc extends UserChatsEvent {
     required this.recieverId,
   });
 }
+
+final class UserChatInformationBloc extends UserChatsEvent {}

@@ -32,7 +32,3 @@ final class BackendInformationProfileSuccess extends BackendInformationState {
   BackendInformationProfileSuccess(this.profile);
 }
 
-final class BackendUserChatSuccess extends BackendInformationState {
-  final List<Chat> chats;
-  BackendUserChatSuccess(this.chats);
-}

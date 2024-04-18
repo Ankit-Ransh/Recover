@@ -1,6 +1,5 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:lost_found/core/error/failures.dart';
-import 'package:lost_found/features/chats/data/models/chat_model.dart';
 import 'package:lost_found/features/chats/domain/entities/chat.dart';
 
 abstract interface class ChatRepository {
@@ -10,6 +9,5 @@ abstract interface class ChatRepository {
     required String senderId,
     required String recieverId,
   });
-
-  Stream<List<ChatModel>> streamChats();
+  Future<Either<Failure, List<Chat>>> getUserChats();
 }

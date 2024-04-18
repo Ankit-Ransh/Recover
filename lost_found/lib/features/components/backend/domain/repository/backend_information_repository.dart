@@ -11,5 +11,4 @@ abstract interface class BackendInformationRepository {
   Future<Either<Failure, List<FoundItem>>> getFoundItemInformation();
   Future<Either<Failure, List<CombinedLostFound>>> getItemInformation();
   Future<Either<Failure, List<User>>> getProfileInformation();
-  Future<Either<Failure, List<Chat>>> getUserChats();
 }
