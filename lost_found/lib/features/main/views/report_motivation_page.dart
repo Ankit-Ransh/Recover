@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
-import 'package:lost_found/features/main/pages/index_page.dart';
+import 'package:lost_found/features/main/index_page.dart';
 import 'package:lost_found/core/common/widgets/post_report_button.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 

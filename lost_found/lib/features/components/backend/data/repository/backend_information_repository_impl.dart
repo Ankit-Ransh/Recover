@@ -1,6 +1,8 @@
 import 'package:fpdart/fpdart.dart';
+import 'package:lost_found/core/common/entities/user.dart';
 import 'package:lost_found/core/error/exceptions.dart';
 import 'package:lost_found/core/error/failures.dart';
+import 'package:lost_found/features/chats/domain/entities/chat.dart';
 import 'package:lost_found/features/components/backend/data/datasources/backend_information_remote_data_source.dart';
 import 'package:lost_found/features/components/combined_lost_found/domain/entities/combined_lost_found.dart';
 import 'package:lost_found/features/components/found/domain/entities/found_item.dart';
@@ -11,6 +13,29 @@ class BackendInformationRepositoryImpl implements BackendInformationRepository {
   final BackendInformationRemoteDataSource backendInformationRemoteDataSource;
 
   BackendInformationRepositoryImpl(this.backendInformationRemoteDataSource);
+
+  @override
+  Future<Either<Failure, List<Chat>>> getUserChats() async {
+    try {
+      final userChats = await backendInformationRemoteDataSource.getUserChats();
+
+      return right(userChats);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
+
+  @override
+  Future<Either<Failure, List<User>>> getProfileInformation() async {
+    try {
+      final profileInformation =
+          await backendInformationRemoteDataSource.getProfileInformation();
+
+      return right(profileInformation);
+    } on ServerException catch (e) {
+      return left(Failure(e.message));
+    }
+  }
 
   @override
   Future<Either<Failure, List<CombinedLostFound>>> getItemInformation() async {

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:lost_found/features/main/pages/report_user_flow.dart';
+import 'package:lost_found/features/main/views/report_user_flow.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;

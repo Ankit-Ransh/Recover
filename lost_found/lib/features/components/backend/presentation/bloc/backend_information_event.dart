@@ -9,4 +9,6 @@ final class BackendFoundInformationBloc extends BackendInformationEvent {}
 
 final class BackendItemInformationBloc extends BackendInformationEvent {}
 
+final class BackendProfileInformationBloc extends BackendInformationEvent {}
 
+final class BackendUserChatInformationBloc extends BackendInformationEvent {}

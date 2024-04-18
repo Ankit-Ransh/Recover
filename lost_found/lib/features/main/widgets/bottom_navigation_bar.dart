@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
@@ -27,12 +28,12 @@ class CustomBottomNavBar extends StatelessWidget {
           text: "Browse",
         ),
         GButton(
-          icon: Icons.shopping_cart_checkout_rounded,
-          text: "My Items",
+          icon: CupertinoIcons.chat_bubble_text,
+          text: "Chat",
         ),
         GButton(
-          icon: Icons.person_2_outlined,
-          text: "Profile",
+          icon: Icons.shopping_cart_checkout_rounded,
+          text: "My Items",
         ),
       ],
     );

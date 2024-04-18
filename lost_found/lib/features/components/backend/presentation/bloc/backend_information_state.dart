@@ -26,3 +26,13 @@ final class BackendInformationSuccess extends BackendInformationState {
   final List<CombinedLostFound> item;
   BackendInformationSuccess(this.item);
 }
+
+final class BackendInformationProfileSuccess extends BackendInformationState {
+  final List<User> profile;
+  BackendInformationProfileSuccess(this.profile);
+}
+
+final class BackendUserChatSuccess extends BackendInformationState {
+  final List<Chat> chats;
+  BackendUserChatSuccess(this.chats);
+}

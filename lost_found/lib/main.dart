@@ -3,11 +3,12 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/auth/presentation/pages/login.dart';
+import 'package:lost_found/features/chats/presentation/bloc/user_chats_bloc.dart';
 import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
 import 'package:lost_found/features/components/combined_lost_found/presentation/bloc/combined_lost_found_bloc.dart';
 import 'package:lost_found/features/components/found/presentation/bloc/found_item_bloc.dart';
 import 'package:lost_found/features/components/lost/presentation/bloc/lost_item_bloc.dart';
-import 'package:lost_found/features/main/pages/index_page.dart';
+import 'package:lost_found/features/main/index_page.dart';
 import 'package:lost_found/init_dependencies.dart';
 
 void main() async {
@@ -32,6 +33,9 @@ void main() async {
       // ),
       BlocProvider(
         create: (_) => serviceLocator<BackendInformationBloc>(),
+      ),
+      BlocProvider(
+        create: (_) => serviceLocator<UserChatsBloc>(),
       ),
     ],
     child: const MyApp(),

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/features/components/found/presentation/pages/report_found_item.dart';
 import 'package:lost_found/features/components/lost/presentation/pages/report_lost_item.dart';
-import 'package:lost_found/features/main/pages/index_page.dart';
+import 'package:lost_found/features/main/index_page.dart';
 import 'package:lost_found/features/main/widgets/report_item.dart';
 
 class ReportUserFlow extends StatelessWidget {

@@ -9,9 +9,16 @@ import 'package:lost_found/features/auth/domain/usecases/sign_out.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_login.dart';
 import 'package:lost_found/features/auth/domain/usecases/user_sign_up.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
+import 'package:lost_found/features/chats/data/datasources/chat_remote_data_source.dart';
+import 'package:lost_found/features/chats/data/repository/chat_repository_impl.dart';
+import 'package:lost_found/features/chats/domain/repository/chat_repository.dart';
+import 'package:lost_found/features/chats/domain/usecases/chat_usecase.dart';
+import 'package:lost_found/features/chats/presentation/bloc/user_chats_bloc.dart';
 import 'package:lost_found/features/components/backend/data/datasources/backend_information_remote_data_source.dart';
 import 'package:lost_found/features/components/backend/domain/usecases/backend_found_information.dart';
 import 'package:lost_found/features/components/backend/domain/usecases/backend_item_information.dart';
+import 'package:lost_found/features/components/backend/domain/usecases/backend_profile_information.dart';
+import 'package:lost_found/features/components/backend/domain/usecases/backend_user_chat_information.dart';
 import 'package:lost_found/features/components/combined_lost_found/data/datasources/combined_lost_found_remote_data_source.dart';
 import 'package:lost_found/features/components/combined_lost_found/data/repository/combined_lost_found_repository_impl.dart';
 import 'package:lost_found/features/components/combined_lost_found/domain/repository/combined_lost_found_repository.dart';
@@ -41,6 +48,7 @@ Future<void> initDependencies() async {
   // _initLostItem();
   // _initFoundItem();
   _initBackendInformation();
+  _initChatMessages();
 
   final supabase = await Supabase.initialize(
     url: SupaBaseSecrets.url,
@@ -176,11 +184,41 @@ void _initBackendInformation() {
     () => BackendItemInformation(serviceLocator()),
   );
 
+  serviceLocator.registerFactory(
+    () => BackendProfileInformation(serviceLocator()),
+  );
+
+  serviceLocator.registerFactory(
+    () => BackendUserChatInformation(serviceLocator()),
+  );
+
   serviceLocator.registerLazySingleton(
     () => BackendInformationBloc(
       // getLostItemInformation: serviceLocator(),
       // getFoundItemInformation: serviceLocator(),
       getItemInformation: serviceLocator(),
+      getProfileInformation: serviceLocator(),
+      getUserChatInformation: serviceLocator(),
+    ),
+  );
+}
+
+void _initChatMessages() {
+  serviceLocator.registerFactory<ChatRemoteDataSource>(
+    () => ChatRemoteDataSourceImpl(serviceLocator()),
+  );
+
+  serviceLocator.registerFactory<ChatRepository>(
+    () => ChatRepositoryImpl(serviceLocator()),
+  );
+
+  serviceLocator.registerFactory(
+    () => ChatUsecase(serviceLocator()),
+  );
+
+  serviceLocator.registerLazySingleton(
+    () => UserChatsBloc(
+      chatUsecase: serviceLocator(),
     ),
   );
 }

@@ -1,18 +1,17 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/common/widgets/text_description_widget.dart';
-import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
-import 'package:lost_found/features/main/pages/index_page.dart';
-import 'package:lost_found/features/main/pages/recommendation_page.dart';
+import 'package:lost_found/features/main/index_page.dart';
+import 'package:lost_found/features/main/views/recommendation_page.dart';
 import 'package:lost_found/features/main/widgets/cards.dart';
 import 'package:lost_found/features/main/widgets/get_found_time_difference.dart';
 import 'package:lost_found/features/main/widgets/get_lost_time_difference.dart';
+import 'package:lost_found/features/main/widgets/title_bar.dart';
 
 class PersonalItems extends StatefulWidget {
   const PersonalItems({super.key});
@@ -40,33 +39,11 @@ class _PersonalItemsState extends State<PersonalItems> {
     return Scaffold(
       body: ListView(
         children: [
-          Container(
-            color: AppPallete.lightGrey,
-            child: Container(
-              margin: const EdgeInsets.only(top: 10),
-              padding: const EdgeInsets.fromLTRB(10, 5, 0, 10),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.start,
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      Navigator.push(context, IndexPage.route());
-                    },
-                    child: const Icon(
-                      CupertinoIcons.back,
-                      size: 35,
-                    ),
-                  ),
-                  const SizedBox(width: 20),
-                  buildHeading(
-                    "Items reported",
-                    color: AppPallete.blackColor,
-                    fontSize: 20,
-                    bold: false,
-                  ),
-                ],
-              ),
-            ),
+          TitleBar(
+            title: "Items reported",
+            onTap: () {
+              Navigator.push(context, IndexPage.route());
+            },
           ),
 
           // Items Collection
@@ -94,7 +71,9 @@ class _PersonalItemsState extends State<PersonalItems> {
 
                     if (itemList.userId == currentUserId) {
                       String timeText = getLostTimeDifference(itemList.lostDate,
-                          itemList.lostTime, itemList.updatedAt).keys.first;
+                              itemList.lostTime, itemList.updatedAt)
+                          .keys
+                          .first;
                       String foundTimeText =
                           getFoundTimeDifference(itemList.updatedAt).keys.first;
 

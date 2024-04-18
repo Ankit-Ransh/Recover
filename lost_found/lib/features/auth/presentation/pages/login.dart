@@ -11,7 +11,7 @@ import 'package:lost_found/features/auth/presentation/widgets/form_data_field.da
 import 'package:lost_found/features/auth/presentation/widgets/login_button.dart';
 import 'package:lost_found/features/auth/presentation/widgets/logo_box.dart';
 import 'package:lost_found/features/auth/presentation/widgets/switch_login.dart';
-import 'package:lost_found/features/main/pages/index_page.dart';
+import 'package:lost_found/features/main/index_page.dart';
 
 class Login extends StatefulWidget {
   static route() => MaterialPageRoute(builder: (context) => const Login());

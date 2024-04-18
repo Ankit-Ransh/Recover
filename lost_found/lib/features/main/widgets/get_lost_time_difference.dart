@@ -93,5 +93,9 @@ Map<String, int> getLostTimeDifference(
     }
   }
 
-  return {'${currentDate - postedDate} days ago': 9};
+  if (currentDate - postedDate == 1) {
+    return {'${currentDate - postedDate} day ago': 9};
+  }
+
+  return {'${currentDate - postedDate} days ago': 10};
 }
