@@ -14,6 +14,15 @@ class ChatRepositoryImpl implements ChatRepository {
   ChatRepositoryImpl(this.chatRemoteDataSource);
 
   @override
+  Stream<List<Chat>> streamChats() {
+    try {
+      return chatRemoteDataSource.streamChats();
+    } catch (e) {
+      throw Exception(e);
+    }
+  }
+
+  @override
   Future<Either<Failure, List<Chat>>> getUserChats() async {
     try {
       final userChats = await chatRemoteDataSource.getUserChats();
@@ -48,6 +57,5 @@ class ChatRepositoryImpl implements ChatRepository {
     } on ServerException catch (e) {
       return left(Failure(e.message));
     }
-  } 
-
+  }
 }

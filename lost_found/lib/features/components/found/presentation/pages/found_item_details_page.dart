@@ -1,13 +1,17 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:intl/intl.dart';
+import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/core/common/widgets/chat_button.dart';
 import 'package:lost_found/core/common/widgets/item_tags.dart';
 import 'package:lost_found/core/common/widgets/post_report_button.dart';
 import 'package:lost_found/core/common/widgets/text_description_widget.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/core/utils/show_toast.dart';
+import 'package:lost_found/features/chats/presentation/rooms/user_interaction.dart';
 
 class FoundItemDetailsPage extends StatelessWidget {
   final String posterName;
@@ -19,6 +23,7 @@ class FoundItemDetailsPage extends StatelessWidget {
   final String location;
   final DateTime updatedAt;
   final String collectionCenter;
+  final String posterId;
 
   const FoundItemDetailsPage({
     super.key,
@@ -31,6 +36,7 @@ class FoundItemDetailsPage extends StatelessWidget {
     required this.location,
     required this.updatedAt,
     required this.collectionCenter,
+    required this.posterId,
   });
 
   static MaterialPageRoute route(
@@ -43,6 +49,7 @@ class FoundItemDetailsPage extends StatelessWidget {
     String location,
     DateTime updatedAt,
     String collectionCenter,
+    String posterId,
   ) {
     return MaterialPageRoute(
       builder: (context) => FoundItemDetailsPage(
@@ -55,6 +62,7 @@ class FoundItemDetailsPage extends StatelessWidget {
         location: location,
         updatedAt: updatedAt,
         collectionCenter: collectionCenter,
+        posterId: posterId,
       ),
     );
   }
@@ -62,6 +70,8 @@ class FoundItemDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+    final userId =
+        (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -230,12 +240,42 @@ class FoundItemDetailsPage extends StatelessWidget {
               ),
               const SizedBox(height: 30),
               PostReportButton(
-                onTap: () {},
+                onTap: () {
+                  if (userId == posterId) {
+                    showToast(
+                      text: "Item cannot be claimed",
+                      context: context,
+                      iconData: CupertinoIcons.exclamationmark_triangle_fill,
+                      color: AppPallete.greyShade200,
+                    );
+                  } else {}
+                },
                 command: "Claim Item",
               ),
               const SizedBox(height: 10),
+
+              // Chat with finder
               ChatButton(
-                onTap: () {},
+                onTap: () {
+                  if (userId == posterId) {
+                    showToast(
+                      text: "You found the item",
+                      context: context,
+                      color: AppPallete.greyShade200,
+                    );
+                  } else {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserInteraction(
+                          userId: userId,
+                          recieverId: posterId,
+                          name: posterName,
+                        ),
+                      ),
+                    );
+                  }
+                },
                 icon: const Icon(
                   CupertinoIcons.chat_bubble_fill,
                   color: AppPallete.deepPurple,

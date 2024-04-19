@@ -9,8 +9,8 @@ Map<String, int> getLostTimeDifference(
 
   if (lostDate == null ||
       lostTime == null ||
-      lostDate == "" ||
-      lostTime == "") {
+      lostDate.isEmpty ||
+      lostTime.isEmpty) {
     return {
       "": 0,
     };
