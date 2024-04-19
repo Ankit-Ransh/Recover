@@ -15,6 +15,17 @@ class CombinedLostFoundRepositoryImpl implements CombinedLostFoundRepository {
   CombinedLostFoundRepositoryImpl(this.combinedLostFoundRemoteSource);
 
   @override
+  Future<Either<Failure, void>> claimedCombinedLostFoundRepository(
+      {required String id, required String userId,}) async {
+    try {
+      final res = await combinedLostFoundRemoteSource.claimedItem(id, userId);
+      return right(res);
+    } catch (e) {
+      return left(Failure(e.toString()));
+    }
+  }
+
+  @override
   Future<Either<Failure, CombinedLostFound>> combinedLostFoundRepository({
     required String status,
     required String title,

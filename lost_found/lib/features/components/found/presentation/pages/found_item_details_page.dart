@@ -12,8 +12,9 @@ import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_toast.dart';
 import 'package:lost_found/features/chats/presentation/rooms/user_interaction.dart';
+import 'package:lost_found/features/components/combined_lost_found/presentation/bloc/combined_lost_found_bloc.dart';
 
-class FoundItemDetailsPage extends StatelessWidget {
+class FoundItemDetailsPage extends StatefulWidget {
   final String posterName;
   final String timeText;
   final String imageUrl;
@@ -24,6 +25,7 @@ class FoundItemDetailsPage extends StatelessWidget {
   final DateTime updatedAt;
   final String collectionCenter;
   final String posterId;
+  final String id;
 
   const FoundItemDetailsPage({
     super.key,
@@ -37,6 +39,7 @@ class FoundItemDetailsPage extends StatelessWidget {
     required this.updatedAt,
     required this.collectionCenter,
     required this.posterId,
+    required this.id,
   });
 
   static MaterialPageRoute route(
@@ -50,6 +53,7 @@ class FoundItemDetailsPage extends StatelessWidget {
     DateTime updatedAt,
     String collectionCenter,
     String posterId,
+    String id,
   ) {
     return MaterialPageRoute(
       builder: (context) => FoundItemDetailsPage(
@@ -63,10 +67,16 @@ class FoundItemDetailsPage extends StatelessWidget {
         updatedAt: updatedAt,
         collectionCenter: collectionCenter,
         posterId: posterId,
+        id: id,
       ),
     );
   }
 
+  @override
+  State<FoundItemDetailsPage> createState() => _FoundItemDetailsPageState();
+}
+
+class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -106,12 +116,12 @@ class FoundItemDetailsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buildHeading(
-                      "Posted by $posterName",
+                      "Posted by ${widget.posterName}",
                       fontSize: 14,
                       color: AppPallete.deepPurple,
                     ),
                     buildHeading(
-                      timeText,
+                      widget.timeText,
                       fontSize: 14,
                       color: AppPallete.deepPurple,
                     ),
@@ -130,7 +140,7 @@ class FoundItemDetailsPage extends StatelessWidget {
                 child: ClipRRect(
                   borderRadius: BorderRadius.circular(24),
                   child: Image.network(
-                    imageUrl,
+                    widget.imageUrl,
                     fit: BoxFit.cover,
                     height: double.infinity,
                     width: double.infinity,
@@ -147,10 +157,10 @@ class FoundItemDetailsPage extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
                     buildHeading(
-                      title,
+                      widget.title,
                       color: AppPallete.blackColor,
                     ),
-                    ItemTags(category: category),
+                    ItemTags(category: widget.category),
                   ],
                 ),
               ),
@@ -168,7 +178,7 @@ class FoundItemDetailsPage extends StatelessWidget {
                         color: AppPallete.lightGrey,
                       ),
                       child: AutoSizeText(
-                        description,
+                        widget.description,
                         style: const TextStyle(
                           fontSize: 18,
                           fontWeight: FontWeight.w400,
@@ -202,7 +212,7 @@ class FoundItemDetailsPage extends StatelessWidget {
                             bold: false,
                           ),
                           const SizedBox(width: 12),
-                          ItemTags(category: location),
+                          ItemTags(category: widget.location),
                         ],
                       ),
                     ),
@@ -211,10 +221,10 @@ class FoundItemDetailsPage extends StatelessWidget {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
+                          buildDescription(DateFormat('dd/MM/yyyy')
+                              .format(widget.updatedAt)),
                           buildDescription(
-                              DateFormat('dd/MM/yyyy').format(updatedAt)),
-                          buildDescription(
-                              DateFormat('h:mm a').format(updatedAt)),
+                              DateFormat('h:mm a').format(widget.updatedAt)),
                         ],
                       ),
                     ),
@@ -234,21 +244,43 @@ class FoundItemDetailsPage extends StatelessWidget {
                       bold: false,
                     ),
                     const SizedBox(width: 12),
-                    ItemTags(category: collectionCenter),
+                    ItemTags(category: widget.collectionCenter),
                   ],
                 ),
               ),
               const SizedBox(height: 30),
               PostReportButton(
-                onTap: () {
-                  if (userId == posterId) {
+                onTap: () async {
+                  if (userId == widget.posterId) {
                     showToast(
                       text: "Item cannot be claimed",
                       context: context,
                       iconData: CupertinoIcons.exclamationmark_triangle_fill,
                       color: AppPallete.greyShade200,
                     );
-                  } else {}
+                  } else {
+                    context.read<CombinedLostFoundBloc>().add(
+                        CombinedClaimedItemBloc(id: widget.id, userId: userId));
+
+                    BlocListener(
+                      listener: (context, state) => {
+                        if (state is CombinedClaimedItemSuccess)
+                          {
+                            showToast(
+                                text: "Item claimed",
+                                context: context,
+                                color: AppPallete.greyShade200),
+                          },
+                        if (state is CombinedClaimedItemFailure)
+                          {
+                            showToast(
+                                text: "Server Error",
+                                context: context,
+                                color: AppPallete.greyShade200),
+                          },
+                      },
+                    );
+                  }
                 },
                 command: "Claim Item",
               ),
@@ -257,7 +289,7 @@ class FoundItemDetailsPage extends StatelessWidget {
               // Chat with finder
               ChatButton(
                 onTap: () {
-                  if (userId == posterId) {
+                  if (userId == widget.posterId) {
                     showToast(
                       text: "You found the item",
                       context: context,
@@ -269,8 +301,8 @@ class FoundItemDetailsPage extends StatelessWidget {
                       MaterialPageRoute(
                         builder: (context) => UserInteraction(
                           userId: userId,
-                          recieverId: posterId,
-                          name: posterName,
+                          recieverId: widget.posterId,
+                          name: widget.posterName,
                         ),
                       ),
                     );

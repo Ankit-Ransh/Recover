@@ -23,6 +23,7 @@ import 'package:lost_found/features/components/backend/domain/usecases/backend_p
 import 'package:lost_found/features/components/combined_lost_found/data/datasources/combined_lost_found_remote_data_source.dart';
 import 'package:lost_found/features/components/combined_lost_found/data/repository/combined_lost_found_repository_impl.dart';
 import 'package:lost_found/features/components/combined_lost_found/domain/repository/combined_lost_found_repository.dart';
+import 'package:lost_found/features/components/combined_lost_found/domain/usecases/claimed_combined_lost_found_usecase.dart';
 import 'package:lost_found/features/components/combined_lost_found/domain/usecases/combined_lost_found.dart';
 import 'package:lost_found/features/components/combined_lost_found/presentation/bloc/combined_lost_found_bloc.dart';
 // import 'package:lost_found/features/components/found/data/datasources/found_item_remote_data_source.dart';
@@ -117,8 +118,15 @@ void _initCombinedLostFound() {
     () => CombinedLostFoundUseCase(serviceLocator()),
   );
 
+  serviceLocator.registerFactory(
+    () => ClaimedCombinedLostFoundUseCase(serviceLocator()),
+  );
+
   serviceLocator.registerLazySingleton(
-    () => CombinedLostFoundBloc(serviceLocator()),
+    () => CombinedLostFoundBloc(
+      combinedLostFoundUseCase: serviceLocator(),
+      claimedCombinedLostFoundUseCase: serviceLocator(),
+    ),
   );
 }
 

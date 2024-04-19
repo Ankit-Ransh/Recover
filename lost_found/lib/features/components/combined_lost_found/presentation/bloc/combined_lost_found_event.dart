@@ -30,3 +30,13 @@ final class CombinedLostFoundUploadBloc extends CombinedLostFoundEvent {
     required this.claimed,
   });
 }
+
+final class CombinedClaimedItemBloc extends CombinedLostFoundEvent {
+  final String id;
+  final String userId;
+
+  CombinedClaimedItemBloc({
+    required this.id,
+    required this.userId,
+  });
+}

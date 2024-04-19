@@ -12,4 +12,11 @@ final class CombinedLostFoundFailure extends CombinedLostFoundState {
   CombinedLostFoundFailure(this.message);
 }
 
+final class CombinedClaimedItemFailure extends CombinedLostFoundState {
+  final String message;
+  CombinedClaimedItemFailure(this.message);
+}
+
 final class CombinedLostFoundSuccess extends CombinedLostFoundState {}
+
+final class CombinedClaimedItemSuccess extends CombinedLostFoundState {}

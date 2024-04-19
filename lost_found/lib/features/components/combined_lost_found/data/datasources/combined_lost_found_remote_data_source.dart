@@ -8,6 +8,8 @@ abstract interface class CombinedLostFoundRemoteSource {
   Future<CombinedLostFoundModel> uploadCombinedLostFound(
       CombinedLostFoundModel combinedLostFoundModel);
 
+  Future<void> claimedItem(String itemId, String userId);
+
   Future<String> uploadImage({
     required File image,
     required CombinedLostFoundModel combinedLostFoundItem,
@@ -18,6 +20,22 @@ class CombinedLostFoundRemoteSourceImpl
     implements CombinedLostFoundRemoteSource {
   final SupabaseClient supabaseClient;
   CombinedLostFoundRemoteSourceImpl(this.supabaseClient);
+
+  @override
+  Future<void> claimedItem(String itemId, String userId) async {
+    try {
+      await supabaseClient
+          .from('combined_database')
+          .update({'claimed': true}).match(
+        {
+          'id': itemId,
+          'user_id': userId,
+        },
+      );
+    } on ServerException catch (e) {
+      throw ServerException(e.toString());
+    }
+  }
 
   @override
   Future<CombinedLostFoundModel> uploadCombinedLostFound(

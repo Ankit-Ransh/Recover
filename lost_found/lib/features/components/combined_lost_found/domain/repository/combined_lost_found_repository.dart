@@ -17,4 +17,9 @@ abstract interface class CombinedLostFoundRepository {
     required String category,
     required bool claimed,
   });
+
+  Future<Either<Failure, void>> claimedCombinedLostFoundRepository({
+    required String id,
+    required String userId,
+  });
 }

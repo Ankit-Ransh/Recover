@@ -12,6 +12,11 @@ class AuthSignUpSuccess extends AuthState {
   AuthSignUpSuccess(this.user);
 }
 
+class AuthSuccess extends AuthState {
+  final User user;
+  AuthSuccess(this.user);
+}
+
 class AuthLoginSuccess extends AuthState {
   final User user;
   AuthLoginSuccess(this.user);

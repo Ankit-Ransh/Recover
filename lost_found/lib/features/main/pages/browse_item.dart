@@ -129,13 +129,21 @@ class _BrowseItemState extends State<BrowseItem> {
                   itemBuilder: (context, index) {
                     final itemList = state.item[index];
 
-                    String timeText = getLostTimeDifference(itemList.lostDate,
-                            itemList.lostTime, itemList.updatedAt)
-                        .keys
-                        .first;
+                    Map<String, int> timeDiff = getLostTimeDifference(
+                        itemList.lostDate,
+                        itemList.lostTime,
+                        itemList.updatedAt);
+                    String timeText = "";
 
-                    String foundTimeText =
-                        getFoundTimeDifference(itemList.updatedAt).keys.first;
+                    Map<String, int> foundTimeDiff =
+                        getFoundTimeDifference(itemList.updatedAt);
+                    String foundTimeText = foundTimeDiff.keys.first;
+
+                    if (itemList.status == "Lost") {
+                      timeText = timeDiff.keys.first;
+                    } else {
+                      foundTimeText = foundTimeDiff.keys.first;
+                    }
 
                     if (keyword != "") {
                       if (searchConditions(itemList)) {
@@ -199,7 +207,7 @@ class DisplayCards extends StatelessWidget {
                 )
               : FoundItemDetailsPage.route(
                   itemList.posterName!,
-                  timeText,
+                  foundTimeText,
                   itemList.imageUrl,
                   itemList.title,
                   itemList.category,
@@ -208,6 +216,7 @@ class DisplayCards extends StatelessWidget {
                   itemList.updatedAt,
                   itemList.collectionCenter!,
                   itemList.posterId!,
+                  itemList.id,
                 ),
         );
       },
@@ -215,7 +224,7 @@ class DisplayCards extends StatelessWidget {
         title: itemList.title,
         description: itemList.description,
         user: itemList.posterName!,
-        time: itemList.status == "Lost" ? foundTimeText : timeText,
+        time: itemList.status == "Lost" ? timeText : foundTimeText,
         imageUrl: itemList.imageUrl,
         status: itemList.status,
         color: itemList.claimed == false
