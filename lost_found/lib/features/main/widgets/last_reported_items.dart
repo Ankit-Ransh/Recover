@@ -124,7 +124,9 @@ class _LastReportedItemsState extends State<LastReportedItems> {
                           time: (item.status == "Lost")
                               ? timeText
                               : foundTimeText,
-                          color: AppPallete.lostColor,
+                          color: (item.status == "Lost")
+                              ? AppPallete.lostColor
+                              : AppPallete.foundColor,
                         ),
                       ),
                     );

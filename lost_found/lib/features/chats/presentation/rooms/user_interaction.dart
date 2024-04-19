@@ -2,6 +2,7 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/utils/generate_chat_id.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
@@ -79,9 +80,6 @@ class _UserInteractionState extends State<UserInteraction> {
           }
         },
         builder: (context, state) {
-          // print(
-          //     "UserChatInformationSuccess -> ${state is UserChatInformationSuccess}");
-          // print("UserChatsSuccess -> ${state is UserChatsSuccess}");
           if (state is UserChatsLoading) {
             return const Loader();
           }
@@ -102,7 +100,6 @@ class _UserInteractionState extends State<UserInteraction> {
             currentUser: ChatUser(id: widget.userId),
             onSend: _sendMessage,
             messages: messages,
-            
           );
         },
       ),
@@ -130,7 +127,10 @@ class _UserInteractionState extends State<UserInteraction> {
       );
     }).toList();
 
-    chatList.sort((a, b) => a.createdAt.compareTo(b.createdAt));
+    for (var item in messages) {
+      print(
+          "item -> ${DateFormat('yyyyMMdd').format(item.createdAt)}  -> ${item.text}");
+    }
 
     return chatList;
   }
