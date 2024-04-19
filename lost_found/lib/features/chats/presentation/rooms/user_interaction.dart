@@ -42,13 +42,22 @@ class UserInteraction extends StatefulWidget {
 class _UserInteractionState extends State<UserInteraction> {
   String generatedId = "";
   List userMessages = [];
+  List<ChatMessage> messages = [];
 
   @override
   void initState() {
     super.initState();
 
     generatedId = generateChatId(widget.userId, widget.recieverId);
-    context.read<UserChatsBloc>().add(UserChatStreamBloc());
+    // context.read<UserChatsBloc>().add(UserChatInformationBloc());
+    // BlocListener(
+    //   listener: (context, state) => {
+    //     if (state is UserChatInformationSuccess)
+    //       {
+    //         messages = _generateChatMessageList(state.chats),
+    //       },
+    //   },
+    // );
   }
 
   @override
@@ -70,29 +79,26 @@ class _UserInteractionState extends State<UserInteraction> {
           }
         },
         builder: (context, state) {
-          print("state -> $state");
-          print("context -> $context");
+          print("UserChatsLoaded -> ${state is UserChatsLoaded}");
+          // print("UserChatsSuccess -> ${state is UserChatsSuccess}");
           if (state is UserChatsLoading) {
             return const Loader();
           }
           if (state is UserChatsLoaded) {
-            // This state should come from your BLoC when new data is streamed
-            List<ChatMessage> messages = _generateChatMessageList(state.chats);
-
-            return DashChat(
-              inputOptions: const InputOptions(
-                alwaysShowSend: true,
-              ),
-              messageOptions: const MessageOptions(
-                showOtherUsersAvatar: true,
-                showTime: true,
-              ),
-              currentUser: ChatUser(id: widget.userId),
-              onSend: _sendMessage,
-              messages: messages,
-            );
+            messages = _generateChatMessageList(state.chats);
           }
-          return const SizedBox();
+          return DashChat(
+            inputOptions: const InputOptions(
+              alwaysShowSend: true,
+            ),
+            messageOptions: const MessageOptions(
+              showOtherUsersAvatar: true,
+              showTime: true,
+            ),
+            currentUser: ChatUser(id: widget.userId),
+            onSend: _sendMessage,
+            messages: messages,
+          );
         },
       ),
     );
@@ -119,5 +125,7 @@ class _UserInteractionState extends State<UserInteraction> {
             recieverId: widget.recieverId,
           ),
         );
+
+    context.read<UserChatsBloc>().add(UserChatStreamBloc());
   }
 }

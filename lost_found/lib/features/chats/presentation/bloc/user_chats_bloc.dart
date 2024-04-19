@@ -34,14 +34,18 @@ class UserChatsBloc extends Bloc<UserChatsEvent, UserChatsState> {
 
   Future<void> _streamRealTime(
       UserChatStreamBloc event, Emitter<UserChatsState> emit) async {
-    emit(UserChatsLoading());
-    await _chatSubscription?.cancel(); // Cancel any existing subscription
+    await _chatSubscription?.cancel(); 
     _chatSubscription = _chatStream(StreamParams()).listen(
       (List<Chat> chats) {
-        emit(UserChatsLoaded(chats));
+        if (!emit.isDone) {
+          print("Something will happen");
+          emit(UserChatsLoaded(chats));
+        }
       },
       onError: (error) {
-        emit(UserChatsFailure(error.toString()));
+        if (!emit.isDone) {
+          emit(UserChatsFailure(error.toString()));
+        }
       },
     );
   }

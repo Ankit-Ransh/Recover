@@ -6,7 +6,7 @@ class ChatStreamingUseCase implements Streaming<List<Chat>, StreamParams> {
   final ChatRepository chatRepository;
 
   ChatStreamingUseCase(this.chatRepository);
-  
+
   @override
   Stream<List<Chat>> call(StreamParams params) {
     return chatRepository.streamChats();

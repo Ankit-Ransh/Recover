@@ -15,15 +15,32 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
 
   @override
   Stream<List<ChatModel>> streamChats() {
-    final Stream<List<ChatModel>> messagesStream = supabaseClient
-        .from('messages')
-        .stream(primaryKey: ['id'])
-        .order('updated_at', ascending: true)
-        .map((List<Map<String, dynamic>> eventList) =>
-            eventList.map((map) => ChatModel.fromJson(map)).toList());
+    try {
+      final Stream<List<ChatModel>> messagesStream = supabaseClient
+          .from('messages')
+          .stream(primaryKey: ['id'])
+          .order('updated_at')
+          .map((List<Map<String, dynamic>> eventList) =>
+              eventList.map((map) => ChatModel.fromJson(map)).toList());
 
-    print(messagesStream);
-    return messagesStream;
+      // print("-------------------");
+      // print("-------------------");
+      // // Print each message as it arrives
+      // messagesStream.listen((List<ChatModel> messageList) {
+      //   for (var message in messageList) {
+      //     print("Received message: ${message.toJson()}");
+      //   }
+      // });
+
+      // print("-------------------");
+      // print("-------------------");
+
+      // print("Stream ongoing -> $messagesStream");
+      return messagesStream;
+    } catch (e) {
+      // print("eroor her $e");
+      throw Exception(e.toString());
+    }
   }
 
   @override

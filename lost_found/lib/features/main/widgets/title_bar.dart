@@ -1,12 +1,11 @@
 import 'package:flutter/cupertino.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
-import 'package:lost_found/features/main/index_page.dart';
 
 class TitleBar extends StatelessWidget {
   final String title;
   final VoidCallback onTap;
-  
+
   const TitleBar({
     super.key,
     required this.title,
