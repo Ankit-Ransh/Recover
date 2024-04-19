@@ -207,6 +207,7 @@ class DisplayCards extends StatelessWidget {
                   itemList.location,
                   itemList.updatedAt,
                   itemList.collectionCenter!,
+                  itemList.posterId!,
                 ),
         );
       },

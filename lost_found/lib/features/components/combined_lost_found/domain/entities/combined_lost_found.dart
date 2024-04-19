@@ -13,6 +13,7 @@ class CombinedLostFound {
   final String category;
   final bool claimed;
   final String? posterName;
+  final String? posterId;
 
   CombinedLostFound({
     required this.id,
@@ -29,5 +30,6 @@ class CombinedLostFound {
     required this.category,
     required this.claimed,
     this.posterName,
+    this.posterId,
   });
 }

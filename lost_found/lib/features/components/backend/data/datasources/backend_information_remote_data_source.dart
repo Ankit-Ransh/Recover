@@ -36,13 +36,14 @@ class BackendInformationRemoteDataSourceImpl
     try {
       final itemInformation = await supabaseClient
           .from('combined_database')
-          .select('*, profiles (name)');
+          .select('*, profiles (name, id)');
 
       return itemInformation
           .map(
             (information) =>
                 CombinedLostFoundModel.fromJson(information).copyWith(
               posterName: information['profiles']['name'],
+              posterId: information['profiles']['id'],
             ),
           )
           .toList();

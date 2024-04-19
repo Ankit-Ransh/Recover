@@ -111,6 +111,7 @@ class _LastReportedItemsState extends State<LastReportedItems> {
                                 item.location,
                                 item.updatedAt,
                                 item.collectionCenter!,
+                                item.posterId!,
                               ),
                             );
                           }
