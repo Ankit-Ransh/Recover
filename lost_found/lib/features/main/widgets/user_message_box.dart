@@ -3,11 +3,13 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 
 class UserMessageBox extends StatelessWidget {
   final String userName;
+  final String latestMessage;
   final String imageUrl;
 
   const UserMessageBox({
     super.key,
     required this.userName,
+    required this.latestMessage,
     this.imageUrl =
         "https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png",
   });
@@ -49,10 +51,19 @@ class UserMessageBox extends StatelessWidget {
                       Text(
                         userName,
                         style: const TextStyle(
-                          fontSize: 16,
+                          fontSize: 14,
                           fontWeight: FontWeight.w500,
                         ),
                         maxLines: 1,
+                      ),
+                      const SizedBox(height: 5),
+                      Text(
+                        latestMessage,
+                        style: const TextStyle(
+                          fontSize: 12,
+                        ),
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
                     ],
                   ),

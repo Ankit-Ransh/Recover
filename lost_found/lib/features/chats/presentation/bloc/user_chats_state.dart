@@ -12,17 +12,11 @@ final class UserChatsFailure extends UserChatsState {
   UserChatsFailure(this.message);
 }
 
-final class UserChatsSuccess extends UserChatsState {
-  final Chat chats;
-  UserChatsSuccess(this.chats);
-}
+final class UserChatsSuccess extends UserChatsState {}
 
 final class UserChatInformationSuccess extends UserChatsState {
   final List<Chat> chats;
   UserChatInformationSuccess(this.chats);
 }
 
-final class UserChatsLoaded extends UserChatsState {
-  final List<Chat> chats;
-  UserChatsLoaded(this.chats);
-}
+

@@ -18,5 +18,3 @@ final class UserChatMessagesBloc extends UserChatsEvent {
 }
 
 final class UserChatInformationBloc extends UserChatsEvent {}
-
-final class UserChatStreamBloc extends UserChatsEvent {}

@@ -66,7 +66,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
     response.fold(
       (failure) {
-        emit(AuthSignUpFailure(failure.message));
+        emit(AuthFailure(failure.message));
       },
       (user) {
         _emitAuthSuccess(user, emit);
@@ -85,17 +85,17 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     response.fold(
       (failure) {
         // print('Authentication failed: ${failure.message}');
-        emit(AuthLoginFailure(failure.message));
+        emit(AuthFailure(failure.message));
       },
       (user) {
         // print('Authentication successful. UID: $user');
-        emit(AuthLoginSuccess(user));
+        _emitAuthSuccess(user, emit);
       },
     );
   }
 
   void _emitAuthSuccess(User user, Emitter<AuthState> emit) {
     _appUserCubit.updateUser(user);
-    emit(AuthSignUpSuccess(user));
+    emit(AuthSuccess(user));
   }
 }

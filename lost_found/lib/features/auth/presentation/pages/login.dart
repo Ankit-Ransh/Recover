@@ -2,14 +2,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
-import 'package:lost_found/core/utils/show_toast.dart';
+import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/auth/presentation/pages/signup.dart';
-// import 'package:lost_found/core/suspended/divider.dart';
+import 'package:lost_found/core/suspended/divider.dart';
 import 'package:lost_found/features/auth/presentation/widgets/forgot_password.dart';
 import 'package:lost_found/features/auth/presentation/widgets/form_data_field.dart';
 import 'package:lost_found/features/auth/presentation/widgets/login_button.dart';
-// import 'package:lost_found/features/auth/presentation/widgets/logo_box.dart';
+import 'package:lost_found/features/auth/presentation/widgets/logo_box.dart';
 import 'package:lost_found/features/auth/presentation/widgets/switch_login.dart';
 import 'package:lost_found/features/main/index_page.dart';
 
@@ -33,18 +33,10 @@ class _LoginState extends State<Login> {
         color: AppPallete.greyShade200,
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
-            if (state is AuthLoginFailure) {
-              showToast(
-                text: state.message,
-                context: context,
-                color: AppPallete.greyShade200,
-              );
-            } else if (state is AuthLoginSuccess) {
-              showToast(
-                text: "Logged in successfully",
-                context: context,
-                color: AppPallete.greyShade200,
-              );
+            if (state is AuthFailure) {
+              showSnackBar(context, state.message);
+            } else if (state is AuthSuccess) {
+              showSnackBar(context, "Logged in successfully");
               Navigator.pushAndRemoveUntil(
                   context, IndexPage.route(), (route) => false);
             }
