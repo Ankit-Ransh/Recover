@@ -13,6 +13,7 @@ import 'package:lost_found/features/chats/data/datasources/chat_remote_data_sour
 import 'package:lost_found/features/chats/data/repository/chat_repository_impl.dart';
 import 'package:lost_found/features/chats/domain/repository/chat_repository.dart';
 import 'package:lost_found/features/chats/domain/usecases/chat_information.dart';
+import 'package:lost_found/features/chats/domain/usecases/chat_streaming_usecase.dart';
 import 'package:lost_found/features/chats/domain/usecases/chat_usecase.dart';
 import 'package:lost_found/features/chats/presentation/bloc/user_chats_bloc.dart';
 import 'package:lost_found/features/components/backend/data/datasources/backend_information_remote_data_source.dart';
@@ -215,10 +216,15 @@ void _initChatMessages() {
     () => ChatInformation(serviceLocator()),
   );
 
+  serviceLocator.registerFactory(
+    () => ChatStreamingUseCase(serviceLocator()),
+  );
+
   serviceLocator.registerLazySingleton(
     () => UserChatsBloc(
       chatUsecase: serviceLocator(),
       chatInformation: serviceLocator(),
+      chatStream: serviceLocator(),
     ),
   );
 }

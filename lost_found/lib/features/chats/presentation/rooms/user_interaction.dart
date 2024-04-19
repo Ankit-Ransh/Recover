@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/utils/generate_chat_id.dart';
+import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/chats/domain/entities/chat.dart';
 import 'package:lost_found/features/chats/presentation/bloc/user_chats_bloc.dart';
 import 'package:lost_found/features/main/pages/splash_page.dart';
@@ -47,7 +48,7 @@ class _UserInteractionState extends State<UserInteraction> {
     super.initState();
 
     generatedId = generateChatId(widget.userId, widget.recieverId);
-    context.read<UserChatsBloc>().add(UserChatInformationBloc());
+    context.read<UserChatsBloc>().add(UserChatStreamBloc());
   }
 
   @override
@@ -65,16 +66,18 @@ class _UserInteractionState extends State<UserInteraction> {
       body: BlocConsumer<UserChatsBloc, UserChatsState>(
         listener: (context, state) {
           if (state is UserChatsFailure) {
-            print("Failure");
+            showSnackBar(context, state.message);
           }
         },
         builder: (context, state) {
+          print("state -> $state");
+          print("context -> $context");
           if (state is UserChatsLoading) {
             return const Loader();
           }
-          if (state is UserChatInformationSuccess) {
-            List<ChatMessage> messages = [];
-            messages = _generateChatMessageList(state.chats);
+          if (state is UserChatsLoaded) {
+            // This state should come from your BLoC when new data is streamed
+            List<ChatMessage> messages = _generateChatMessageList(state.chats);
 
             return DashChat(
               inputOptions: const InputOptions(
@@ -116,7 +119,5 @@ class _UserInteractionState extends State<UserInteraction> {
             recieverId: widget.recieverId,
           ),
         );
-
-    context.read<UserChatsBloc>().add(UserChatInformationBloc());
   }
 }

@@ -148,6 +148,8 @@ bool checkCondition(
   bool lostCheck = false;
   bool foundCheck = false;
 
+  print(timeText);
+
   if (duration != null) {
     if (duration >= 5 && duration <= 7) lostCheck = true;
     if (duration == 8) {

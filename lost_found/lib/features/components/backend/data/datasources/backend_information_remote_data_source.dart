@@ -1,7 +1,5 @@
 import 'package:lost_found/core/error/exceptions.dart';
 import 'package:lost_found/features/auth/data/models/user_model.dart';
-import 'package:lost_found/features/chats/data/models/chat_model.dart';
-import 'package:lost_found/features/chats/domain/entities/chat.dart';
 import 'package:lost_found/features/components/combined_lost_found/data/models/combined_lost_found_model.dart';
 import 'package:lost_found/features/components/found/data/models/found_item_model.dart';
 import 'package:lost_found/features/components/lost/data/models/lost_item_model.dart';

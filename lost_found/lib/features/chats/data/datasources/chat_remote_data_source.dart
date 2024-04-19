@@ -5,12 +5,26 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 abstract interface class ChatRemoteDataSource {
   Future<ChatModel> uploadChats(ChatModel userChats);
   Future<List<ChatModel>> getUserChats();
+  Stream<List<ChatModel>> streamChats();
 }
 
 class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   final SupabaseClient supabaseClient;
 
   ChatRemoteDataSourceImpl(this.supabaseClient);
+
+  @override
+  Stream<List<ChatModel>> streamChats() {
+    final Stream<List<ChatModel>> messagesStream = supabaseClient
+        .from('messages')
+        .stream(primaryKey: ['id'])
+        .order('updated_at', ascending: true)
+        .map((List<Map<String, dynamic>> eventList) =>
+            eventList.map((map) => ChatModel.fromJson(map)).toList());
+
+    print(messagesStream);
+    return messagesStream;
+  }
 
   @override
   Future<List<ChatModel>> getUserChats() async {

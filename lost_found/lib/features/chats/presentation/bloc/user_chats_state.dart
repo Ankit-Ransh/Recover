@@ -19,4 +19,9 @@ final class UserChatInformationSuccess extends UserChatsState {
   UserChatInformationSuccess(this.chats);
 }
 
+class UserChatsLoaded extends UserChatsState {
+  final List<Chat> chats;
+  UserChatsLoaded(this.chats);
+}
+
 
