@@ -2,8 +2,10 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:intl/intl.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/utils/generate_chat_id.dart';
+import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/chats/domain/entities/chat.dart';
 import 'package:lost_found/features/chats/presentation/bloc/user_chats_bloc.dart';
 import 'package:lost_found/features/main/pages/splash_page.dart';
@@ -41,6 +43,7 @@ class UserInteraction extends StatefulWidget {
 class _UserInteractionState extends State<UserInteraction> {
   String generatedId = "";
   List userMessages = [];
+  List<ChatMessage> messages = [];
 
   @override
   void initState() {
@@ -48,6 +51,14 @@ class _UserInteractionState extends State<UserInteraction> {
 
     generatedId = generateChatId(widget.userId, widget.recieverId);
     context.read<UserChatsBloc>().add(UserChatInformationBloc());
+    BlocListener(
+      listener: (context, state) => {
+        if (state is UserChatInformationSuccess)
+          {
+            messages = _generateChatMessageList(state.chats),
+          },
+      },
+    );
   }
 
   @override
@@ -65,7 +76,7 @@ class _UserInteractionState extends State<UserInteraction> {
       body: BlocConsumer<UserChatsBloc, UserChatsState>(
         listener: (context, state) {
           if (state is UserChatsFailure) {
-            print("Failure");
+            showSnackBar(context, state.message);
           }
         },
         builder: (context, state) {
@@ -73,30 +84,40 @@ class _UserInteractionState extends State<UserInteraction> {
             return const Loader();
           }
           if (state is UserChatInformationSuccess) {
-            List<ChatMessage> messages = [];
             messages = _generateChatMessageList(state.chats);
-
-            return DashChat(
-              inputOptions: const InputOptions(
-                alwaysShowSend: true,
-              ),
-              messageOptions: const MessageOptions(
-                showOtherUsersAvatar: true,
-                showTime: true,
-              ),
-              currentUser: ChatUser(id: widget.userId),
-              onSend: _sendMessage,
-              messages: messages,
-            );
+          } else if (state is UserChatsSuccess) {
+            _newChatMessage(state.chats);
           }
-          return const SizedBox();
+
+          return DashChat(
+            inputOptions: const InputOptions(
+              alwaysShowSend: true,
+            ),
+            messageOptions: const MessageOptions(
+              showOtherUsersAvatar: true,
+              showTime: true,
+            ),
+            currentUser: ChatUser(id: widget.userId),
+            onSend: _sendMessage,
+            messages: messages,
+          );
         },
       ),
     );
   }
 
+  void _newChatMessage(Chat chat) {
+    if (chat.generatedId == generatedId) {
+      messages.add(ChatMessage(
+        text: chat.content,
+        user: ChatUser(id: chat.senderId),
+        createdAt: chat.updatedAt,
+      ));
+    }
+  }
+
   List<ChatMessage> _generateChatMessageList(List<Chat> chats) {
-    return chats
+    List<ChatMessage> chatList = chats
         .where((chat) => chat.generatedId == generatedId)
         .map<ChatMessage>((chat) {
       return ChatMessage(
@@ -105,6 +126,13 @@ class _UserInteractionState extends State<UserInteraction> {
         createdAt: chat.updatedAt,
       );
     }).toList();
+
+    for (var item in messages) {
+      print(
+          "item -> ${DateFormat('yyyyMMdd').format(item.createdAt)}  -> ${item.text}");
+    }
+
+    return chatList;
   }
 
   Future<void> _sendMessage(ChatMessage chatMessage) async {
@@ -116,7 +144,5 @@ class _UserInteractionState extends State<UserInteraction> {
             recieverId: widget.recieverId,
           ),
         );
-
-    context.read<UserChatsBloc>().add(UserChatInformationBloc());
   }
 }

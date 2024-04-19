@@ -10,4 +10,5 @@ abstract interface class ChatRepository {
     required String recieverId,
   });
   Future<Either<Failure, List<Chat>>> getUserChats();
+  Stream<List<Chat>> streamChats();
 }

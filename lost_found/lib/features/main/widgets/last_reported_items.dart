@@ -111,6 +111,7 @@ class _LastReportedItemsState extends State<LastReportedItems> {
                                 item.location,
                                 item.updatedAt,
                                 item.collectionCenter!,
+                                item.posterId!,
                               ),
                             );
                           }
@@ -124,7 +125,9 @@ class _LastReportedItemsState extends State<LastReportedItems> {
                           time: (item.status == "Lost")
                               ? timeText
                               : foundTimeText,
-                          color: AppPallete.lostColor,
+                          color: (item.status == "Lost")
+                              ? AppPallete.lostColor
+                              : AppPallete.foundColor,
                         ),
                       ),
                     );
@@ -147,6 +150,8 @@ bool checkCondition(
     int? duration, String timeText, int? foundDuration, String foundTimeText) {
   bool lostCheck = false;
   bool foundCheck = false;
+
+  // print(timeText);
 
   if (duration != null) {
     if (duration >= 5 && duration <= 7) lostCheck = true;

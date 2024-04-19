@@ -4,6 +4,9 @@ Map<String, int> getFoundTimeDifference(DateTime updatedAt) {
   String postedTime = DateFormat('yyyyMMdd').format(updatedAt);
   String currentTime = DateFormat('yyyyMMdd').format(DateTime.now());
 
+  print(postedTime);
+  print(currentTime);
+
   int postedYear = int.parse(postedTime.substring(0, 4));
   int currentYear = int.parse(currentTime.substring(0, 4));
 
@@ -45,8 +48,8 @@ Map<String, int> getFoundTimeDifference(DateTime updatedAt) {
     int currentHour = int.parse(currentTime.substring(0, 2));
 
     if (currentHour == postedHour) {
-      int postedMin = int.parse(postedTime.substring(2));
-      int currentMin = int.parse(currentTime.substring(2));
+      int postedMin = int.parse(postedTime.substring(3));
+      int currentMin = int.parse(currentTime.substring(3));
 
       if ((currentMin - postedMin).abs() == 1) {
         return {
