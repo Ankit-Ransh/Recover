@@ -38,7 +38,6 @@ class UserChatsBloc extends Bloc<UserChatsEvent, UserChatsState> {
     _chatSubscription = _chatStream(StreamParams()).listen(
       (List<Chat> chats) {
         if (!emit.isDone) {
-          print("Something will happen");
           emit(UserChatsLoaded(chats));
         }
       },
@@ -80,7 +79,7 @@ class UserChatsBloc extends Bloc<UserChatsEvent, UserChatsState> {
 
     res.fold(
       (l) => emit(UserChatsFailure(l.message)),
-      (r) => emit(UserChatsSuccess()),
+      (r) => emit(UserChatsSuccess(r)),
     );
   }
 }

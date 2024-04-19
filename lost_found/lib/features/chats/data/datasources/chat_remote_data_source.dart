@@ -46,7 +46,10 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   @override
   Future<List<ChatModel>> getUserChats() async {
     try {
-      final userChats = await supabaseClient.from('messages').select();
+      final userChats = await supabaseClient
+          .from('messages')
+          .select()
+          .order('updated_at', ascending: true);
 
       return userChats
           .map((information) => ChatModel.fromJson(information).copyWith())

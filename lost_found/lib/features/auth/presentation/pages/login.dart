@@ -5,11 +5,11 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/auth/presentation/pages/signup.dart';
-import 'package:lost_found/core/suspended/divider.dart';
+// import 'package:lost_found/core/suspended/divider.dart';
 import 'package:lost_found/features/auth/presentation/widgets/forgot_password.dart';
 import 'package:lost_found/features/auth/presentation/widgets/form_data_field.dart';
 import 'package:lost_found/features/auth/presentation/widgets/login_button.dart';
-import 'package:lost_found/features/auth/presentation/widgets/logo_box.dart';
+// import 'package:lost_found/features/auth/presentation/widgets/logo_box.dart';
 import 'package:lost_found/features/auth/presentation/widgets/switch_login.dart';
 import 'package:lost_found/features/main/index_page.dart';
 
