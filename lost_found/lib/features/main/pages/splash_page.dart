@@ -2,7 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
+import 'package:lost_found/core/utils/generate_chat_id.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
+import 'package:lost_found/features/chats/presentation/bloc/user_chats_bloc.dart';
 import 'package:lost_found/features/chats/presentation/rooms/user_interaction.dart';
 import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
 import 'package:lost_found/features/main/index_page.dart';
@@ -76,6 +78,7 @@ class _SplashPageState extends State<SplashPage> {
                           imageUrl:
                               'https://cdn.pixabay.com/photo/2015/10/05/22/37/blank-profile-picture-973460_960_720.png',
                           userName: profileList.name,
+                          latestMessage: "Hello ${profileList.id}",
                         ),
                       );
                     } else {

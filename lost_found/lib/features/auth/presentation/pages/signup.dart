@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
-import 'package:lost_found/core/utils/show_toast.dart';
+import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/auth/presentation/pages/login.dart';
 import 'package:lost_found/features/auth/presentation/widgets/forgot_password.dart';
@@ -39,22 +39,15 @@ class _SignUpState extends State<SignUp> {
         color: AppPallete.greyShade200,
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
-            if (state is AuthSignUpFailure) {
-              showToast(
-                text: state.message,
-                context: context,
-                color: AppPallete.greyShade200,
-              );
-            } else if (state is AuthSignUpSuccess) {
-              showToast(
-                text: "Acoount created successfully",
-                context: context,
-                color: AppPallete.greyShade200,
-              );
+            if (state is AuthFailure) {
+              showSnackBar(context, state.message);
+            } else if (state is AuthSuccess) {
+              showSnackBar(context, "Account created successfully!");
               Navigator.pushAndRemoveUntil(
                 context,
                 IndexPage.route(),
-                (Route<dynamic> route) => false,
+                (Route<dynamic> route) =>
+                    false, // This condition prevents any routes from being retained.
               );
             }
           },

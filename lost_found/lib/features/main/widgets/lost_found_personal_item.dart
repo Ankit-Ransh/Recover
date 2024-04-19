@@ -19,7 +19,6 @@ class LostFoundPersonalItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    // ignore: sized_box_for_whitespace
     return Container(
       height: 180,
       child: Row(
@@ -42,7 +41,6 @@ class LostFoundPersonalItem extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 15),
-          // ignore: sized_box_for_whitespace
           Container(
             height: 150,
             width: 220,

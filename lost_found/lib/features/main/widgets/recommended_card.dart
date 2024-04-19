@@ -50,7 +50,6 @@ class RecommendedCards extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 15),
-          // ignore: sized_box_for_whitespace
           Container(
             height: 150,
             width: 220,
@@ -76,7 +75,6 @@ class RecommendedCards extends StatelessWidget {
                   maxLines: 4,
                   overflow: TextOverflow.ellipsis,
                 ),
-                // ignore: sized_box_for_whitespace
                 Container(
                   height: 35,
                   child: Row(

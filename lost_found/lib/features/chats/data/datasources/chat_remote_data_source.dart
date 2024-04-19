@@ -5,7 +5,6 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 abstract interface class ChatRemoteDataSource {
   Future<ChatModel> uploadChats(ChatModel userChats);
   Future<List<ChatModel>> getUserChats();
-  Stream<List<ChatModel>> streamChats();
 }
 
 class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
@@ -14,42 +13,9 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
   ChatRemoteDataSourceImpl(this.supabaseClient);
 
   @override
-  Stream<List<ChatModel>> streamChats() {
-    try {
-      final Stream<List<ChatModel>> messagesStream = supabaseClient
-          .from('messages')
-          .stream(primaryKey: ['id'])
-          .order('updated_at')
-          .map((List<Map<String, dynamic>> eventList) =>
-              eventList.map((map) => ChatModel.fromJson(map)).toList());
-
-      // print("-------------------");
-      // print("-------------------");
-      // // Print each message as it arrives
-      // messagesStream.listen((List<ChatModel> messageList) {
-      //   for (var message in messageList) {
-      //     print("Received message: ${message.toJson()}");
-      //   }
-      // });
-
-      // print("-------------------");
-      // print("-------------------");
-
-      // print("Stream ongoing -> $messagesStream");
-      return messagesStream;
-    } catch (e) {
-      // print("eroor her $e");
-      throw Exception(e.toString());
-    }
-  }
-
-  @override
   Future<List<ChatModel>> getUserChats() async {
     try {
-      final userChats = await supabaseClient
-          .from('messages')
-          .select()
-          .order('updated_at', ascending: true);
+      final userChats = await supabaseClient.from('messages').select();
 
       return userChats
           .map((information) => ChatModel.fromJson(information).copyWith())
