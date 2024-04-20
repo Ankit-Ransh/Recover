@@ -317,9 +317,6 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
                 builder: (context, state) {
                   if (state is CombinedClaimedItemSuccess) {
                     showToast(text: "Item claimed", context: context);
-                  }
-                  if (state is CombinedClaimedItemFailure) {
-                    showToast(text: state.message, context: context);
 
                     Future.delayed(const Duration(seconds: 2), () {
                       Navigator.push(context, PersonalItems.route());

@@ -20,7 +20,7 @@ abstract interface class CombinedLostFoundRepository {
     required DateTime? claimedTime,
   });
 
-  Future<Either<Failure, bool>> claimedCombinedLostFoundRepository({
+  Future<Either<Failure, int>> claimedCombinedLostFoundRepository({
     required String id,
     required String userId,
   });

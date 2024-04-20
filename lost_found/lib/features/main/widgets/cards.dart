@@ -15,6 +15,8 @@ class Cards extends StatelessWidget {
   final Color color;
   final Color textColor;
   final double fontSize;
+  final bool claimedItem;
+  final String claimedText;
 
   const Cards({
     super.key,
@@ -27,6 +29,8 @@ class Cards extends StatelessWidget {
     required this.color,
     this.textColor = AppPallete.whiteColor,
     this.fontSize = 16,
+    this.claimedItem = false,
+    this.claimedText = "",
   });
 
   @override
@@ -95,7 +99,9 @@ class Cards extends StatelessWidget {
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               AutoSizeText(
-                                "Posted by $user",
+                                claimedItem == false
+                                    ? "Posted by $user"
+                                    : claimedText,
                                 style: const TextStyle(
                                     fontSize: 12,
                                     fontWeight: FontWeight.w600,

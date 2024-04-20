@@ -16,6 +16,7 @@ class CombinedLostFound {
   final DateTime? claimedTime;
   final String? posterName;
   final String? posterId;
+  final String? claimerName;
 
   CombinedLostFound({
     required this.id,
@@ -35,5 +36,6 @@ class CombinedLostFound {
     required this.claimedTime,
     this.posterName,
     this.posterId,
+    this.claimerName,
   });
 }

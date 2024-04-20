@@ -71,7 +71,8 @@ class _PersonalItemsState extends State<PersonalItems> {
                   itemBuilder: (context, index) {
                     final itemList = state.item[index];
 
-                    if (itemList.userId == currentUserId) {
+                    if (itemList.userId == currentUserId ||
+                        itemList.claimedId == currentUserId) {
                       String timeText = getLostTimeDifference(itemList.lostDate,
                               itemList.lostTime, itemList.updatedAt)
                           .keys
@@ -104,6 +105,24 @@ class _PersonalItemsState extends State<PersonalItems> {
                                 : AppPallete.claimedColor,
                             fontSize: (itemList.claimed == true) ? 13.0 : 16.0,
                           ),
+                        );
+                      } else if (itemList.status == "Claimed") {
+                        String claimedTimeText =
+                            getFoundTimeDifference(itemList.claimedTime!)
+                                .keys
+                                .first;
+
+                        return Cards(
+                          title: itemList.title,
+                          description: itemList.description,
+                          user: "",
+                          time: claimedTimeText,
+                          imageUrl: itemList.imageUrl,
+                          status: itemList.status,
+                          color: AppPallete.claimedColor,
+                          fontSize: 13.0,
+                          claimedItem: true,
+                          claimedText: "Claimed by you",
                         );
                       } else {
                         return GestureDetector(

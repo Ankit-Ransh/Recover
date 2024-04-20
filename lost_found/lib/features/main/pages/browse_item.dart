@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lost_found/core/common/views/claimed_item_details_page.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
@@ -157,15 +158,38 @@ class _BrowseItemState extends State<BrowseItem> {
                       }
                     } else {
                       if (itemList.status == "Claimed") {
-                        return Cards(
-                          title: itemList.title,
-                          description: itemList.description,
-                          user: itemList.posterName!,
-                          time: foundTimeText,
-                          imageUrl: itemList.imageUrl,
-                          status: itemList.status,
-                          color: AppPallete.claimedColor,
-                          fontSize: itemList.claimed ? 13.0 : 16.0,
+                        Map<String, int> claimedTimeDiff =
+                            getFoundTimeDifference(itemList.claimedTime!);
+                        String claimedTimeText = claimedTimeDiff.keys.first;
+
+                        return GestureDetector(
+                          onTap: () {
+                            Navigator.push(
+                              context,
+                              ClaimedItemDetailsPage.route(
+                                  itemList.posterName!,
+                                  claimedTimeText,
+                                  itemList.imageUrl,
+                                  itemList.title,
+                                  itemList.category,
+                                  itemList.description,
+                                  itemList.location,
+                                  itemList.claimedTime!,
+                                  itemList.collectionCenter!,
+                                  itemList.posterId!,
+                                  itemList.id),
+                            );
+                          },
+                          child: Cards(
+                            title: itemList.title,
+                            description: itemList.description,
+                            user: itemList.posterName!,
+                            time: foundTimeText,
+                            imageUrl: itemList.imageUrl,
+                            status: itemList.status,
+                            color: AppPallete.claimedColor,
+                            fontSize: itemList.claimed ? 13.0 : 16.0,
+                          ),
                         );
                       } else {
                         return DisplayCards(
@@ -217,6 +241,7 @@ class DisplayCards extends StatelessWidget {
                   itemList.location,
                   itemList.lostDate!,
                   itemList.lostTime!,
+                  itemList.posterId!,
                 )
               : FoundItemDetailsPage.route(
                   itemList.posterName!,

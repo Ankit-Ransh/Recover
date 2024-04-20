@@ -1,11 +1,14 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/core/common/widgets/chat_button.dart';
 import 'package:lost_found/core/common/widgets/item_tags.dart';
 import 'package:lost_found/core/common/widgets/text_description_widget.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/features/chats/presentation/rooms/user_interaction.dart';
 
 class LostItemDetailsPage extends StatelessWidget {
   final String posterName;
@@ -17,6 +20,7 @@ class LostItemDetailsPage extends StatelessWidget {
   final String location;
   final String date;
   final String time;
+  final String posterId;
 
   const LostItemDetailsPage({
     super.key,
@@ -29,6 +33,7 @@ class LostItemDetailsPage extends StatelessWidget {
     required this.location,
     required this.date,
     required this.time,
+    required this.posterId,
   });
 
   static MaterialPageRoute route(
@@ -41,6 +46,7 @@ class LostItemDetailsPage extends StatelessWidget {
     String location,
     String date,
     String time,
+    String posterId,
   ) {
     return MaterialPageRoute(
       builder: (context) => LostItemDetailsPage(
@@ -53,6 +59,7 @@ class LostItemDetailsPage extends StatelessWidget {
         location: location,
         date: date,
         time: time,
+        posterId: posterId,
       ),
     );
   }
@@ -60,6 +67,9 @@ class LostItemDetailsPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
+
+    final userId =
+        (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
 
     return Scaffold(
       body: SingleChildScrollView(
@@ -209,7 +219,18 @@ class LostItemDetailsPage extends StatelessWidget {
               ),
               const SizedBox(height: 60),
               ChatButton(
-                onTap: () {},
+                onTap: () {
+                  Navigator.push(
+                    context,
+                    MaterialPageRoute(
+                      builder: (context) => UserInteraction(
+                        userId: userId,
+                        recieverId: posterId,
+                        name: posterName,
+                      ),
+                    ),
+                  );
+                },
                 icon: const Icon(
                   CupertinoIcons.chat_bubble_fill,
                   color: AppPallete.whiteColor,

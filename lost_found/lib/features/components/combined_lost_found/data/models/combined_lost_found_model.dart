@@ -19,6 +19,7 @@ class CombinedLostFoundModel extends CombinedLostFound {
     required super.claimedTime,
     super.posterName,
     super.posterId,
+    super.claimerName,
   });
 
   Map<String, dynamic> toJson() {
@@ -87,6 +88,7 @@ class CombinedLostFoundModel extends CombinedLostFound {
     String? posterId,
     String? claimedId,
     DateTime? claimedTime,
+    String? claimerName,
   }) {
     return CombinedLostFoundModel(
       id: id ?? this.id,
@@ -106,6 +108,7 @@ class CombinedLostFoundModel extends CombinedLostFound {
       claimedTime: claimedTime ?? this.claimedTime,
       posterName: posterName ?? this.posterName,
       posterId: posterId ?? this.posterId,
+      claimerName: claimerName ?? this.claimerName,
     );
   }
 }

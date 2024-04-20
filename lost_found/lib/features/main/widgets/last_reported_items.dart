@@ -96,6 +96,7 @@ class _LastReportedItemsState extends State<LastReportedItems> {
                                 item.location,
                                 item.lostDate!,
                                 item.lostTime!,
+                                item.posterId!,
                               ),
                             );
                           } else {
