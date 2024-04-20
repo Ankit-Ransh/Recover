@@ -2,7 +2,6 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:intl/intl.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/utils/generate_chat_id.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
@@ -108,11 +107,13 @@ class _UserInteractionState extends State<UserInteraction> {
 
   void _newChatMessage(Chat chat) {
     if (chat.generatedId == generatedId) {
-      messages.add(ChatMessage(
+      ChatMessage newMessage = ChatMessage(
         text: chat.content,
         user: ChatUser(id: chat.senderId),
         createdAt: chat.updatedAt,
-      ));
+      );
+
+      messages.insert(0, newMessage);
     }
   }
 
@@ -127,12 +128,13 @@ class _UserInteractionState extends State<UserInteraction> {
       );
     }).toList();
 
-    for (var item in messages) {
-      print(
-          "item -> ${DateFormat('yyyyMMdd').format(item.createdAt)}  -> ${item.text}");
+    int length = chatList.length;
+    List<ChatMessage> sortedList = [];
+    for (int i = length - 1; i >= 0; --i) {
+      sortedList.add(chatList[i]);
     }
 
-    return chatList;
+    return sortedList;
   }
 
   Future<void> _sendMessage(ChatMessage chatMessage) async {

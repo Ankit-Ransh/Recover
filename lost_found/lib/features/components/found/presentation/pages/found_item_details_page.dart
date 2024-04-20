@@ -213,7 +213,10 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
                             bold: false,
                           ),
                           const SizedBox(width: 12),
-                          ItemTags(category: widget.location),
+                          ItemTags(
+                            category: widget.location,
+                            fontSize: 12,
+                          ),
                         ],
                       ),
                     ),
@@ -245,7 +248,10 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
                       bold: false,
                     ),
                     const SizedBox(width: 12),
-                    ItemTags(category: widget.collectionCenter),
+                    ItemTags(
+                      category: widget.collectionCenter,
+                      fontSize: 14,
+                    ),
                   ],
                 ),
               ),

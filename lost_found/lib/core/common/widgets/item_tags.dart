@@ -3,9 +3,11 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 
 class ItemTags extends StatelessWidget {
   final String category;
+  final double fontSize;
   const ItemTags({
     super.key,
     required this.category,
+    this.fontSize = 14,
   });
 
   @override
@@ -18,8 +20,8 @@ class ItemTags extends StatelessWidget {
       ),
       child: Text(
         category,
-        style: const TextStyle(
-          fontSize: 14,
+        style: TextStyle(
+          fontSize: fontSize,
           fontWeight: FontWeight.w400,
           color: AppPallete.deepPurple,
         ),

@@ -3,6 +3,7 @@ import 'package:lost_found/features/auth/data/models/user_model.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class AuthRemoteDataSource {
+  Session? get currentUserSession;
   Future<UserModel> signUpWithEmailPassword({
     required String name,
     required String email,
@@ -14,7 +15,6 @@ abstract interface class AuthRemoteDataSource {
     required String password,
   });
 
-  Session? get currentUserSession;
   Future<UserModel?> getCurrentUserData();
   Future<void> signOut();
 }
@@ -29,8 +29,8 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<void> signOut() async {
     try {
-      await supabaseClient.auth.signOut(scope: SignOutScope.local);
-      // currentUserSession == null;
+      currentUserSession == null;
+      await supabaseClient.auth.signOut(scope: SignOutScope.global);
     } catch (e) {
       throw Exception(e.toString());
     }
@@ -86,7 +86,6 @@ class AuthRemoteDataSourceImpl implements AuthRemoteDataSource {
   @override
   Future<UserModel?> getCurrentUserData() async {
     try {
-      print("Printing -> $currentUserSession");
       if (currentUserSession != null) {
         final userdata = await supabaseClient
             .from('profiles')

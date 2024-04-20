@@ -15,9 +15,19 @@ class WelcomeBar extends StatefulWidget {
 
 class _WelcomeBarState extends State<WelcomeBar> {
   @override
+  void initState() {
+    super.initState();
+    context.read<AuthBloc>().add(AuthIsUserLoggedIn());
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final user =
-        (context.read<AppUserCubit>().state as AppUserLoggedIn).user.name;
+    bool isUser = (context.read<AppUserCubit>().state is AppUserLoggedIn);
+
+    String user = "";
+    if (isUser) {
+      user = (context.read<AppUserCubit>().state as AppUserLoggedIn).user.name;
+    }
 
     return Container(
       color: AppPallete.deepPurple,

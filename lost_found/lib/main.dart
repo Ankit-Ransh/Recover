@@ -63,7 +63,6 @@ class _MyAppState extends State<MyApp> {
         debugShowCheckedModeBanner: false,
         home: BlocSelector<AppUserCubit, AppUserState, bool>(
           selector: (state) {
-            print("state is $state");
             return state is AppUserLoggedIn;
           },
           builder: (context, isLoggedIn) {

@@ -37,7 +37,7 @@ class CombinedLostFoundModel extends CombinedLostFound {
       'category': category,
       'claimed': claimed,
       'claimed_id': claimedId,
-      'claimed_time': claimedTime,
+      'claimed_time': claimedTime!.toIso8601String(),
     };
   }
 
@@ -46,7 +46,9 @@ class CombinedLostFoundModel extends CombinedLostFound {
       id: map['id'],
       updatedAt: map['updated_at'] == null
           ? DateTime.now()
-          : DateTime.parse(map['updated_at'] as String),
+          : DateTime.parse(
+              map['updated_at'] as String,
+            ),
       status: map['status'],
       title: map['title'] as String,
       description: map['description'] as String,
@@ -59,7 +61,11 @@ class CombinedLostFoundModel extends CombinedLostFound {
       category: map['category'] as String,
       claimed: map['claimed'] as bool,
       claimedId: map['claimed_id'] as String,
-      claimedTime: map['claimed_time'] as DateTime,
+      claimedTime: map['claimed_time'] == null
+          ? DateTime.now()
+          : DateTime.parse(
+              map['claimed_time'] as String,
+            ),
     );
   }
 

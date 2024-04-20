@@ -86,7 +86,7 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
               category: suggestedRecoveryCategory.text.trim(),
               claimed: false,
               claimedId: "",
-              claimedTime: null,
+              claimedTime: DateTime.now(),
             ),
           );
 
