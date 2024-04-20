@@ -106,7 +106,7 @@ class _BrowseItemState extends State<BrowseItem> {
                 "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfF2YcEpt1vTuV0UF4jSdhV-sVrvp3lo1y9kPsSTtCxw&s",
             status: "Claimed",
             color: AppPallete.claimedColor,
-            textColor: AppPallete.blackColor,
+            textColor: AppPallete.whiteColor,
             fontSize: 13.0,
           ),
 
@@ -156,11 +156,24 @@ class _BrowseItemState extends State<BrowseItem> {
                         return const SizedBox();
                       }
                     } else {
-                      return DisplayCards(
-                        itemList: itemList,
-                        timeText: timeText,
-                        foundTimeText: foundTimeText,
-                      );
+                      if (itemList.status == "Claimed") {
+                        return Cards(
+                          title: itemList.title,
+                          description: itemList.description,
+                          user: itemList.posterName!,
+                          time: foundTimeText,
+                          imageUrl: itemList.imageUrl,
+                          status: itemList.status,
+                          color: AppPallete.claimedColor,
+                          fontSize: itemList.claimed ? 13.0 : 16.0,
+                        );
+                      } else {
+                        return DisplayCards(
+                          itemList: itemList,
+                          timeText: timeText,
+                          foundTimeText: foundTimeText,
+                        );
+                      }
                     }
                   },
                 );

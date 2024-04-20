@@ -15,6 +15,8 @@ class CombinedLostFoundModel extends CombinedLostFound {
     required super.userId,
     required super.category,
     required super.claimed,
+    required super.claimedId,
+    required super.claimedTime,
     super.posterName,
     super.posterId,
   });
@@ -34,6 +36,8 @@ class CombinedLostFoundModel extends CombinedLostFound {
       'user_id': userId,
       'category': category,
       'claimed': claimed,
+      'claimed_id': claimedId,
+      'claimed_time': claimedTime,
     };
   }
 
@@ -54,6 +58,8 @@ class CombinedLostFoundModel extends CombinedLostFound {
       userId: map['user_id'] as String,
       category: map['category'] as String,
       claimed: map['claimed'] as bool,
+      claimedId: map['claimed_id'] as String,
+      claimedTime: map['claimed_time'] as DateTime,
     );
   }
 
@@ -73,6 +79,8 @@ class CombinedLostFoundModel extends CombinedLostFound {
     bool? claimed,
     String? posterName,
     String? posterId,
+    String? claimedId,
+    DateTime? claimedTime,
   }) {
     return CombinedLostFoundModel(
       id: id ?? this.id,
@@ -88,6 +96,8 @@ class CombinedLostFoundModel extends CombinedLostFound {
       userId: userId ?? this.userId,
       category: category ?? this.category,
       claimed: claimed ?? this.claimed,
+      claimedId: claimedId ?? this.claimedId,
+      claimedTime: claimedTime ?? this.claimedTime,
       posterName: posterName ?? this.posterName,
       posterId: posterId ?? this.posterId,
     );

@@ -13,6 +13,7 @@ import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_toast.dart';
 import 'package:lost_found/features/chats/presentation/rooms/user_interaction.dart';
 import 'package:lost_found/features/components/combined_lost_found/presentation/bloc/combined_lost_found_bloc.dart';
+import 'package:lost_found/features/main/pages/personal_item.dart';
 
 class FoundItemDetailsPage extends StatefulWidget {
   final String posterName;
@@ -260,26 +261,11 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
                     );
                   } else {
                     context.read<CombinedLostFoundBloc>().add(
-                        CombinedClaimedItemBloc(id: widget.id, userId: userId));
-
-                    BlocListener(
-                      listener: (context, state) => {
-                        if (state is CombinedClaimedItemSuccess)
-                          {
-                            showToast(
-                                text: "Item claimed",
-                                context: context,
-                                color: AppPallete.greyShade200),
-                          },
-                        if (state is CombinedClaimedItemFailure)
-                          {
-                            showToast(
-                                text: "Server Error",
-                                context: context,
-                                color: AppPallete.greyShade200),
-                          },
-                      },
-                    );
+                          CombinedClaimedItemBloc(
+                            id: widget.id,
+                            userId: userId,
+                          ),
+                        );
                   }
                 },
                 command: "Claim Item",
@@ -318,6 +304,25 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
                 fontWeight: FontWeight.w500,
               ),
               const SizedBox(height: 50),
+
+              // Bloc consumer
+              BlocConsumer<CombinedLostFoundBloc, CombinedLostFoundState>(
+                listener: (context, state) {},
+                builder: (context, state) {
+                  if (state is CombinedClaimedItemSuccess) {
+                    showToast(text: "Item claimed", context: context);
+                  }
+                  if (state is CombinedClaimedItemFailure) {
+                    showToast(text: state.message, context: context);
+
+                    Future.delayed(const Duration(seconds: 2), () {
+                      Navigator.push(context, PersonalItems.route());
+                    });
+                  }
+
+                  return const SizedBox();
+                },
+              ),
             ],
           ),
         ),

@@ -15,10 +15,14 @@ class CombinedLostFoundRepositoryImpl implements CombinedLostFoundRepository {
   CombinedLostFoundRepositoryImpl(this.combinedLostFoundRemoteSource);
 
   @override
-  Future<Either<Failure, void>> claimedCombinedLostFoundRepository(
-      {required String id, required String userId,}) async {
+  Future<Either<Failure, bool>> claimedCombinedLostFoundRepository({
+    required String id,
+    required String userId,
+  }) async {
     try {
       final res = await combinedLostFoundRemoteSource.claimedItem(id, userId);
+      if (res == false) return left(Failure("Item already claimed"));
+
       return right(res);
     } catch (e) {
       return left(Failure(e.toString()));
@@ -38,6 +42,8 @@ class CombinedLostFoundRepositoryImpl implements CombinedLostFoundRepository {
     required String userId,
     required String category,
     required bool claimed,
+    required String? claimedId,
+    required DateTime? claimedTime,
   }) async {
     try {
       CombinedLostFoundModel combinedLostFoundModel = CombinedLostFoundModel(
@@ -54,6 +60,8 @@ class CombinedLostFoundRepositoryImpl implements CombinedLostFoundRepository {
         userId: userId,
         category: category,
         claimed: claimed,
+        claimedId: claimedId,
+        claimedTime: claimedTime,
       );
 
       final imageUrl = await combinedLostFoundRemoteSource.uploadImage(

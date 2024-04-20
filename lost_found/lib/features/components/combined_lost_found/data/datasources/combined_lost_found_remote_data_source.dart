@@ -8,7 +8,7 @@ abstract interface class CombinedLostFoundRemoteSource {
   Future<CombinedLostFoundModel> uploadCombinedLostFound(
       CombinedLostFoundModel combinedLostFoundModel);
 
-  Future<void> claimedItem(String itemId, String userId);
+  Future<bool> claimedItem(String itemId, String userId);
 
   Future<String> uploadImage({
     required File image,
@@ -22,16 +22,43 @@ class CombinedLostFoundRemoteSourceImpl
   CombinedLostFoundRemoteSourceImpl(this.supabaseClient);
 
   @override
-  Future<void> claimedItem(String itemId, String userId) async {
+  Future<bool> claimedItem(String itemId, String userId) async {
     try {
-      await supabaseClient
+      bool isClaimed = false;
+      final res = await supabaseClient
           .from('combined_database')
-          .update({'claimed': true}).match(
+          .select()
+          .eq('id', itemId);
+
+      for (var row in res) {
+        bool claimed = row['claimed'];
+        isClaimed = claimed;
+      }
+
+      if (isClaimed == true) return false;
+
+      await supabaseClient.from('combined_database').update({
+        'claimed': true,
+        'status': "Claimed",
+        'claimed_id': userId,
+        'claimed_time': DateTime.now(),
+      }).match(
         {
           'id': itemId,
-          'user_id': userId,
         },
       );
+
+      final newRes = await supabaseClient
+          .from('combined_database')
+          .select()
+          .eq('id', itemId);
+
+      for (var row in newRes) {
+        bool claimed = row['claimed'];
+        isClaimed = claimed;
+      }
+
+      return isClaimed;
     } on ServerException catch (e) {
       throw ServerException(e.toString());
     }

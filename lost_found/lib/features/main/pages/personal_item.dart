@@ -14,6 +14,8 @@ import 'package:lost_found/features/main/widgets/get_lost_time_difference.dart';
 import 'package:lost_found/features/main/widgets/title_bar.dart';
 
 class PersonalItems extends StatefulWidget {
+  static route() =>
+      MaterialPageRoute(builder: (context) => const PersonalItems());
   const PersonalItems({super.key});
 
   @override

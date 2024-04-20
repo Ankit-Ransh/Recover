@@ -40,11 +40,23 @@ class _SignUpState extends State<SignUp> {
         child: BlocConsumer<AuthBloc, AuthState>(
           listener: (context, state) {
             if (state is AuthSignUpFailure) {
-              showToast(
-                text: state.message,
-                context: context,
-                color: AppPallete.greyShade200,
-              );
+              if (state.message == "Null check operator used on a null value") {
+                showToast(
+                  text: "Please verify your email",
+                  context: context,
+                  color: AppPallete.greyShade200,
+                );
+
+                Future.delayed(const Duration(seconds: 1), () {
+                  Navigator.push(context, Login.route());
+                });
+              } else {
+                showToast(
+                  text: state.message,
+                  context: context,
+                  color: AppPallete.greyShade200,
+                );
+              }
             } else if (state is AuthSignUpSuccess) {
               showToast(
                 text: "Acoount created successfully",

@@ -1,16 +1,16 @@
 import 'package:fpdart/fpdart.dart';
 import 'package:lost_found/core/error/failures.dart';
 import 'package:lost_found/core/usecase/usecase.dart';
-import 'package:lost_found/features/components/combined_lost_found/domain/entities/combined_lost_found.dart';
+// import 'package:lost_found/features/components/combined_lost_found/domain/entities/combined_lost_found.dart';
 import 'package:lost_found/features/components/combined_lost_found/domain/repository/combined_lost_found_repository.dart';
 
 class ClaimedCombinedLostFoundUseCase
-    implements UseCase<void, ClaimedCombinedLostFoundUseCaseParams> {
+    implements UseCase<bool, ClaimedCombinedLostFoundUseCaseParams> {
   final CombinedLostFoundRepository combinedLostFoundRepository;
   ClaimedCombinedLostFoundUseCase(this.combinedLostFoundRepository);
 
   @override
-  Future<Either<Failure, void>> call(
+  Future<Either<Failure, bool>> call(
       ClaimedCombinedLostFoundUseCaseParams params) async {
     return await combinedLostFoundRepository.claimedCombinedLostFoundRepository(
       id: params.id,

@@ -4,9 +4,6 @@ Map<String, int> getFoundTimeDifference(DateTime updatedAt) {
   String postedTime = DateFormat('yyyyMMdd').format(updatedAt);
   String currentTime = DateFormat('yyyyMMdd').format(DateTime.now());
 
-  print(postedTime);
-  print(currentTime);
-
   int postedYear = int.parse(postedTime.substring(0, 4));
   int currentYear = int.parse(currentTime.substring(0, 4));
 

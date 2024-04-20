@@ -6,9 +6,14 @@ import 'package:lost_found/core/utils/show_toast.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/auth/presentation/pages/login.dart';
 
-class WelcomeBar extends StatelessWidget {
+class WelcomeBar extends StatefulWidget {
   const WelcomeBar({super.key});
 
+  @override
+  State<WelcomeBar> createState() => _WelcomeBarState();
+}
+
+class _WelcomeBarState extends State<WelcomeBar> {
   @override
   Widget build(BuildContext context) {
     final user =

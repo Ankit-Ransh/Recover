@@ -26,6 +26,8 @@ class CombinedLostFoundUseCase
       userId: params.userId,
       category: params.category,
       claimed: params.claimed,
+      claimedId: params.claimedId,
+      claimedTime: params.claimedTime,
     );
   }
 }
@@ -42,6 +44,8 @@ class CombinedLostFoundParams {
   final String userId;
   final String category;
   final bool claimed;
+  final String? claimedId;
+  final DateTime? claimedTime;
 
   CombinedLostFoundParams({
     required this.status,
@@ -55,5 +59,7 @@ class CombinedLostFoundParams {
     required this.userId,
     required this.category,
     required this.claimed,
+    required this.claimedId,
+    required this.claimedTime,
   });
 }

@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_found/features/components/combined_lost_found/domain/usecases/claimed_combined_lost_found_usecase.dart';
@@ -33,12 +32,11 @@ class CombinedLostFoundBloc
       userId: event.userId,
     ));
 
-    print("Response -> $res");
-
-    res.fold(
-      (l) => emit(CombinedClaimedItemFailure(l.message)),
-      (r) => emit(CombinedClaimedItemSuccess()),
-    );
+    res.fold((l) {
+      emit(CombinedClaimedItemFailure(l.message));
+    }, (r) {
+      emit(CombinedClaimedItemSuccess());
+    });
   }
 
   void _onCombinedLostFoundReport(CombinedLostFoundUploadBloc event,
@@ -55,6 +53,8 @@ class CombinedLostFoundBloc
       userId: event.userId,
       category: event.category,
       claimed: event.claimed,
+      claimedId: event.claimedId,
+      claimedTime: event.claimedTime,
     ));
 
     res.fold(

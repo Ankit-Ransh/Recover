@@ -15,6 +15,8 @@ final class CombinedLostFoundUploadBloc extends CombinedLostFoundEvent {
   final String userId;
   final String category;
   final bool claimed;
+  final String? claimedId;
+  final DateTime? claimedTime;
 
   CombinedLostFoundUploadBloc({
     required this.status,
@@ -28,6 +30,8 @@ final class CombinedLostFoundUploadBloc extends CombinedLostFoundEvent {
     required this.userId,
     required this.category,
     required this.claimed,
+    required this.claimedId,
+    required this.claimedTime,
   });
 }
 

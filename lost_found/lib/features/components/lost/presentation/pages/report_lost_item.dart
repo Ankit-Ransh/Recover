@@ -90,6 +90,8 @@ class _ReportLostItemState extends State<ReportLostItem> {
               userId: userId,
               category: selectedSuggestedCategory.text.trim(),
               claimed: claimed,
+              claimedId: "",
+              claimedTime: null,
             ),
           );
 
