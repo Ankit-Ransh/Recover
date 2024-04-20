@@ -29,6 +29,14 @@ class FormDataFields extends StatelessWidget {
             borderSide: const BorderSide(color: AppPallete.deepPurple),
             borderRadius: BorderRadius.circular(10),
           ),
+          errorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppPallete.deepPurple),
+            borderRadius: BorderRadius.circular(10),
+          ),
+          focusedErrorBorder: OutlineInputBorder(
+            borderSide: const BorderSide(color: AppPallete.deepPurple),
+            borderRadius: BorderRadius.circular(10),
+          ),
           fillColor: AppPallete.greyShade200,
           filled: true,
           hintText: hintText,
