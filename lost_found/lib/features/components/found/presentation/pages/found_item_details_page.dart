@@ -87,7 +87,7 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
-          margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
+          margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -212,7 +212,7 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
                             fontSize: 15,
                             bold: false,
                           ),
-                          const SizedBox(width: 12),
+                          const SizedBox(width: 6),
                           ItemTags(
                             category: widget.location,
                             fontSize: 12,
@@ -221,7 +221,7 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
                       ),
                     ),
                     SizedBox(
-                      width: screenWidth * 0.39,
+                      width: screenWidth * 0.42,
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [

@@ -12,6 +12,8 @@ class ItemCollectionCenter extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
       height: 40,
       decoration: BoxDecoration(
@@ -25,7 +27,7 @@ class ItemCollectionCenter extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             SizedBox(
-              width: 330,
+              width: screenWidth * 0.80,
               child: DropdownButton<String>(
                 isExpanded: true,
                 value: selectedItem,

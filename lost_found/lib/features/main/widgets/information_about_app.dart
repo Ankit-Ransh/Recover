@@ -28,7 +28,7 @@ class InformationAboutApp extends StatelessWidget {
                 children: [
                   buildHeading(
                     "Learn How does this work?",
-                    fontSize: 20.0,
+                    fontSize: 18.0,
                     color: AppPallete.whiteColor,
                     bold: true,
                   ),
@@ -57,17 +57,17 @@ class InformationAboutApp extends StatelessWidget {
                     children: [
                       buildDescription(
                         "Tap to learn about how we",
-                        fontSize: 16,
+                        fontSize: 13,
                         color: AppPallete.whiteColor,
                       ),
                       buildDescription(
                         "help you find your lost item or to",
-                        fontSize: 16,
+                        fontSize: 13,
                         color: AppPallete.whiteColor,
                       ),
                       buildDescription(
                         "reach the right owner",
-                        fontSize: 16,
+                        fontSize: 13,
                         color: AppPallete.whiteColor,
                       ),
                     ],
@@ -75,7 +75,7 @@ class InformationAboutApp extends StatelessWidget {
                   Image.asset(
                     'lib/core/assets/images/connect.gif',
                     height: 140,
-                    width: 80,
+                    width: 70,
                     fit: BoxFit.cover,
                   ),
                 ],
@@ -90,6 +90,8 @@ class InformationAboutApp extends StatelessWidget {
 
 class InformationModal extends StatelessWidget {
   const InformationModal({super.key});
+  final double headingFontSize = 15.0;
+  final double descriptionFontSize = 13.0;
 
   @override
   Widget build(BuildContext context) {
@@ -99,7 +101,7 @@ class InformationModal extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const SizedBox(height: 5),
+          const SizedBox(height: 2),
           const Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -110,31 +112,61 @@ class InformationModal extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 5),
           Container(
             padding: const EdgeInsets.fromLTRB(40, 10, 30, 0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                buildHeading("When you report a lost item"),
+                buildHeading("When you report a lost item",
+                    fontSize: headingFontSize),
                 const SizedBox(height: 5),
-                buildDescription("We provide you the best match"),
-                buildDescription("recommendation of similar items reported by"),
-                buildDescription("the finders which increase the chance of"),
-                buildDescription("finding your items."),
-                const SizedBox(height: 20),
-                buildHeading("When you report an item you found"),
-                const SizedBox(height: 10),
-                buildDescription("We provide you the best match"),
-                buildDescription("recommendation of similar items reported by"),
                 buildDescription(
-                    "the owners. You can reduce their anxiety to by"),
-                buildDescription("connecting with them as you find the right"),
-                buildDescription("match"),
-                const SizedBox(height: 20),
+                  "We provide you the best match",
+                  fontSize: descriptionFontSize,
+                ),
+                buildDescription(
+                  "recommendation of similar items reported by",
+                  fontSize: descriptionFontSize,
+                ),
+                buildDescription(
+                  "the finders which increase the chance of",
+                  fontSize: descriptionFontSize,
+                ),
+                buildDescription(
+                  "finding your items.",
+                  fontSize: descriptionFontSize,
+                ),
+                const SizedBox(height: 5),
+                buildHeading(
+                  "When you report an item you found",
+                  fontSize: headingFontSize,
+                ),
+                const SizedBox(height: 5),
+                buildDescription(
+                  "We provide you the best match",
+                  fontSize: descriptionFontSize,
+                ),
+                buildDescription(
+                  "recommendation of similar items reported by",
+                  fontSize: descriptionFontSize,
+                ),
+                buildDescription(
+                  "the owners. You can reduce their anxiety to by",
+                  fontSize: descriptionFontSize,
+                ),
+                buildDescription(
+                  "connecting with them as you find the right",
+                  fontSize: descriptionFontSize,
+                ),
+                buildDescription(
+                  "match",
+                  fontSize: descriptionFontSize,
+                ),
+                const SizedBox(height: 10),
                 buildHeading("Also, get notified on newly added reports if its",
-                    fontSize: 15, bold: false),
-                buildHeading("a match!", fontSize: 15, bold: false),
+                    fontSize: descriptionFontSize, bold: false),
+                buildHeading("a match!",
+                    fontSize: descriptionFontSize, bold: false),
                 const SizedBox(height: 15),
                 const CloseModalButton(),
               ],

@@ -11,7 +11,7 @@ class ReportItemContainer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.fromLTRB(10, 20, 10, 20),
+      padding: const EdgeInsets.fromLTRB(4, 20, 4, 20),
       child: Container(
         height: 220,
         decoration: BoxDecoration(
@@ -19,7 +19,7 @@ class ReportItemContainer extends StatelessWidget {
           borderRadius: BorderRadius.circular(15),
         ),
         child: ListView(
-          padding: const EdgeInsets.fromLTRB(35, 20, 35, 0),
+          padding: const EdgeInsets.fromLTRB(15, 20, 15, 0),
           children: [
             Row(
               children: [
@@ -49,7 +49,7 @@ class ReportItemContainer extends StatelessWidget {
                     ),
                   ],
                 ),
-                const SizedBox(width: 40),
+                const SizedBox(width: 25),
                 const Icon(
                   Icons.waving_hand_outlined,
                   size: 40.0,

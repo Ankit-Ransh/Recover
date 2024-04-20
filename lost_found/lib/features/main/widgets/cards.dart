@@ -56,7 +56,7 @@ class Cards extends StatelessWidget {
                 child: Wrap(
                   children: [
                     Container(
-                      width: screenWidth * 0.58,
+                      width: screenWidth * 0.55,
                       height: 190,
                       padding: const EdgeInsets.fromLTRB(20, 5, 30, 0),
                       decoration: BoxDecoration(
@@ -88,7 +88,9 @@ class Cards extends StatelessWidget {
                             child: AutoSizeText(
                               description,
                               style: const TextStyle(
-                                  fontSize: 14, fontWeight: FontWeight.w400),
+                                fontSize: 14,
+                                fontWeight: FontWeight.w400,
+                              ),
                               minFontSize: 8,
                               maxLines: 5,
                               overflow: TextOverflow.ellipsis,
@@ -103,7 +105,7 @@ class Cards extends StatelessWidget {
                                     ? "Posted by $user"
                                     : claimedText,
                                 style: const TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                     color: AppPallete.deepPurple),
                                 minFontSize: 8,
@@ -113,7 +115,7 @@ class Cards extends StatelessWidget {
                               AutoSizeText(
                                 time,
                                 style: const TextStyle(
-                                    fontSize: 12,
+                                    fontSize: 10,
                                     fontWeight: FontWeight.w600,
                                     color: AppPallete.deepPurple),
                                 minFontSize: 8,
@@ -126,7 +128,7 @@ class Cards extends StatelessWidget {
                       ),
                     ),
                     SizedBox(
-                      width: screenWidth * 0.34,
+                      width: screenWidth * 0.36,
                       height: 190,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(15),

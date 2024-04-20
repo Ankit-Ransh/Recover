@@ -12,8 +12,10 @@ class ItemStatus extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      width: 180,
+      width: screenWidth * 0.45,
       height: 180,
       padding: const EdgeInsets.all(10),
       decoration: BoxDecoration(

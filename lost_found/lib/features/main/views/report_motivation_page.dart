@@ -29,53 +29,59 @@ class ReportMotivationPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    double screenHeight = MediaQuery.of(context).size.height;
+
     return Scaffold(
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.center,
+      body: ListView(
         children: [
-          const SizedBox(height: 200),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
             children: [
+              SizedBox(height: screenHeight * 0.15),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  buildHeading(
+                    motivationText1,
+                    color: AppPallete.blackColor,
+                    fontSize: 20,
+                  ),
+                ],
+              ),
               buildHeading(
-                motivationText1,
+                motivationText2,
                 color: AppPallete.blackColor,
-                fontSize: 24,
+                fontSize: 15,
+                bold: false,
+              ),
+              const SizedBox(height: 40),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.asset(
+                    height: 300,
+                    imageUrl,
+                    fit: BoxFit.contain,
+                    repeat: ImageRepeat.noRepeat,
+                  ),
+                ),
+              ),
+              const SizedBox(height: 20),
+              Padding(
+                padding: const EdgeInsets.all(30.0),
+                child: PostReportButton(
+                  onTap: () {
+                    Navigator.pushAndRemoveUntil(
+                      context,
+                      IndexPage.route(),
+                      (route) => false,
+                    );
+                  },
+                  command: "Return to Home",
+                ),
               ),
             ],
-          ),
-          buildHeading(
-            motivationText2,
-            color: AppPallete.blackColor,
-            fontSize: 15,
-            bold: false,
-          ),
-          const SizedBox(height: 40),
-          Padding(
-            padding: const EdgeInsets.all(20.0),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.asset(
-                height: 300,
-                imageUrl,
-                fit: BoxFit.contain,
-                repeat: ImageRepeat.noRepeat,
-              ),
-            ),
-          ),
-          const SizedBox(height: 20),
-          Padding(
-            padding: const EdgeInsets.all(30.0),
-            child: PostReportButton(
-              onTap: () {
-                Navigator.pushAndRemoveUntil(
-                  context,
-                  IndexPage.route(),
-                  (route) => false,
-                );
-              },
-              command: "Return to Home",
-            ),
           ),
         ],
       ),

@@ -13,10 +13,10 @@ class CustomBottomNavBar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GNav(
-      gap: 8.0,
+      gap: 4.0,
       activeColor: AppPallete.deepPurple,
       tabBackgroundColor: AppPallete.lightGrey,
-      padding: const EdgeInsets.all(24),
+      padding: const EdgeInsets.all(22),
       onTabChange: onTabChange,
       tabs: const [
         GButton(

@@ -75,83 +75,87 @@ class _SignUpState extends State<SignUp> {
               return const Loader();
             }
 
-            return Form(
-              key: formKey,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  const SizedBox(
-                    height: 25,
-                  ),
-                  const Icon(
-                    Icons.lock,
-                    size: 100,
-                  ),
-                  const SizedBox(
-                    height: 50.0,
-                  ),
-                  const Text(
-                    "Ready to get started?",
-                    style: TextStyle(
-                      color: AppPallete.lightPurple,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  const Text(
-                    "Let's create an account!",
-                    style: TextStyle(
-                      color: AppPallete.deepPurple,
-                      fontSize: 16.0,
-                    ),
-                  ),
-                  const SizedBox(height: 25),
-                  FormDataFields(
-                    controller: nameController,
-                    hintText: "Name",
-                  ),
-                  const SizedBox(height: 10),
-                  FormDataFields(
-                    controller: emailController,
-                    hintText: "Email",
-                  ),
-                  const SizedBox(height: 10),
-                  FormDataFields(
-                    controller: passwordController,
-                    hintText: "Password",
-                    obscureText: true,
-                  ),
-                  const SizedBox(height: 10),
-                  const ForgotPassword(),
-                  const SizedBox(height: 25),
-                  LoginButton(
-                    buttonCommand: "Sign Up",
-                    onTap: () {
-                      if (formKey.currentState!.validate()) {
-                        context.read<AuthBloc>().add(
-                              AuthSignUp(
-                                email: emailController.text.trim(),
-                                name: nameController.text.trim(),
-                                password: passwordController.text.trim(),
-                              ),
-                            );
-                      }
-                    },
-                  ),
-                  const SizedBox(height: 25),
-                  SwitchLogin(
-                    text: "Already a member?",
-                    direction: "Login!",
-                    onTap: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                          builder: (context) => const Login(),
+            return ListView(
+              children: [
+                Form(
+                  key: formKey,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      const SizedBox(
+                        height: 75,
+                      ),
+                      const Icon(
+                        Icons.lock,
+                        size: 100,
+                      ),
+                      const SizedBox(
+                        height: 50.0,
+                      ),
+                      const Text(
+                        "Ready to get started?",
+                        style: TextStyle(
+                          color: AppPallete.lightPurple,
+                          fontSize: 16.0,
                         ),
-                      );
-                    },
+                      ),
+                      const Text(
+                        "Let's create an account!",
+                        style: TextStyle(
+                          color: AppPallete.deepPurple,
+                          fontSize: 16.0,
+                        ),
+                      ),
+                      const SizedBox(height: 25),
+                      FormDataFields(
+                        controller: nameController,
+                        hintText: "Name",
+                      ),
+                      const SizedBox(height: 10),
+                      FormDataFields(
+                        controller: emailController,
+                        hintText: "Email",
+                      ),
+                      const SizedBox(height: 10),
+                      FormDataFields(
+                        controller: passwordController,
+                        hintText: "Password",
+                        obscureText: true,
+                      ),
+                      const SizedBox(height: 10),
+                      const ForgotPassword(),
+                      const SizedBox(height: 25),
+                      LoginButton(
+                        buttonCommand: "Sign Up",
+                        onTap: () {
+                          if (formKey.currentState!.validate()) {
+                            context.read<AuthBloc>().add(
+                                  AuthSignUp(
+                                    email: emailController.text.trim(),
+                                    name: nameController.text.trim(),
+                                    password: passwordController.text.trim(),
+                                  ),
+                                );
+                          }
+                        },
+                      ),
+                      const SizedBox(height: 25),
+                      SwitchLogin(
+                        text: "Already a member?",
+                        direction: "Login!",
+                        onTap: () {
+                          Navigator.push(
+                            context,
+                            MaterialPageRoute(
+                              builder: (context) => const Login(),
+                            ),
+                          );
+                        },
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             );
           },
         ),

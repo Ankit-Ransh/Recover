@@ -16,7 +16,6 @@ class _ItemCategoryState extends State<ItemCategory> {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 200.0,
       decoration: BoxDecoration(
         border: Border.all(color: AppPallete.greyColor),
         borderRadius: BorderRadius.circular(15),
@@ -30,7 +29,7 @@ class _ItemCategoryState extends State<ItemCategory> {
               "Additional details",
               textDirection: TextDirection.ltr,
               style: TextStyle(
-                fontSize: 18,
+                fontSize: 20,
                 fontWeight: FontWeight.w700,
               ),
             ),
@@ -41,7 +40,7 @@ class _ItemCategoryState extends State<ItemCategory> {
               "Category (This will help in getting better match)",
               textDirection: TextDirection.ltr,
               style: TextStyle(
-                fontSize: 14,
+                fontSize: 13,
               ),
             ),
             const SizedBox(

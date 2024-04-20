@@ -27,7 +27,7 @@ class ReportUserFlow extends StatelessWidget {
         backgroundColor: AppPallete.whiteColor,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20.0),
+        padding: const EdgeInsets.all(10.0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [

@@ -1,5 +1,6 @@
 import 'dart:io';
 import 'package:flutter/material.dart';
+import 'package:flutter/widgets.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lost_found/core/common/cubit/app_user/app_user_cubit.dart';
 import 'package:lost_found/core/common/widgets/loader.dart';
@@ -126,67 +127,69 @@ class _ReportLostItemState extends State<ReportLostItem> {
           if (state is CombinedLostFoundLoading) {
             return const Loader();
           }
-          return SingleChildScrollView(
-            scrollDirection: Axis.vertical,
-            child: Padding(
-              padding: const EdgeInsets.all(20.0),
-              child: Form(
-                key: formKey,
-                child: Column(
-                  children: [
-                    ItemData(
-                      hintText: "Title",
-                      description: "Title",
-                      controller: itemDataTitleController,
-                    ),
-                    const SizedBox(height: 20.0),
-                    ItemData(
-                      hintText:
-                          "Add an accurate description for the item you lost",
-                      description: "Description",
-                      fontSize: 14,
-                      height: 150.0,
-                      controller: itemDataDescriptionController,
-                    ),
-                    const SizedBox(height: 40.0),
-                    ItemSuggestedLocation(
-                      description: "Where do you think you have lost it?",
-                      controller: selectedSuggestedLocation,
-                      formKey: formKey,
-                    ),
-                    if (image != null) ...[
-                      const SizedBox(height: 20.0),
-                      SelectedImage(
-                        image: image,
-                        onTap: selectLostItemImage,
+          return ListView(
+            children: [
+              Container(
+                padding: const EdgeInsets.all(15.0),
+                child: Form(
+                  key: formKey,
+                  child: Column(
+                    children: [
+                      ItemData(
+                        hintText: "Title",
+                        description: "Title",
+                        controller: itemDataTitleController,
                       ),
                       const SizedBox(height: 20.0),
-                    ] else ...[
-                      ItemImageUpload(
-                        description: "Upload a picture of the item if you have",
-                        onTap: selectLostItemImage,
+                      ItemData(
+                        hintText:
+                            "Add an accurate description for the item you lost",
+                        description: "Description",
+                        fontSize: 14,
+                        height: 150.0,
+                        controller: itemDataDescriptionController,
+                      ),
+                      const SizedBox(height: 40.0),
+                      ItemSuggestedLocation(
+                        description: "Where do you think you have lost it?",
+                        controller: selectedSuggestedLocation,
+                        formKey: formKey,
+                      ),
+                      if (image != null) ...[
+                        const SizedBox(height: 20.0),
+                        SelectedImage(
+                          image: image,
+                          onTap: selectLostItemImage,
+                        ),
+                        const SizedBox(height: 20.0),
+                      ] else ...[
+                        ItemImageUpload(
+                          description:
+                              "Upload a picture of the item if you have",
+                          onTap: selectLostItemImage,
+                        ),
+                      ],
+                      ItemLostTime(
+                        dateController: selectedDate,
+                        timeController: selectedTime,
+                      ),
+                      const SizedBox(height: 30.0),
+                      ItemCategory(
+                        controller: selectedSuggestedCategory,
+                      ),
+                      const SizedBox(
+                        height: 20.0,
+                      ),
+                      PostReportButton(
+                        onTap: () {
+                          reportCurrentLostItem();
+                        },
                       ),
                     ],
-                    ItemLostTime(
-                      dateController: selectedDate,
-                      timeController: selectedTime,
-                    ),
-                    const SizedBox(height: 30.0),
-                    ItemCategory(
-                      controller: selectedSuggestedCategory,
-                    ),
-                    const SizedBox(
-                      height: 20.0,
-                    ),
-                    PostReportButton(
-                      onTap: () {
-                        reportCurrentLostItem();
-                      },
-                    ),
-                  ],
+                  ),
                 ),
               ),
-            ),
+            ],
           );
         },
       ),

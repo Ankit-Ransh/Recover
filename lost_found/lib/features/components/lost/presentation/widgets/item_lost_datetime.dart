@@ -19,8 +19,8 @@ class ItemLostTime extends StatelessWidget {
       decoration: BoxDecoration(
         borderRadius: BorderRadius.circular(15),
       ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(12, 12, 12, 0),
+      child: Container(
+        padding: const EdgeInsets.fromLTRB(5, 12, 5, 0),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

@@ -35,7 +35,7 @@ class _ItemPossibleCategoryState extends State<ItemPossibleCategory> {
         padding: const EdgeInsets.fromLTRB(8, 2, 6, 7),
         child: Container(
           height: 42.0,
-          width: 100.0,
+          width: 80.0,
           decoration: BoxDecoration(
             border: Border.all(color: AppPallete.greyColor),
             borderRadius: BorderRadius.circular(15),

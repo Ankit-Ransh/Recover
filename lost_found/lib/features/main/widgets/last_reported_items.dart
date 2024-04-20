@@ -104,7 +104,7 @@ class _LastReportedItemsState extends State<LastReportedItems> {
                               context,
                               FoundItemDetailsPage.route(
                                 item.posterName!,
-                                timeText,
+                                foundTimeText,
                                 item.imageUrl,
                                 item.title,
                                 item.category,

@@ -29,8 +29,8 @@ class SmallCard extends StatelessWidget {
 
     return Container(
       height: 200,
-      width: screenWidth * 0.46,
-      margin: const EdgeInsets.fromLTRB(5, 15, 10, 15),
+      width: screenWidth * 0.47,
+      margin: const EdgeInsets.fromLTRB(0, 15, 5, 15),
       decoration: BoxDecoration(
         border: Border.all(color: AppPallete.greyColor),
         borderRadius: BorderRadius.circular(15),
@@ -69,7 +69,7 @@ class SmallCard extends StatelessWidget {
                     AutoSizeText(
                       title,
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w600,
                         color: AppPallete.blackColor,
                       ),
@@ -80,7 +80,7 @@ class SmallCard extends StatelessWidget {
                     AutoSizeText(
                       "Lost in $location",
                       style: const TextStyle(
-                        fontSize: 14,
+                        fontSize: 13,
                         fontWeight: FontWeight.w400,
                         color: AppPallete.blackColor,
                       ),
@@ -88,31 +88,31 @@ class SmallCard extends StatelessWidget {
                       maxLines: 3,
                       overflow: TextOverflow.ellipsis,
                     ),
-                    const SizedBox(height: 10),
+                    const SizedBox(height: 18),
                     Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
                         AutoSizeText(
                           "Posted by $postedBy",
                           style: const TextStyle(
-                            fontSize: 11,
+                            fontSize: 9,
                             fontWeight: FontWeight.w600,
                             color: AppPallete.deepPurple,
                           ),
                           minFontSize: 8,
-                          maxLines: 3,
+                          maxLines: 1,
                           overflow: TextOverflow.ellipsis,
                         ),
                         Flexible(
                           child: AutoSizeText(
                             time,
                             style: const TextStyle(
-                              fontSize: 11,
+                              fontSize: 9,
                               fontWeight: FontWeight.w600,
                               color: AppPallete.deepPurple,
                             ),
-                            minFontSize: 8,
-                            maxLines: 3,
+                            minFontSize: 6,
+                            maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
                         ),

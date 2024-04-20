@@ -162,6 +162,8 @@ class _PersonalItemsState extends State<PersonalItems> {
                   : const SizedBox();
             },
           ),
+
+          const SizedBox(height: 20),
         ],
       ),
     );

@@ -21,8 +21,10 @@ class _DateSelectorState extends State<DateSelector> {
 
   @override
   Widget build(BuildContext context) {
+    final screenWidth = MediaQuery.of(context).size.width;
+
     return Container(
-      width: 170.0,
+      width: screenWidth * 0.42,
       height: 40.0,
       decoration: BoxDecoration(
         border: Border.all(color: Colors.grey),

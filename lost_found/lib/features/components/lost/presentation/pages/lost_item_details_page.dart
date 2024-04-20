@@ -8,6 +8,7 @@ import 'package:lost_found/core/common/widgets/item_tags.dart';
 import 'package:lost_found/core/common/widgets/text_description_widget.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/core/utils/show_toast.dart';
 import 'package:lost_found/features/chats/presentation/rooms/user_interaction.dart';
 
 class LostItemDetailsPage extends StatelessWidget {
@@ -72,173 +73,180 @@ class LostItemDetailsPage extends StatelessWidget {
         (context.read<AppUserCubit>().state as AppUserLoggedIn).user.id;
 
     return Scaffold(
-      body: SingleChildScrollView(
-        child: Container(
-          margin: const EdgeInsets.fromLTRB(20, 20, 20, 0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: [
-              Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => Navigator.pop(context),
-                    child: const Icon(
-                      CupertinoIcons.back,
-                      size: 26.0,
-                    ),
-                  ),
-                  const SizedBox(width: 10),
-                  buildHeading(
-                    "Lost Item",
-                    color: AppPallete.blackColor,
-                    fontSize: 20,
-                    bold: false,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Container(
-                padding: const EdgeInsets.fromLTRB(30, 1, 10, 0),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      body: ListView(
+        children: [
+          Container(
+            margin: const EdgeInsets.fromLTRB(10, 20, 10, 0),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Row(
                   children: [
-                    buildHeading(
-                      "Posted by $posterName",
-                      fontSize: 14,
-                      color: AppPallete.deepPurple,
+                    GestureDetector(
+                      onTap: () => Navigator.pop(context),
+                      child: const Icon(
+                        CupertinoIcons.back,
+                        size: 26.0,
+                      ),
                     ),
+                    const SizedBox(width: 10),
                     buildHeading(
-                      timeText,
-                      fontSize: 14,
-                      color: AppPallete.deepPurple,
-                    ),
-                  ],
-                ),
-              ),
-              const SizedBox(height: 20),
-              Container(
-                height: 250,
-                width: double.infinity,
-                margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
-                decoration: BoxDecoration(
-                  border: Border.all(color: AppPallete.greyColor),
-                  borderRadius: BorderRadius.circular(24),
-                ),
-                child: ClipRRect(
-                  borderRadius: BorderRadius.circular(24),
-                  child: Image.network(
-                    imageUrl,
-                    fit: BoxFit.cover,
-                    height: double.infinity,
-                    width: double.infinity,
-                  ),
-                ),
-              ),
-              const SizedBox(height: 30),
-              Container(
-                height: 55,
-                width: double.infinity,
-                padding: const EdgeInsets.only(left: 20),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    buildHeading(
-                      title,
+                      "Lost Item",
                       color: AppPallete.blackColor,
+                      fontSize: 20,
+                      bold: false,
                     ),
-                    ItemTags(category: category),
                   ],
                 ),
-              ),
-              const SizedBox(height: 20),
-              Row(
-                children: [
-                  Expanded(
-                    child: Container(
-                      margin: const EdgeInsets.only(left: 20),
-                      padding: const EdgeInsets.all(20),
-                      height: 150,
-                      decoration: BoxDecoration(
-                        border: Border.all(color: AppPallete.deepPurple),
-                        borderRadius: BorderRadius.circular(10),
-                        color: AppPallete.lightGrey,
+                const SizedBox(height: 10),
+                Container(
+                  padding: const EdgeInsets.fromLTRB(30, 1, 10, 0),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildHeading(
+                        "Posted by $posterName",
+                        fontSize: 14,
+                        color: AppPallete.deepPurple,
                       ),
-                      child: AutoSizeText(
-                        description,
-                        style: const TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w400,
-                          color: AppPallete.blackColor,
-                        ),
-                        minFontSize: 14,
-                        maxLines: 4,
-                        softWrap: true,
-                        overflow: TextOverflow.ellipsis,
+                      buildHeading(
+                        timeText,
+                        fontSize: 14,
+                        color: AppPallete.deepPurple,
                       ),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Container(
+                  height: 250,
+                  width: double.infinity,
+                  margin: const EdgeInsets.fromLTRB(10, 0, 10, 0),
+                  decoration: BoxDecoration(
+                    border: Border.all(color: AppPallete.greyColor),
+                    borderRadius: BorderRadius.circular(24),
+                  ),
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(24),
+                    child: Image.network(
+                      imageUrl,
+                      fit: BoxFit.cover,
+                      height: double.infinity,
+                      width: double.infinity,
                     ),
                   ),
-                ],
-              ),
-              const SizedBox(height: 10),
-              Container(
-                height: 55,
-                width: double.infinity,
-                padding: const EdgeInsets.only(left: 20),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: screenWidth * 0.4,
-                      child: Row(
-                        children: [
-                          buildHeading(
-                            "Lost In",
-                            color: AppPallete.blackColor,
-                            fontSize: 15,
-                            bold: false,
-                          ),
-                          const SizedBox(width: 12),
-                          ItemTags(category: location),
-                        ],
+                ),
+                const SizedBox(height: 30),
+                Container(
+                  height: 55,
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      buildHeading(
+                        title,
+                        color: AppPallete.blackColor,
                       ),
-                    ),
-                    SizedBox(
-                      width: screenWidth * 0.39,
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          buildDescription(date),
-                          buildDescription(time),
-                        ],
+                      ItemTags(category: category),
+                    ],
+                  ),
+                ),
+                const SizedBox(height: 20),
+                Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        margin: const EdgeInsets.only(left: 20),
+                        padding: const EdgeInsets.all(20),
+                        height: 150,
+                        decoration: BoxDecoration(
+                          border: Border.all(color: AppPallete.deepPurple),
+                          borderRadius: BorderRadius.circular(10),
+                          color: AppPallete.lightGrey,
+                        ),
+                        child: AutoSizeText(
+                          description,
+                          style: const TextStyle(
+                            fontSize: 18,
+                            fontWeight: FontWeight.w400,
+                            color: AppPallete.blackColor,
+                          ),
+                          minFontSize: 14,
+                          maxLines: 4,
+                          softWrap: true,
+                          overflow: TextOverflow.ellipsis,
+                        ),
                       ),
                     ),
                   ],
                 ),
-              ),
-              const SizedBox(height: 60),
-              ChatButton(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserInteraction(
-                        userId: userId,
-                        recieverId: posterId,
-                        name: posterName,
+                const SizedBox(height: 10),
+                Container(
+                  height: 55,
+                  width: double.infinity,
+                  padding: const EdgeInsets.only(left: 20),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: screenWidth * 0.4,
+                        child: Row(
+                          children: [
+                            buildHeading(
+                              "Lost In",
+                              color: AppPallete.blackColor,
+                              fontSize: 15,
+                              bold: false,
+                            ),
+                            const SizedBox(width: 12),
+                            ItemTags(category: location),
+                          ],
+                        ),
                       ),
-                    ),
-                  );
-                },
-                icon: const Icon(
-                  CupertinoIcons.chat_bubble_fill,
-                  color: AppPallete.whiteColor,
+                      SizedBox(
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            buildDescription(date),
+                            const SizedBox(width: 8),
+                            buildDescription(time),
+                          ],
+                        ),
+                      ),
+                    ],
+                  ),
                 ),
-              ),
-            ],
+                const SizedBox(height: 60),
+                ChatButton(
+                  onTap: () {
+                    if (posterId != userId) {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (context) => UserInteraction(
+                            userId: userId,
+                            recieverId: posterId,
+                            name: posterName,
+                          ),
+                        ),
+                      );
+                    } else {
+                      showToast(text: "You posted it", context: context);
+                    }
+                  },
+                  icon: const Icon(
+                    CupertinoIcons.chat_bubble_fill,
+                    color: AppPallete.whiteColor,
+                  ),
+                ),
+                const SizedBox(height: 30),
+              ],
+            ),
           ),
-        ),
+        ],
       ),
     );
   }
