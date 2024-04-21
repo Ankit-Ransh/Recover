@@ -112,9 +112,6 @@ class _ReportFoundItemState extends State<ReportFoundItem> {
         listener: (context, state) {
           if (state is CombinedLostFoundFailure) {
             showSnackBar(context, state.message);
-          } else if (state is CombinedLostFoundSuccess) {
-            Navigator.pushAndRemoveUntil(
-                context, HomePage.route(), (route) => false);
           }
         },
         builder: (context, state) {
