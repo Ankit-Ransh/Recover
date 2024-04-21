@@ -38,6 +38,7 @@ class UserChatsBloc extends Bloc<UserChatsEvent, UserChatsState> {
     _chatSubscription = _chatStream(StreamParams()).listen(
       (List<Chat> chats) {
         if (!emit.isDone) {
+          // print("State");
           emit(UserChatsLoaded(chats));
         }
       },

@@ -82,11 +82,14 @@ class _UserInteractionState extends State<UserInteraction> {
           if (state is UserChatsLoading) {
             return const Loader();
           }
+
+          // print(state is UserChatInformationSuccess);
           if (state is UserChatInformationSuccess) {
             messages = _generateChatMessageList(state.chats);
-          } else if (state is UserChatsSuccess) {
-            _newChatMessage(state.chats);
           }
+          // else if (state is UserChatsSuccess) {
+          //   _newChatMessage(state.chats);
+          // }
 
           return DashChat(
             inputOptions: const InputOptions(
