@@ -97,19 +97,19 @@ class _BrowseItemState extends State<BrowseItem> {
             ),
           ),
 
-          const Cards(
-            title: "Notebook and Pen",
-            description:
-                "Left my notebook & Pen In meeting room no 5. It has important client Meeting notes",
-            user: "Deepika",
-            time: "3 hrs ago",
-            imageUrl:
-                "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfF2YcEpt1vTuV0UF4jSdhV-sVrvp3lo1y9kPsSTtCxw&s",
-            status: "Claimed",
-            color: AppPallete.claimedColor,
-            textColor: AppPallete.whiteColor,
-            fontSize: 13.0,
-          ),
+          // const Cards(
+          //   title: "Notebook and Pen",
+          //   description:
+          //       "Left my notebook & Pen In meeting room no 5. It has important client Meeting notes",
+          //   user: "Deepika",
+          //   time: "3 hrs ago",
+          //   imageUrl:
+          //       "https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQfF2YcEpt1vTuV0UF4jSdhV-sVrvp3lo1y9kPsSTtCxw&s",
+          //   status: "Claimed",
+          //   color: AppPallete.claimedColor,
+          //   textColor: AppPallete.whiteColor,
+          //   fontSize: 13.0,
+          // ),
 
           // Items Collection
           BlocConsumer<BackendInformationBloc, BackendInformationState>(

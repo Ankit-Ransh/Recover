@@ -146,5 +146,7 @@ class _UserInteractionState extends State<UserInteraction> {
             recieverId: widget.recieverId,
           ),
         );
+
+    context.read<UserChatsBloc>().add(UserChatInformationBloc());
   }
 }
