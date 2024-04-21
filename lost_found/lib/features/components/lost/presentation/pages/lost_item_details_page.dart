@@ -8,6 +8,7 @@ import 'package:lost_found/core/common/widgets/item_tags.dart';
 import 'package:lost_found/core/common/widgets/text_description_widget.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/core/utils/show_toast.dart';
 import 'package:lost_found/features/chats/presentation/rooms/user_interaction.dart';
 
 class LostItemDetailsPage extends StatelessWidget {
@@ -220,16 +221,20 @@ class LostItemDetailsPage extends StatelessWidget {
               const SizedBox(height: 60),
               ChatButton(
                 onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(
-                      builder: (context) => UserInteraction(
-                        userId: userId,
-                        recieverId: posterId,
-                        name: posterName,
+                  if (posterId != userId) {
+                    Navigator.push(
+                      context,
+                      MaterialPageRoute(
+                        builder: (context) => UserInteraction(
+                          userId: userId,
+                          recieverId: posterId,
+                          name: posterName,
+                        ),
                       ),
-                    ),
-                  );
+                    );
+                  } else {
+                    showToast(text: "You posted it", context: context);
+                  }
                 },
                 icon: const Icon(
                   CupertinoIcons.chat_bubble_fill,
