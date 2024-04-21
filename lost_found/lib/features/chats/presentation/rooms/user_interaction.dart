@@ -2,9 +2,8 @@ import 'package:dash_chat_2/dash_chat_2.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:lost_found/core/common/widgets/loader.dart';
 import 'package:lost_found/core/utils/generate_chat_id.dart';
-import 'package:lost_found/core/utils/show_snackbar.dart';
+import 'package:lost_found/core/utils/realtime_steaming.dart';
 import 'package:lost_found/features/chats/domain/entities/chat.dart';
 import 'package:lost_found/features/chats/presentation/bloc/user_chats_bloc.dart';
 import 'package:lost_found/features/main/pages/splash_page.dart';
@@ -43,21 +42,14 @@ class _UserInteractionState extends State<UserInteraction> {
   String generatedId = "";
   List userMessages = [];
   List<ChatMessage> messages = [];
+  late final Stream<List<Chat>> _messagesStream;
 
   @override
   void initState() {
     super.initState();
 
     generatedId = generateChatId(widget.userId, widget.recieverId);
-    context.read<UserChatsBloc>().add(UserChatInformationBloc());
-    BlocListener(
-      listener: (context, state) => {
-        if (state is UserChatInformationSuccess)
-          {
-            messages = _generateChatMessageList(state.chats),
-          },
-      },
-    );
+    _messagesStream = realtimeStreaming();
   }
 
   @override
@@ -72,52 +64,28 @@ class _UserInteractionState extends State<UserInteraction> {
         ),
         title: Text(widget.name),
       ),
-      body: BlocConsumer<UserChatsBloc, UserChatsState>(
-        listener: (context, state) {
-          if (state is UserChatsFailure) {
-            showSnackBar(context, state.message);
-          }
-        },
-        builder: (context, state) {
-          if (state is UserChatsLoading) {
-            return const Loader();
-          }
+      body: StreamBuilder<List<Chat>>(
+          stream: _messagesStream,
+          builder: (context, snapshot) {
+            if (snapshot.hasData) {
+              final newMessageList = snapshot.data!;
+              messages = _generateChatMessageList(newMessageList);
+            }
 
-          // print(state is UserChatInformationSuccess);
-          if (state is UserChatInformationSuccess) {
-            messages = _generateChatMessageList(state.chats);
-          }
-          // else if (state is UserChatsSuccess) {
-          //   _newChatMessage(state.chats);
-          // }
-
-          return DashChat(
-            inputOptions: const InputOptions(
-              alwaysShowSend: true,
-            ),
-            messageOptions: const MessageOptions(
-              showOtherUsersAvatar: true,
-              showTime: true,
-            ),
-            currentUser: ChatUser(id: widget.userId),
-            onSend: _sendMessage,
-            messages: messages,
-          );
-        },
-      ),
+            return DashChat(
+              inputOptions: const InputOptions(
+                alwaysShowSend: true,
+              ),
+              messageOptions: const MessageOptions(
+                showOtherUsersAvatar: true,
+                showTime: true,
+              ),
+              currentUser: ChatUser(id: widget.userId),
+              onSend: _sendMessage,
+              messages: messages,
+            );
+          }),
     );
-  }
-
-  void _newChatMessage(Chat chat) {
-    if (chat.generatedId == generatedId) {
-      ChatMessage newMessage = ChatMessage(
-        text: chat.content,
-        user: ChatUser(id: chat.senderId),
-        createdAt: chat.updatedAt,
-      );
-
-      messages.insert(0, newMessage);
-    }
   }
 
   List<ChatMessage> _generateChatMessageList(List<Chat> chats) {
@@ -131,13 +99,7 @@ class _UserInteractionState extends State<UserInteraction> {
       );
     }).toList();
 
-    int length = chatList.length;
-    List<ChatMessage> sortedList = [];
-    for (int i = length - 1; i >= 0; --i) {
-      sortedList.add(chatList[i]);
-    }
-
-    return sortedList;
+    return chatList;
   }
 
   Future<void> _sendMessage(ChatMessage chatMessage) async {
@@ -149,7 +111,5 @@ class _UserInteractionState extends State<UserInteraction> {
             recieverId: widget.recieverId,
           ),
         );
-
-    context.read<UserChatsBloc>().add(UserChatInformationBloc());
   }
 }
