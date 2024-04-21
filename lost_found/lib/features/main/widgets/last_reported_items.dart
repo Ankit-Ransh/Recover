@@ -67,7 +67,6 @@ class _LastReportedItemsState extends State<LastReportedItems> {
               if (state is BackendInformationSuccess) {
                 List<Widget> cards = [];
                 for (var item in state.item) {
-
                   Map<String, int> timeDiff = getLostTimeDifference(
                       item.lostDate, item.lostTime, item.updatedAt);
                   String timeText = timeDiff.keys.first;
@@ -78,15 +77,11 @@ class _LastReportedItemsState extends State<LastReportedItems> {
                   String foundTimeText = foundTimeDiff.keys.first;
                   int? foundDuration = foundTimeDiff[foundTimeText];
 
-                  if(item.status == "Lost") {
+                  if (item.status == "Lost") {
                     foundDuration = null;
-                    print(timeText);
-                  }
-                  else if(item.status == "Found") {
+                  } else if (item.status == "Found") {
                     duration = null;
-                    print(foundTimeText);
-                  }
-                  else {
+                  } else {
                     duration = null;
                     foundDuration = null;
                   }
@@ -203,12 +198,14 @@ bool checkCondition(
     }
 
     if (foundDuration == 9) {
-      if (foundTimeText[1] == " " && int.parse(foundTimeText.substring(0, 1)) <= 2) {
+      if (foundTimeText[1] == " " &&
+          int.parse(foundTimeText.substring(0, 1)) <= 2) {
         foundCheck = true;
       }
     }
     if (foundDuration == 10) {
-      if (foundTimeText[1] == " " && int.parse(foundTimeText.substring(0, 1)) <= 2) {
+      if (foundTimeText[1] == " " &&
+          int.parse(foundTimeText.substring(0, 1)) <= 2) {
         foundCheck = true;
       }
     }

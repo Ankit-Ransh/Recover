@@ -4,8 +4,8 @@ import 'package:supabase_flutter/supabase_flutter.dart';
 
 abstract interface class ChatRemoteDataSource {
   Future<ChatModel> uploadChats(ChatModel userChats);
-  Future<List<ChatModel>> getUserChats();
-  Stream<List<ChatModel>> streamChats();
+  // Future<List<ChatModel>> getUserChats();
+  // Stream<List<ChatModel>> streamChats();
 }
 
 class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
@@ -13,6 +13,21 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
 
   ChatRemoteDataSourceImpl(this.supabaseClient);
 
+  @override
+  Future<ChatModel> uploadChats(ChatModel userChats) async {
+    try {
+      final chats = await supabaseClient
+          .from('messages')
+          .insert(userChats.toJson())
+          .select();
+
+      return ChatModel.fromJson(chats.first);
+    } on ServerException catch (e) {
+      throw ServerException(e.message);
+    }
+  }
+
+  /*
   @override
   Stream<List<ChatModel>> streamChats() {
     try {
@@ -23,19 +38,6 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
           .map((List<Map<String, dynamic>> eventList) =>
               eventList.map((map) => ChatModel.fromJson(map)).toList());
 
-      // print("-------------------");
-      // print("-------------------");
-      // // Print each message as it arrives
-      // messagesStream.listen((List<ChatModel> messageList) {
-      //   for (var message in messageList) {
-      //     print("Received message: ${message.toJson()}");
-      //   }
-      // });
-
-      // print("-------------------");
-      // print("-------------------");
-
-      // print("Stream ongoing -> $messagesStream");
       return messagesStream;
     } catch (e) {
       // print("eroor her $e");
@@ -58,18 +60,5 @@ class ChatRemoteDataSourceImpl implements ChatRemoteDataSource {
       throw ServerException(e.toString());
     }
   }
-
-  @override
-  Future<ChatModel> uploadChats(ChatModel userChats) async {
-    try {
-      final chats = await supabaseClient
-          .from('messages')
-          .insert(userChats.toJson())
-          .select();
-
-      return ChatModel.fromJson(chats.first);
-    } on ServerException catch (e) {
-      throw ServerException(e.message);
-    }
-  }
+  */
 }
