@@ -77,6 +77,15 @@ class _LastReportedItemsState extends State<LastReportedItems> {
                   String foundTimeText = foundTimeDiff.keys.first;
                   int? foundDuration = foundTimeDiff[foundTimeText];
 
+                  if (item.status == "Lost") {
+                    foundDuration = null;
+                  } else if (item.status == "Found") {
+                    duration = null;
+                  } else {
+                    duration = null;
+                    foundDuration = null;
+                  }
+
                   if (item.claimed == false &&
                       checkCondition(
                           duration, timeText, foundDuration, foundTimeText)) {
@@ -153,8 +162,6 @@ bool checkCondition(
   bool lostCheck = false;
   bool foundCheck = false;
 
-  // print(timeText);
-
   if (duration != null) {
     if (duration >= 5 && duration <= 7) lostCheck = true;
     if (duration == 8) {
@@ -162,6 +169,16 @@ bool checkCondition(
         lostCheck = true;
       } else {
         lostCheck = (int.parse(timeText.substring(0, 2)) <= 48);
+      }
+    }
+    if (duration == 9) {
+      if (timeText[1] == " " && int.parse(timeText.substring(0, 1)) <= 2) {
+        lostCheck = true;
+      }
+    }
+    if (duration == 10) {
+      if (timeText[1] == " " && int.parse(timeText.substring(0, 1)) <= 2) {
+        lostCheck = true;
       }
     }
   }
@@ -176,7 +193,20 @@ bool checkCondition(
           int.parse(foundTimeText.substring(0, 1)) <= 48) {
         foundCheck = true;
       } else {
-        foundCheck = (int.parse(timeText.substring(0, 2)) <= 48);
+        foundCheck = (int.parse(foundTimeText.substring(0, 2)) <= 48);
+      }
+    }
+
+    if (foundDuration == 9) {
+      if (foundTimeText[1] == " " &&
+          int.parse(foundTimeText.substring(0, 1)) <= 2) {
+        foundCheck = true;
+      }
+    }
+    if (foundDuration == 10) {
+      if (foundTimeText[1] == " " &&
+          int.parse(foundTimeText.substring(0, 1)) <= 2) {
+        foundCheck = true;
       }
     }
   }
