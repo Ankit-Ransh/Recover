@@ -95,7 +95,7 @@ class SmallCard extends StatelessWidget {
                         AutoSizeText(
                           "Posted by $postedBy",
                           style: const TextStyle(
-                            fontSize: 11,
+                            fontSize: 10,
                             fontWeight: FontWeight.w600,
                             color: AppPallete.deepPurple,
                           ),
@@ -107,7 +107,7 @@ class SmallCard extends StatelessWidget {
                           child: AutoSizeText(
                             time,
                             style: const TextStyle(
-                              fontSize: 11,
+                              fontSize: 10,
                               fontWeight: FontWeight.w600,
                               color: AppPallete.deepPurple,
                             ),
