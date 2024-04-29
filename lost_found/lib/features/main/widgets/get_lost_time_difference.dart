@@ -69,7 +69,7 @@ Map<String, int> getLostTimeDifference(
         postedMin = int.parse(lostTime.substring(3, 5));
       }
 
-      int currentMin = int.parse(currentTime.substring(2));
+      int currentMin = int.parse(currentTime.substring(3));
 
       if ((currentMin - postedMin).abs() == 1) {
         return {
