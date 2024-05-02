@@ -105,7 +105,7 @@ class Cards extends StatelessWidget {
                                     ? "Posted by $user"
                                     : claimedText,
                                 style: const TextStyle(
-                                    fontSize: 10,
+                                    fontSize: 9,
                                     fontWeight: FontWeight.w600,
                                     color: AppPallete.deepPurple),
                                 minFontSize: 8,
@@ -115,7 +115,7 @@ class Cards extends StatelessWidget {
                               AutoSizeText(
                                 time,
                                 style: const TextStyle(
-                                    fontSize: 10,
+                                    fontSize: 9,
                                     fontWeight: FontWeight.w600,
                                     color: AppPallete.deepPurple),
                                 minFontSize: 8,

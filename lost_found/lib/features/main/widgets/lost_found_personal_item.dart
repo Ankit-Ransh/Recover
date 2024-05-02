@@ -45,7 +45,7 @@ class LostFoundPersonalItem extends StatelessWidget {
           // ignore: sized_box_for_whitespace
           Container(
             height: 150,
-            width: 220,
+            width: 170,
             // decoration: BoxDecoration(
             //   border: Border.all(color: AppPallete.greyColor),
             // ),
@@ -61,7 +61,7 @@ class LostFoundPersonalItem extends StatelessWidget {
                 AutoSizeText(
                   description,
                   style: const TextStyle(
-                    fontSize: 14,
+                    fontSize: 12,
                     fontWeight: FontWeight.w500,
                   ),
                   minFontSize: 8,
