@@ -35,8 +35,8 @@ class RecommendedCards extends StatelessWidget {
         children: [
           Container(
             height: 150,
-            width: 140,
-            margin: const EdgeInsets.only(left: 30),
+            width: 120,
+            margin: const EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
               border: Border.all(color: AppPallete.transparentColor),
               borderRadius: BorderRadius.circular(15),
@@ -49,11 +49,11 @@ class RecommendedCards extends StatelessWidget {
               ),
             ),
           ),
-          const SizedBox(width: 15),
+          const SizedBox(width: 8),
           // ignore: sized_box_for_whitespace
           Container(
             height: 150,
-            width: 220,
+            width: 180,
             // decoration: BoxDecoration(
             //   border: Border.all(color: AppPallete.greyColor),
             // ),
@@ -83,17 +83,17 @@ class RecommendedCards extends StatelessWidget {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       ItemTags(category: category),
-                      const SizedBox(width: 10),
+                      const SizedBox(width: 5),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,
                         children: [
                           buildHeading(
                             'Posted by $postedBy',
-                            fontSize: 11,
+                            fontSize: 9,
                           ),
                           buildHeading(
                             timeText,
-                            fontSize: 12,
+                            fontSize: 9,
                           ),
                         ],
                       )
