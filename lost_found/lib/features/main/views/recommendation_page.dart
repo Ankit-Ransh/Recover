@@ -257,6 +257,10 @@ class _RecommendationPageState extends State<RecommendationPage> {
                     status: items['status'],
                   );
                 }
+
+                if (recomendedCards.isEmpty) {
+                  showToast(text: "No matching items", context: context);
+                }
               }
               return const SizedBox();
             },
