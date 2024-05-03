@@ -1,6 +1,6 @@
 // import 'dart:convert';
-// import 'package:http/http.dart' as http;
-import 'dart:math';
+import 'package:http/http.dart' as http;
+// import 'dart:math';
 
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
@@ -10,10 +10,10 @@ import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
 import 'package:lost_found/core/utils/show_snackbar.dart';
 import 'package:lost_found/features/components/backend/presentation/bloc/backend_information_bloc.dart';
-import 'package:lost_found/features/main/widgets/get_found_time_difference.dart';
-import 'package:lost_found/features/main/widgets/get_lost_time_difference.dart';
+// import 'package:lost_found/features/main/widgets/get_found_time_difference.dart';
+// import 'package:lost_found/features/main/widgets/get_lost_time_difference.dart';
 import 'package:lost_found/features/main/widgets/lost_found_personal_item.dart';
-import 'package:lost_found/features/main/widgets/recommended_card.dart';
+// import 'package:lost_found/features/main/widgets/recommended_card.dart';
 
 class RecommendationPage extends StatefulWidget {
   final String id;
@@ -140,56 +140,59 @@ class _RecommendationPageState extends State<RecommendationPage> {
                 return const Loader();
               }
               if (state is BackendInformationSuccess) {
-                List<Map<String, dynamic>> lostItems = [];
-                for (var itemList in state.item) {
-                  lostItems.add({
-                    'id': itemList.id,
-                    'title': itemList.title,
-                    'description': itemList.description,
-                  });
-                }
 
-                List<String> recommendations = generateRecommendations(
-                    widget.id, widget.title, widget.description, lostItems);
 
-                print(recommendations);
 
-                for (var itemList in state.item) {
-                  if (itemList.id != widget.id &&
-                      searchConditions(widget.description, itemList.description,
-                          widget.title, itemList.title)) {
-                    Map<String, int> timeDiff = getLostTimeDifference(
-                        itemList.lostDate,
-                        itemList.lostTime,
-                        itemList.updatedAt);
-                    String timeText = "";
+                // List<Map<String, dynamic>> lostItems = [];
+                // for (var itemList in state.item) {
+                //   lostItems.add({
+                //     'id': itemList.id,
+                //     'title': itemList.title,
+                //     'description': itemList.description,
+                //   });
+                // }
 
-                    Map<String, int> foundTimeDiff =
-                        getFoundTimeDifference(itemList.updatedAt);
-                    String foundTimeText = foundTimeDiff.keys.first;
+                // List<String> recommendations = generateRecommendations(
+                //     widget.id, widget.title, widget.description, lostItems);
 
-                    if (itemList.status == "Lost") {
-                      timeText = timeDiff.keys.first;
-                    } else {
-                      foundTimeText = foundTimeDiff.keys.first;
-                    }
+                // print(recommendations);
 
-                    if (itemList.status != "Claimed") {
-                      return RecommendedCards(
-                        imageUrl: itemList.imageUrl,
-                        title: itemList.title,
-                        description: itemList.description,
-                        category: itemList.category,
-                        postedBy: itemList.posterName!,
-                        timeText: itemList.status == "Lost"
-                            ? timeText
-                            : foundTimeText,
-                      );
-                    } else {
-                      return const SizedBox();
-                    }
-                  }
-                }
+                // for (var itemList in state.item) {
+                //   if (itemList.id != widget.id &&
+                //       searchConditions(widget.description, itemList.description,
+                //           widget.title, itemList.title)) {
+                //     Map<String, int> timeDiff = getLostTimeDifference(
+                //         itemList.lostDate,
+                //         itemList.lostTime,
+                //         itemList.updatedAt);
+                //     String timeText = "";
+
+                //     Map<String, int> foundTimeDiff =
+                //         getFoundTimeDifference(itemList.updatedAt);
+                //     String foundTimeText = foundTimeDiff.keys.first;
+
+                //     if (itemList.status == "Lost") {
+                //       timeText = timeDiff.keys.first;
+                //     } else {
+                //       foundTimeText = foundTimeDiff.keys.first;
+                //     }
+
+                //     if (itemList.status != "Claimed") {
+                //       return RecommendedCards(
+                //         imageUrl: itemList.imageUrl,
+                //         title: itemList.title,
+                //         description: itemList.description,
+                //         category: itemList.category,
+                //         postedBy: itemList.posterName!,
+                //         timeText: itemList.status == "Lost"
+                //             ? timeText
+                //             : foundTimeText,
+                //       );
+                //     } else {
+                //       return const SizedBox();
+                //     }
+                //   }
+                // }
               }
               return const SizedBox();
             },
@@ -209,6 +212,27 @@ class _RecommendationPageState extends State<RecommendationPage> {
     );
   }
 }
+
+Future getItemLabel(String imageUrl) async {
+  String apiUrl = "http://172.70.102.165:8080/predict";
+
+  print("Ok o");
+
+  try {
+    final response = await http.post(
+      Uri.parse(apiUrl),
+      body: {'imageUrl': imageUrl},
+    );
+
+    print("Response status code: ${response.statusCode}");
+    print("Response body: ${response.body}");
+  } catch (e) {
+    print("Error: $e");
+  }
+  print("Ok okkkkkk");
+}
+
+/*
 
 // List<double> tfidf(String document, List<String> corpus) {
 //   List<String> words = document.split(' ');
@@ -398,23 +422,6 @@ bool searchConditions(String actualDescription, String recomendedDescription,
 
 // -----------------------------------------------------
 
-// Future getItemLabel(String imageUrl) async {
-//   String apiUrl = "http://172.70.102.165:8080/predict";
-
-//   print("Ok o");
-
-//   try {
-//     final response = await http.post(
-//       Uri.parse(apiUrl),
-//       body: {'imageUrl': imageUrl},
-//     );
-
-//     print("Response status code: ${response.statusCode}");
-//     print("Response body: ${response.body}");
-//   } catch (e) {
-//     print("Error: $e");
-//   }
-//   print("Ok okkkkkk");
-// }
-
 // -----------------------------------------------------------
+
+*/
