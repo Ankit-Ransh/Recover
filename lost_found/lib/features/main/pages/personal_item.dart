@@ -86,10 +86,12 @@ class _PersonalItemsState extends State<PersonalItems> {
                             Navigator.push(
                               context,
                               RecommendationPage.route(
+                                itemList.id,
                                 itemList.imageUrl,
                                 itemList.title,
                                 itemList.description,
                                 itemList.category,
+                                itemList.status,
                               ),
                             );
                           },
@@ -130,10 +132,12 @@ class _PersonalItemsState extends State<PersonalItems> {
                             Navigator.push(
                               context,
                               RecommendationPage.route(
+                                itemList.id,
                                 itemList.imageUrl,
                                 itemList.title,
                                 itemList.description,
                                 itemList.category,
+                                itemList.status,
                               ),
                             );
                           },

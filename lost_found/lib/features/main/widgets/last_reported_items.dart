@@ -172,10 +172,10 @@ bool checkCondition(
   bool lostCheck = false;
   bool foundCheck = false;
 
-  print("duration --> $duration");
-  print("timeText --> $timeText");
-  print("foundDuration --> $foundDuration");
-  print("foundTimeText --> $foundTimeText");
+  // print("duration --> $duration");
+  // print("timeText --> $timeText");
+  // print("foundDuration --> $foundDuration");
+  // print("foundTimeText --> $foundTimeText");
 
   if (duration != null) {
     if (duration >= 5 && duration <= 7) lostCheck = true;

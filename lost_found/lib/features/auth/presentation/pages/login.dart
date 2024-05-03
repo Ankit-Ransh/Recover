@@ -6,7 +6,7 @@ import 'package:lost_found/core/utils/show_toast.dart';
 import 'package:lost_found/features/auth/presentation/bloc/auth_bloc.dart';
 import 'package:lost_found/features/auth/presentation/pages/signup.dart';
 // import 'package:lost_found/core/suspended/divider.dart';
-import 'package:lost_found/features/auth/presentation/widgets/forgot_password.dart';
+// import 'package:lost_found/features/auth/presentation/widgets/forgot_password.dart';
 import 'package:lost_found/features/auth/presentation/widgets/form_data_field.dart';
 import 'package:lost_found/features/auth/presentation/widgets/login_button.dart';
 // import 'package:lost_found/features/auth/presentation/widgets/logo_box.dart';
@@ -88,7 +88,7 @@ class _LoginState extends State<Login> {
                     obscureText: true,
                   ),
                   const SizedBox(height: 10),
-                  const ForgotPassword(),
+                  // const ForgotPassword(),
                   const SizedBox(height: 25),
                   LoginButton(
                     buttonCommand: "Login",

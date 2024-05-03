@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:lost_found/core/common/widgets/item_tags.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/features/main/widgets/tag.dart';
 
 class RecommendedCards extends StatelessWidget {
   final String imageUrl;
@@ -11,6 +12,7 @@ class RecommendedCards extends StatelessWidget {
   final String category;
   final String postedBy;
   final String timeText;
+  final String status;
 
   const RecommendedCards({
     super.key,
@@ -20,6 +22,7 @@ class RecommendedCards extends StatelessWidget {
     required this.category,
     required this.postedBy,
     required this.timeText,
+    required this.status,
   });
 
   @override
@@ -36,17 +39,29 @@ class RecommendedCards extends StatelessWidget {
           Container(
             height: 150,
             width: 140,
-            margin: const EdgeInsets.only(left: 30),
+            margin: const EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
               border: Border.all(color: AppPallete.transparentColor),
               borderRadius: BorderRadius.circular(15),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-              ),
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.network(
+                    height: 150,
+                    width: 140,
+                    imageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Tag(
+                  status: status,
+                  color: (status == "Lost")
+                      ? AppPallete.lostColor
+                      : AppPallete.foundColor,
+                ),
+              ],
             ),
           ),
           const SizedBox(width: 15),
