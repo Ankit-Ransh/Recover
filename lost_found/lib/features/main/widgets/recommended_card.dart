@@ -3,6 +3,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:lost_found/core/common/widgets/item_tags.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/features/main/widgets/tag.dart';
 
 class RecommendedCards extends StatelessWidget {
   final String imageUrl;
@@ -11,6 +12,7 @@ class RecommendedCards extends StatelessWidget {
   final String category;
   final String postedBy;
   final String timeText;
+  final String status;
 
   const RecommendedCards({
     super.key,
@@ -20,6 +22,7 @@ class RecommendedCards extends StatelessWidget {
     required this.category,
     required this.postedBy,
     required this.timeText,
+    required this.status,
   });
 
   @override
@@ -35,21 +38,34 @@ class RecommendedCards extends StatelessWidget {
         children: [
           Container(
             height: 150,
-            width: 120,
+            width: 130,
             margin: const EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
               border: Border.all(color: AppPallete.transparentColor),
               borderRadius: BorderRadius.circular(15),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-              ),
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.network(
+                    height: 150,
+                    width: 130,
+                    imageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Tag(
+                  status: status,
+                  color: (status == "Lost")
+                      ? AppPallete.lostColor
+                      : AppPallete.foundColor,
+                  fontSize: 14,
+                ),
+              ],
             ),
           ),
-          const SizedBox(width: 8),
+          const SizedBox(width: 10),
           // ignore: sized_box_for_whitespace
           Container(
             height: 150,
@@ -82,7 +98,10 @@ class RecommendedCards extends StatelessWidget {
                   child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      ItemTags(category: category),
+                      ItemTags(
+                        category: category,
+                        fontSize: 12,
+                      ),
                       const SizedBox(width: 5),
                       Column(
                         mainAxisAlignment: MainAxisAlignment.end,

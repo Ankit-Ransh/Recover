@@ -3,18 +3,21 @@ import 'package:flutter/cupertino.dart';
 import 'package:lost_found/core/common/widgets/item_tags.dart';
 import 'package:lost_found/core/common/widgets/text_title_widget.dart';
 import 'package:lost_found/core/theme/app_pallete.dart';
+import 'package:lost_found/features/main/widgets/tag.dart';
 
 class LostFoundPersonalItem extends StatelessWidget {
   final String imageUrl;
   final String title;
   final String description;
   final String category;
+  final String status;
   const LostFoundPersonalItem({
     super.key,
     required this.imageUrl,
     required this.title,
     required this.description,
     required this.category,
+    required this.status,
   });
 
   @override
@@ -28,17 +31,30 @@ class LostFoundPersonalItem extends StatelessWidget {
           Container(
             height: 150,
             width: 140,
-            margin: const EdgeInsets.only(left: 30),
+            margin: const EdgeInsets.only(left: 20),
             decoration: BoxDecoration(
               border: Border.all(color: AppPallete.transparentColor),
               borderRadius: BorderRadius.circular(15),
             ),
-            child: ClipRRect(
-              borderRadius: BorderRadius.circular(15),
-              child: Image.network(
-                imageUrl,
-                fit: BoxFit.cover,
-              ),
+            child: Stack(
+              children: [
+                ClipRRect(
+                  borderRadius: BorderRadius.circular(15),
+                  child: Image.network(
+                    height: 150,
+                    width: 140,
+                    imageUrl,
+                    fit: BoxFit.cover,
+                  ),
+                ),
+                Tag(
+                  status: status,
+                  color: (status == "Lost")
+                      ? AppPallete.lostColor
+                      : AppPallete.foundColor,
+                  fontSize: 14,
+                ),
+              ],
             ),
           ),
           const SizedBox(width: 15),

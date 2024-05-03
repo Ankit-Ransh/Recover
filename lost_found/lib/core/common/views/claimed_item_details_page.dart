@@ -189,7 +189,7 @@ class _ClaimedItemDetailsPageState extends State<ClaimedItemDetailsPage> {
               Container(
                 height: 55,
                 width: double.infinity,
-                margin: const EdgeInsets.only(left: 20),
+                margin: const EdgeInsets.only(left: 10),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
@@ -203,10 +203,10 @@ class _ClaimedItemDetailsPageState extends State<ClaimedItemDetailsPage> {
                             fontSize: 15,
                             bold: false,
                           ),
-                          const SizedBox(width: 12),
+                          const SizedBox(width: 6),
                           ItemTags(
                             category: widget.location,
-                            fontSize: 12,
+                            fontSize: 9,
                           ),
                         ],
                       ),
@@ -216,10 +216,14 @@ class _ClaimedItemDetailsPageState extends State<ClaimedItemDetailsPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          buildDescription(DateFormat('dd/MM/yyyy')
-                              .format(widget.claimedTime)),
                           buildDescription(
-                              DateFormat('h:mm a').format(widget.claimedTime)),
+                            DateFormat('dd/MM/yyyy').format(widget.claimedTime),
+                            fontSize: 13,
+                          ),
+                          buildDescription(
+                            DateFormat('h:mm a').format(widget.claimedTime),
+                            fontSize: 13,
+                          ),
                         ],
                       ),
                     ),

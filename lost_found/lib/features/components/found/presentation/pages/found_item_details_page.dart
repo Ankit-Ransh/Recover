@@ -215,7 +215,7 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
                           const SizedBox(width: 6),
                           ItemTags(
                             category: widget.location,
-                            fontSize: 12,
+                            fontSize: 9,
                           ),
                         ],
                       ),
@@ -225,10 +225,14 @@ class _FoundItemDetailsPageState extends State<FoundItemDetailsPage> {
                       child: Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          buildDescription(DateFormat('dd/MM/yyyy')
-                              .format(widget.updatedAt)),
                           buildDescription(
-                              DateFormat('h:mm a').format(widget.updatedAt)),
+                            DateFormat('dd/MM/yyyy').format(widget.updatedAt),
+                            fontSize: 13,
+                          ),
+                          buildDescription(
+                            DateFormat('h:mm a').format(widget.updatedAt),
+                            fontSize: 13,
+                          ),
                         ],
                       ),
                     ),

@@ -202,7 +202,10 @@ class LostItemDetailsPage extends StatelessWidget {
                               bold: false,
                             ),
                             const SizedBox(width: 12),
-                            ItemTags(category: location),
+                            ItemTags(
+                              category: location,
+                              fontSize: 10,
+                            ),
                           ],
                         ),
                       ),

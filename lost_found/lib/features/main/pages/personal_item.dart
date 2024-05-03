@@ -91,6 +91,7 @@ class _PersonalItemsState extends State<PersonalItems> {
                                 itemList.title,
                                 itemList.description,
                                 itemList.category,
+                                itemList.status,
                               ),
                             );
                           },
@@ -136,6 +137,7 @@ class _PersonalItemsState extends State<PersonalItems> {
                                 itemList.title,
                                 itemList.description,
                                 itemList.category,
+                                itemList.status,
                               ),
                             );
                           },
