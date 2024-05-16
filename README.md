@@ -58,7 +58,7 @@ Recover is a Flutter mobile application designed to help users manage lost and f
 ![browse item](https://github.com/Ankit-Ransh/Recover/assets/98517507/a20d2adc-0c43-4dde-aa57-0319ab6f90e7)
 
 **My Items**
-![personal item page](https://github.com/Ankit-Ransh/Recover/assets/98517507/50c7f9c6-8a4e-4733-a6bf-2a344b4ecbc3)
+![personal item page](https://github.com/Ankit-Ransh/Recover/assets/98517507/9149777a-dece-4191-bfe7-c0ca75622704)
 
 **Users List**
 ![message](https://github.com/Ankit-Ransh/Recover/assets/98517507/ffc90137-44cd-4058-acb0-2f21488292f1)
