@@ -9,7 +9,6 @@ Recover is a Flutter mobile application designed to help users manage lost and f
 - [Usage](#usage)
 - [Contributing](#contributing)
 - [License](#license)
-- [Contact](#contact)
 
 ## Features
 
@@ -18,6 +17,8 @@ Recover is a Flutter mobile application designed to help users manage lost and f
 - **Lost and Found Listings**: Users can easily create posts for lost or found items by providing details such as item description, location, and basic information. These listings are categorized and can be browsed by other users, making it simple to search for or report items.
 
 - **Search Functionality**: The advanced search functionality allows users to quickly find lost and found items using various filters such as item name and item description. This feature is designed to help users navigate through listings efficiently and find relevant items with ease.
+
+- **Realtime Chat**: Users can communicate with each other in real-time through a built-in chat feature. This allows users to discuss details about lost and found items, coordinate meetups for item exchanges, or ask questions about listings directly within the app. The chat feature enhances user engagement and facilitates quicker resolution of lost and found cases.
 
 - **Machine Learning**: The app integrates Python-based machine learning models to enhance the matching process for lost and found items. By analyzing item descriptions and images, the ML models can suggest potential matches, significantly improving the chances of finding lost items. This automated matching process saves users time and effort.
 
@@ -56,7 +57,14 @@ Recover is a Flutter mobile application designed to help users manage lost and f
 **Browse Tab**
 ![browse item](https://github.com/Ankit-Ransh/Recover/assets/98517507/a20d2adc-0c43-4dde-aa57-0319ab6f90e7)
 
+**My Items**
+![personal item page](https://github.com/Ankit-Ransh/Recover/assets/98517507/50c7f9c6-8a4e-4733-a6bf-2a344b4ecbc3)
 
+**Users List**
+![message](https://github.com/Ankit-Ransh/Recover/assets/98517507/ffc90137-44cd-4058-acb0-2f21488292f1)
+
+**Sample Chat**
+<img width="355" alt="Screenshot 2024-05-16 at 5 57 24 PM" src="https://github.com/Ankit-Ransh/Recover/assets/98517507/8e01cb7e-1976-4a85-bfab-36ddd4e3ebc8">
 
 
 ## Tech Stack
